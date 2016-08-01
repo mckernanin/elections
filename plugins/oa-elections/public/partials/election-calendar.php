@@ -1,3 +1,10 @@
+<?php
+if ( ! is_user_logged_in() ) {
+	$message = 'You must be logged in to view this page.';
+	echo $message;
+} else {
+?>
+
 <script>
 jQuery(document).ready(function($) {
 
@@ -17,3 +24,5 @@ jQuery(document).ready(function($) {
 <div id="calendar">
 
 </div>
+
+<?php } ?>
