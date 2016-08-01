@@ -1,0 +1,59 @@
+%visuallyhidden {
+	border: 0;
+	clip: rect(0 0 0 0);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+// Media Queries
+@mixin bp($point, $min: false, $max: false) {
+  @if $point == desktop {
+    @media (min-width: 1075px) { @content; }
+  }
+  @else if $point == tablet {
+    @media(min-width: 630px) and (max-width: 1075px) { @content; }
+  }
+  @else if $point == mediumLandscape{
+    @media (min-width: 630px) and (max-width: 1075px) and (orientation: landscape) { @content; }
+  }
+  @else if $point == phone {
+    @media (max-width: 630px)  { @content; }
+  }
+  @else if $point == phone-tablet {
+    @media (max-width: 1075px)  { @content; }
+  }
+  @else if $point == smallLandscape{
+    @media (max-width: 630px) and (orientation: landscape) { @content; }
+  }
+  @else if $point == custom{
+    @if $min >=1 and $max != false{
+      @if(unitless($min) == true){
+        $min: #{$min}px;
+      }
+      @if(unitless($max) == true){
+        $max: #{$max}px;
+      }
+      @media (min-width: $min) and (max-width: $max) { @content; }
+    }
+    @if $min != false and $max == false{
+      @if(unitless($min) == true){
+        $min: #{$min}px;
+      }
+      @media (min-width: $min) { @content; }
+    }
+    @if $min == 0 and $max != false{
+      @if(unitless($max) == true){
+        $max: #{$max}px;
+      }
+      @media (max-width: $max ) { @content; }
+    }
+  }
+}

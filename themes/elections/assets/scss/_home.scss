@@ -1,0 +1,114 @@
+.et_pb_fullwidth_header_0.et_pb_fullwidth_header {
+	background: $red;
+}
+
+.entry-content {
+
+	* {
+		transition: 0.3s;
+	}
+
+	.gform_wrapper {
+
+		.top_label .gfield_label,
+		.ginput_complex label {
+			display: none;
+		}
+
+		ul li.gfield {
+			margin-top: 25px;
+		}
+
+		.gform_footer {
+			input.button,
+			input[type=submit] {
+				padding: 10px 20px;
+				border: 2px solid white;
+				background: $red;
+				color: white;
+				cursor: pointer;
+				font-size: 20px;
+				border-radius: 0;
+
+				&:hover {
+					color: $red;
+					background: white;
+				}
+			}
+		}
+
+		input[type=email],
+		input[type=number],
+		input[type=password],
+		input[type=tel],
+		input[type=text],
+		input[type=url] {
+			padding: 10px 10px 10px 0;
+			background: transparent;
+			border: 0 !important;
+			border-bottom: 2px solid white !important;
+			color: white;
+			font-size: 20px;
+			border-radius: 0;
+
+			@include bp(phone-tablet) {
+				margin-top: 20px;
+			}
+
+			&::-webkit-input-placeholder {color:#fff;}
+			&::-moz-placeholder          {color:#fff;} /* Firefox 19+ */
+			&:-moz-placeholder           {color:#fff;} /* Firefox 18- */
+			&:-ms-input-placeholder      {color:#fff;}
+
+			&:hover,
+			&:focus,
+			&:active {
+				background: rgba(white, 0.2);
+			}
+		}
+
+		.top_label {
+
+			li.gfield.gf_left_half,
+			li.gfield.gf_right_half {
+				width: 50%;
+				margin-right: 0;
+				padding-right: 16px;
+			}
+
+			li.gfield.gf_left_half,
+			li.gfield.gf_right_half,
+			div.ginput_complex.ginput_container.gf_name_has_2 span,
+			li.gfield.gf_left_half input.medium,
+			.ginput_complex input[type=text],
+			li.gfield.gf_right_half input.medium {
+				@include bp(phone-tablet) {
+					width: 100%;
+					padding-right: 0;
+				}
+			}
+
+			li.gfield.gf_right_half {
+				padding-right: 0;
+			}
+		}
+
+		div.validation_error,
+		.validation_message {
+			color: white;
+			border-color: white;
+		}
+
+		li.gfield.gfield_error {
+			background: transparent;
+			border: none;
+		}
+	}
+
+	p,
+	.gform_wrapper {
+		max-width: 800px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}

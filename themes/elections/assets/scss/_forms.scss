@@ -1,0 +1,140 @@
+.cmb2-wrap {
+
+	.cmb-field-list {
+		display: flex;
+		flex-flow: row wrap;
+
+		@include bp(phone) {
+			flex-flow: column;
+		}
+	}
+
+	.cmb-row {
+		flex-grow: 1;
+		flex-basis: 50%;
+
+		@include bp(phone) {
+			flex-basis: 100%;
+		}
+
+		&.cmb-type-title {
+			flex-basis: 100%;
+			margin-top: 2em;
+		}
+
+		&.cmb-type-pw-map,
+		&.cmb-type-textarea {
+			flex-basis: 100%;
+
+			.cmb-td {
+				padding-right: 0;
+			}
+
+			textarea {
+				width: 100%;
+			}
+
+			.pw-map {
+				width: 100%;
+			}
+		}
+	}
+
+	.cmb-th {
+		color: #fff;
+		width: 30%;
+		padding-right: 0;
+
+		@include bp(phone) {
+			width: 100%;
+		}
+
+		label {
+			padding: 0;
+			line-height: 28px;
+		}
+	}
+
+	.cmb-td {
+		width: 70%;
+		padding-right: 15%;
+
+		@include bp(phone) {
+			width: 100%;
+			padding-right: 10px;
+		}
+	}
+
+	.cmb-repeat {
+
+		.cmb-th,
+		.cmb-td {
+			width: 100%;
+			padding-right: 10px;
+		}
+	}
+
+	input,
+	textarea,
+	.cmb-td input.cmb2-text-medium,
+	select {
+		width: 100%;
+		min-height: 23px;
+	}
+
+	p.cmb2-metabox-description {
+		color: white;
+	}
+
+	span.cmb2-metabox-description {
+		display: inline-block;
+		margin-top: 10px;
+		color: #fff;
+	}
+
+	.cmb-repeat-row {
+		flex-basis: 100%;
+
+		.cmb-td {
+			width: 80%;
+			padding-left: 0;
+
+			@include bp(phone) {
+				width: 100%;
+			}
+
+			input {
+				height: 42px;
+			}
+		}
+
+		.cmb-remove-row {
+			width: 20%;
+
+			@include bp(phone) {
+				width: 100%;
+			}
+		}
+	}
+
+	.cmb-add-row {
+		margin: 0;
+	}
+
+	.cmb2-id--oa-election-unit-number,
+	.cmb2-id--oa-election-unit-attendance {
+		flex-basis: 30%;
+
+		.cmb-th {
+			width: 50%;
+		}
+
+		.cmb-td {
+			width: 50%;
+		}
+	}
+
+	.cmb2-id--oa-election-unit-chapter {
+		flex-basis: 40%;
+	}
+}
