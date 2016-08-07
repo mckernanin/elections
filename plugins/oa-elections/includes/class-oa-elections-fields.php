@@ -64,9 +64,9 @@ class OA_Elections_Fields {
 		// Unit Leader info
 
 		$cmb->add_field( array(
-		    'name' => 'Unit Leader Information',
-		    'type' => 'title',
-		    'id'   => 'unit_leader',
+			'name' => 'Unit Leader Information',
+			'type' => 'title',
+			'id'   => 'unit_leader',
 		) );
 
 		$cmb->add_field( array(
@@ -149,9 +149,9 @@ class OA_Elections_Fields {
 		$prefix = '_oa_election_unit_';
 
 		$cmb->add_field( array(
-		    'name' => 'Unit Information',
-		    'type' => 'title',
-		    'id'   => 'unit',
+			'name' => 'Unit Information',
+			'type' => 'title',
+			'id'   => 'unit',
 		) );
 
 		// Unit info
@@ -175,9 +175,9 @@ class OA_Elections_Fields {
 		) );
 
 		$cmb->add_field( array(
-		    'name' => 'Meeting Location',
-		    'id'   => $prefix . 'location',
-		    'type' => 'pw_map',
+			'name' => 'Meeting Location',
+			'id'   => $prefix . 'location',
+			'type' => 'pw_map',
 		) );
 
 		$cmb->add_field( array(
@@ -217,9 +217,9 @@ class OA_Elections_Fields {
 		$prefix = '_oa_election_unit_adviser_';
 
 		$cmb->add_field( array(
-		    'name' => 'Unit Adviser Information',
-		    'type' => 'title',
-		    'id'   => 'unit_adviser',
+			'name' => 'Unit Adviser Information',
+			'type' => 'title',
+			'id'   => 'unit_adviser',
 		) );
 
 		// Unit Leader info
@@ -250,9 +250,9 @@ class OA_Elections_Fields {
 		$prefix = '_oa_election_unit_representative_';
 
 		$cmb->add_field( array(
-		    'name' => 'Unit Representative Information',
-		    'type' => 'title',
-		    'id'   => 'unit_representative',
+			'name' => 'Unit Representative Information',
+			'type' => 'title',
+			'id'   => 'unit_representative',
 		) );
 
 		$cmb->add_field( array(
@@ -321,6 +321,12 @@ class OA_Elections_Fields {
 		) );
 
 		$cmb_group->add_group_field( $group_field_id, array(
+			'name' => 'Date of Birth',
+			'id'   => 'dob',
+			'type' => 'text_date',
+		) );
+
+		$cmb_group->add_group_field( $group_field_id, array(
 			'name' => 'First Name',
 			'id'   => 'fname',
 			'type' => 'text',
@@ -330,12 +336,6 @@ class OA_Elections_Fields {
 			'name' => 'Last Name',
 			'id'   => 'lname',
 			'type' => 'text',
-		) );
-
-		$cmb_group->add_group_field( $group_field_id, array(
-			'name' => 'Date of Birth',
-			'id'   => 'dob',
-			'type' => 'text_date',
 		) );
 
 		$cmb_group->add_group_field( $group_field_id, array(
@@ -374,17 +374,6 @@ class OA_Elections_Fields {
 			'type' => 'title',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
-			'name'    => 'Rank',
-			'id'      => 'rank',
-			'type'    => 'radio_inline',
-			'options' => array(
-				'first-class' => __( 'First Class', 'OA-Elections' ),
-				'star'        => __( 'Star', 'OA-Elections' ),
-				'life'        => __( 'Life', 'OA-Elections' ),
-				'eagle'       => __( 'Eagle', 'OA-Elections' ),
-			),
-		) );
 
 		$cmb_group->add_group_field( $group_field_id, array(
 			'name' => 'Camping Nights - Long Term',
@@ -397,6 +386,19 @@ class OA_Elections_Fields {
 			'id'   => 'camping-short-term',
 			'type' => 'text',
 		) );
+
+		$cmb_group->add_group_field( $group_field_id, array(
+			'name'    => 'Rank',
+			'id'      => 'rank',
+			'type'    => 'select',
+			'options' => array(
+				null          => __( '---', 'OA-Elections' ),
+				'first-class' => __( 'First Class', 'OA-Elections' ),
+				'star'        => __( 'Star', 'OA-Elections' ),
+				'life'        => __( 'Life', 'OA-Elections' ),
+				'eagle'       => __( 'Eagle', 'OA-Elections' ),
+			),
+			) );
 
 		$cmb_group->add_group_field( $group_field_id, array(
 			'name' => 'Scout Spirit',
@@ -425,10 +427,16 @@ class OA_Elections_Fields {
 		// Unit Leader info
 
 		$election_admin->add_field( array(
-		    'name' => 'Election Status',
-		    'id'   => $prefix . 'status',
+			'name'     => 'Election Status',
+			'id'       => $prefix . 'status',
 			'type'     => 'taxonomy_select',
 			'taxonomy' => 'oa_election_status', // Taxonomy Slug
+		) );
+
+		$election_admin->add_field( array(
+			'name' => 'Election Date',
+			'id'   => $prefix . 'selected_date',
+			'type' => 'text_date',
 		) );
 	}
 }
