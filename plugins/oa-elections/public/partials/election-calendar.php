@@ -3,26 +3,10 @@ if ( ! is_user_logged_in() ) {
 	$message = 'You must be logged in to view this page.';
 	echo $message;
 } else {
+	wp_enqueue_script( 'moment' );
+	wp_enqueue_script( 'fullcalendar' );
+	wp_enqueue_style( 'fullcalendar' );
 ?>
-
-<script>
-jQuery(document).ready(function($) {
-
-	// page is now ready, initialize the calendar...
-
-	$('#calendar').fullCalendar({
-
-		eventSources: [
-			{
-				url: '/wp-json/oa-elections/v1/election-dates'
-			}
-		]
-	})
-
-});
-</script>
-<div id="calendar">
-
-</div>
-
+<div id="election-calendar"></div>
+<button id="schedule-elections">Schedule Selected Elections</button>
 <?php } ?>

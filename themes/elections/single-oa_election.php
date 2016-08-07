@@ -20,9 +20,16 @@ get_header(); ?>
 		while ( have_posts() ) : the_post(); ?>
 			<h1><?php the_title(); ?></h1>
 		<?php
-
+		if ( 'candidates' === $section ) {
+			echo do_shortcode( '[candidate-entry]' );
+		} else if ( 'election-details' === $section ) {
 			echo do_shortcode( '[unit-edit-form]' );
-
+		} else {
+		?>
+			A short overview of the election will appear here, with actions. Currently, you can <a href="election-details">edit an election</a> or <a href="candidates">add candidates.</a><br />
+			Election status: <?php echo OA_Elections_Util::get_status( get_the_id() ); ?>
+		<?php
+		}
 			// End of the loop.
 		endwhile;
 		?>

@@ -37,6 +37,11 @@ class OA_Elections_REST {
 			'methods'  => 'GET',
 			'callback' => array( $this, 'get_election_dates' ),
 		) );
+
+		register_rest_route( $namespace, '/schedule-election/', array(
+			'methods'  => 'POST',
+			'callback' => array( $this, 'schedule_election' ),
+		) );
 	}
 
 	function get_election_dates() {
@@ -48,21 +53,63 @@ class OA_Elections_REST {
 		$return      = array();
 		while ( $query->have_posts() ) {
 			$query->the_post();
-			foreach ( $date_fields as $value ) {
-				$id       = get_the_id();
-				$date     = OA_Elections_Fields::get( $value, $id );
-				$time     = OA_Elections_Fields::get( 'unit_meeting_time', $id );
-				$start    = date( 'Y-m-d\TH:i:sP', strtotime( $date . ' ' . $time ) );
+			global $post;
+			$id            = get_the_id();
+			$election_date = OA_Elections_fields::get( 'selected_date', $id );
+			$time          = OA_Elections_Fields::get( 'unit_meeting_time', $id );
+
+			if ( $election_date ) {
+				$start    = date( 'Y-m-d\TH:i:sP', strtotime( $election_date . ' ' . $time ) );
 				$return[] = array(
 					'ID'        => $id,
 					'title'     => get_the_title(),
 					'start'     => $start,
-					'url' 		=> get_the_permalink(),
-					'datefield' => $value,
+					'url'       => get_the_permalink(),
+					'className' => 'scheduled-election',
 				);
+			} else {
+				foreach ( $date_fields as $value ) {
+
+					$date     = OA_Elections_Fields::get( $value, $id );
+					$start    = date( 'Y-m-d\TH:i:sP', strtotime( $date . ' ' . $time ) );
+					$return[] = array(
+						'ID'        => $id,
+						'title'     => get_the_title(),
+						'start'     => $start,
+						'url' 		=> '#' . $id . '_' . $value,
+						'datefield' => $value,
+						'className' => [
+							'unit-' . $post->post_name,
+							'requested-election',
+						],
+					);
+				}
 			}
 		}
 		$response = new WP_REST_Response( $return );
+		$response->header( 'Access-Control-Allow-Origin', apply_filters( 'access_control_allow_origin', '*' ) );
+
+		return $response;
+	}
+
+	function schedule_election() {
+
+		$elections = $_POST['elections'];
+		$i;
+		$response = [];
+
+		foreach ( $elections as $election ) {
+			$selected_date = get_post_meta( $election['postID'], '_oa_election_unit_date_' . $election['selectedDate'], true );
+			update_post_meta( $election['postID'], '_oa_election_selected_date', $selected_date );
+			$response['scheduled_elections'][] = [
+				'unit' => get_the_title( $election['postID'] ),
+				'date' => $selected_date,
+			];
+			$i++;
+		}
+		$response['message'] = 'Elections have been scheduled for ' . $i . ' units.';
+
+		$response = new WP_REST_Response( $response );
 		$response->header( 'Access-Control-Allow-Origin', apply_filters( 'access_control_allow_origin', '*' ) );
 
 		return $response;

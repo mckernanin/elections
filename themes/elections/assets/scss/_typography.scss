@@ -15,7 +15,7 @@ body {
 
 h1 {
 	text-transform: uppercase;
-	font-size: 6vw;
+	font-size: 60px;
 	letter-spacing: .15em;
 	text-align: center;
 	font-weight: 600;
@@ -33,7 +33,7 @@ p {
 	text-align: justify;
 }
 
-.entry-content a {
+.site-content a:not(.fc-end) {
 	color: white;
 	position: relative;
 	display: inline-block;

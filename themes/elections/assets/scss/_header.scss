@@ -1,0 +1,20 @@
+.site-header {
+
+	.main-navigation {
+
+		> li:hover {
+
+			> a {
+				color: rgba(white, 1);
+			}
+		}
+
+		a {
+			color: rgba(white, 0.7);
+
+			&:hover {
+				color: rgba(white, 1);
+			}
+		}
+	}
+}

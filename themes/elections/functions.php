@@ -8,6 +8,7 @@ class ElectionTheme {
 		add_filter( 'body_class',   		array( $this, 'add_slug_body_class' ) );
 		add_action( 'send_headers', 		array( $this, 'custom_headers' ) );
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'typekit' ) );
+		add_action( 'wp_enqueue_scripts', 	array( $this, 'scripts_and_styles' ) );
 		add_action( 'phpmailer_init', array( $this, 'send_smtp_email' ) );
 
 
@@ -65,6 +66,10 @@ class ElectionTheme {
 	public function typekit() {
 		wp_enqueue_script( 'theme_typekit', 'https://use.typekit.net/xbk1ivk.js' );
 		wp_add_inline_script( 'theme_typekit', 'try{Typekit.load({ async: true });}catch(e){}' );
+	}
+
+	public function scripts_and_styles() {
+		wp_enqueue_script( 'elections-theme-js', get_stylesheet_directory_URI() . '/assets/js/app.js' );
 	}
 
 	function send_smtp_email( $phpmailer ) {
