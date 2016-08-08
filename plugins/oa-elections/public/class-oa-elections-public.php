@@ -139,17 +139,22 @@ class OA_Elections_Public {
 				array(
 					'ID'          => $user_id,
 					'nickname'    => $email_address,
+					'first_name'  => $_POST['_oa_election_leader_fname'],
+					'last_name'	  => $_POST['_oa_election_leader_lname'],
 				)
 			);
 
 			// Set the role
 			$user = new WP_User( $user_id );
-			$user->set_role( 'contributor' );
+			$user->set_role( 'unit-leader' );
 
 			// Email the user
-			wp_mail( $email_address, 'Welcome!', 'Your Password: ' . $password );
+			wp_new_user_notification( $user_id, null, 'both' );
 
-		} // end if`
+		} else {
+			$user = get_user_by( 'email', $email_address );
+			$user_id = $user->ID;
+		}
 
 		$post_id = $_POST['_post_id'];
 		$current_post_type = get_post_type( $post_id );
@@ -157,11 +162,16 @@ class OA_Elections_Public {
 			$user_id = get_current_user_id();
 			$post_data = array(
 				'post_type'   => 'oa_election',
-				'post_status' => 'published',
+				'post_status' => 'publish',
 				'post_author' => $user_id ? $user_id : 1,
-				'post_title'  => 'Troop ' . $_POST['_oa_election_unit_number'] . ' - ' . date( 'Y' ),
+				'post_title'  => 'Troop ' . $_POST['_oa_election_unit_number'],
+				'post_name'   => 'troop-' . $_POST['_oa_election_unit_number'] . '-' . date( 'Y' ),
 			);
 			$post_id = wp_insert_post( $post_data, true );
+
+			if ( ! is_int( $post_id ) ) {
+				wp_die( var_dump( $post_id ) );
+			}
 		}
 		unset( $_POST['_post_id'] );
 
@@ -204,6 +214,7 @@ class OA_Elections_Public {
 			$this->new_election_notification( $post_id );
 			wp_set_object_terms( $post_id, 'requested', 'oa_election_status' );
 		}
+		// var_dump( get_post($post_id) );
 
 		wp_redirect( esc_url_raw( add_query_arg( $args ) ) );
 		exit;
@@ -225,6 +236,13 @@ class OA_Elections_Public {
 
 		// Send email to admin.
 		$mail = wp_mail( 'kevin@mckernan.in', $subject, $message );
+
+		$copied_message = 'You were copied on this message by ' . get_the_author( $post_id ) . '<br />' . $message;
+		$copied_recipients = get_post_meta( $post_id, '_oa_election_leader_copied_emails', true );
+
+		foreach ( $copied_recipients as $email ) {
+			$mail = wp_mail( $email, $subject, $copied_message );
+		}
 	}
 
 	/**
