@@ -51,6 +51,7 @@ class OA_Elections_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		// $this->add_unit_leader_role();
 	}
 
 	/**
@@ -97,5 +98,15 @@ class OA_Elections_Admin {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/oa-elections-admin.js', array( 'jquery' ), $this->version, false );
 
+	}
+
+	public function add_unit_leader_role() {
+		$unit_leader = get_role('unit-leader');
+		if ( null === $unit_leader ) {
+			$contributor = get_role( 'contributor' );
+			add_role( 'unit-leader', 'Unit Leader', $contributor->capabilities );
+			$unit_leader = get_role('unit-leader');
+			wp_die(var_dump($unit_leader));
+		}
 	}
 }
