@@ -1,0 +1,17 @@
+.fc {
+
+	.scheduled-election {
+		background: green;
+		border-color: green;
+	}
+
+	.requested-election {
+		background: $blue;
+		border-color: $blue;
+	}
+
+	.selected-election {
+		background: yellow;
+		border-color: yellow;
+	}
+}

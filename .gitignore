@@ -1,4 +1,7 @@
 */*
 *.*
-
 !.gitignore
+!plugins/oa-elections
+!themes/elections
+
+themes/elections/node_modules
