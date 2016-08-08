@@ -57,7 +57,7 @@ class OA_Elections_Public {
 	function rewrites() {
 		add_rewrite_rule(
 			'^election/([^/]*)/([^/]*)/?',
-			'index.php?oa_election=$matches[1]&editing_section=$matches[2]',
+			'index.php?oae_election=$matches[1]&editing_section=$matches[2]',
 			'top'
 		);
 		add_rewrite_tag( '%editing_section%', '([^&]+)' );
@@ -158,10 +158,10 @@ class OA_Elections_Public {
 
 		$post_id = $_POST['_post_id'];
 		$current_post_type = get_post_type( $post_id );
-		if ( 'oa_election' !== $current_post_type ) {
+		if ( 'oae_election' !== $current_post_type ) {
 			$user_id = get_current_user_id();
 			$post_data = array(
-				'post_type'   => 'oa_election',
+				'post_type'   => 'oae_election',
 				'post_status' => 'publish',
 				'post_author' => $user_id ? $user_id : 1,
 				'post_title'  => 'Troop ' . $_POST['_oa_election_unit_number'],
@@ -208,7 +208,7 @@ class OA_Elections_Public {
 			'update' => true,
 		);
 
-		if ( 'oa_election' !== $current_post_type ) {
+		if ( 'oae_election' !== $current_post_type ) {
 			$args['new_election'] = true;
 			$args['update'] = false;
 			$this->new_election_notification( $post_id );

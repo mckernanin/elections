@@ -53,7 +53,7 @@ class OA_Elections_Fields {
 		$cmb = new_cmb2_box( array(
 			'id'            => 'unit_fields',
 			'title'         => __( 'Unit Fields', 'OA-Elections' ),
-			'object_types'  => array( 'oa_election' ), // Post type
+			'object_types'  => array( 'oae_election' ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'core',
 			'show_names'    => true, // Show field names on the left
@@ -281,13 +281,47 @@ class OA_Elections_Fields {
 
 		$prefix = '_oa_election_candidates_';
 
+		// Start with an underscore to hide fields from custom fields list
+		$prefix = '_oa_election_';
+
+		/**
+		 * Initiate the metabox
+		 */
+		$election_admin = new_cmb2_box( array(
+			'id'            => 'admin_fields',
+			'title'         => __( 'Admin Fields', 'OA-Elections' ),
+			'object_types'  => array( 'oa_election' ), // Post type
+			'context'       => 'normal',
+			'priority'      => 'core',
+			'show_names'    => true, // Show field names on the left
+			// 'cmb_styles' => false, // false to disable the CMB stylesheet
+			// 'closed'     => true, // Keep the metabox closed by default
+		) );
+
+		// Unit Leader info
+
+		$election_admin->add_field( array(
+			'name'     => 'Election Status',
+			'id'       => $prefix . 'status',
+			'type'     => 'taxonomy_select',
+			'taxonomy' => 'oa_election_status', // Taxonomy Slug
+		) );
+
+		$election_admin->add_field( array(
+			'name' => 'Election Date',
+			'id'   => $prefix . 'selected_date',
+			'type' => 'text_date',
+		) );
+	}
+
+	public function candidate_metaboxes() {
 		/**
 		 * Initiate the metabox
 		 */
 		$cmb_group = new_cmb2_box( array(
 			'id'            => 'candidate_fields',
 			'title'         => __( 'Candidate Fields', 'OA-Elections' ),
-			'object_types'  => array( 'oa_election' ), // Post type
+			'object_types'  => array( 'oae_election' ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'core',
 			'show_names'    => true, // Show field names on the left
@@ -407,37 +441,6 @@ class OA_Elections_Fields {
 			'type' => 'checkbox',
 		) );
 
-		// Start with an underscore to hide fields from custom fields list
-		$prefix = '_oa_election_';
-
-		/**
-		 * Initiate the metabox
-		 */
-		$election_admin = new_cmb2_box( array(
-			'id'            => 'admin_fields',
-			'title'         => __( 'Admin Fields', 'OA-Elections' ),
-			'object_types'  => array( 'oa_election' ), // Post type
-			'context'       => 'normal',
-			'priority'      => 'core',
-			'show_names'    => true, // Show field names on the left
-			// 'cmb_styles' => false, // false to disable the CMB stylesheet
-			// 'closed'     => true, // Keep the metabox closed by default
-		) );
-
-		// Unit Leader info
-
-		$election_admin->add_field( array(
-			'name'     => 'Election Status',
-			'id'       => $prefix . 'status',
-			'type'     => 'taxonomy_select',
-			'taxonomy' => 'oa_election_status', // Taxonomy Slug
-		) );
-
-		$election_admin->add_field( array(
-			'name' => 'Election Date',
-			'id'   => $prefix . 'selected_date',
-			'type' => 'text_date',
-		) );
 	}
 }
 
