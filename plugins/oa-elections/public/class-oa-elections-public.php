@@ -30,7 +30,6 @@ class OA_Elections_Public {
 	public function __construct() {
 
 		add_shortcode( 'unit-edit-form', array( $this, 'unit_edit_form' ) );
-		add_shortcode( 'election-request', array( $this, 'election_request' ) );
 		add_shortcode( 'election-calendar', array( $this, 'election_calendar' ) );
 		add_shortcode( 'election-list', array( $this, 'election_list' ) );
 		add_shortcode( 'candidate-entry', array( $this, 'shortcode_candidate_entry' ) );
@@ -71,18 +70,6 @@ class OA_Elections_Public {
 	function unit_edit_form( $atts = array() ) {
 		ob_start();
 		include( 'partials/unit-edit-form.php' );
-		$output = ob_get_clean();
-		return $output;
-	}
-
-	/**
-	 * Shortcode to display a CMB2 form for a post ID.
-	 * @param  array  $atts Shortcode attributes
-	 * @return string       Form HTML markup
-	 */
-	function election_request( $atts = array() ) {
-		ob_start();
-		include( 'partials/election-request.php' );
 		$output = ob_get_clean();
 		return $output;
 	}
