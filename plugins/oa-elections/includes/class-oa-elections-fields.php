@@ -291,7 +291,7 @@ class OA_Elections_Fields {
 		$election_admin = new_cmb2_box( array(
 			'id'            => 'admin_fields',
 			'title'         => __( 'Admin Fields', 'OA-Elections' ),
-			'object_types'  => array( 'oa_election' ), // Post type
+			'object_types'  => array( 'oae_election' ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'core',
 			'show_names'    => true, // Show field names on the left
