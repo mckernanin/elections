@@ -1,7 +1,18 @@
 <?php
+/**
+ * Theme functions
+ *
+ * @package ElectionTheme
+ */
 
+/**
+ * Theme functions
+ */
 class ElectionTheme {
 
+	/**
+	 * ElectionTheme Constructor
+	 */
 	function __construct() {
 
 		add_filter( 'upload_mimes', 		array( $this, 'mime_types' ) );
@@ -11,14 +22,14 @@ class ElectionTheme {
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'scripts_and_styles' ) );
 		add_action( 'phpmailer_init', array( $this, 'send_smtp_email' ) );
 
-
 		$this->roots_support();
 	}
 
 	/**
 	 * Add custom allowed media upload file types.
+	 *
+	 * @param Array $mimes Array of mime types registered.
 	 */
-
 	public function mime_types( $mimes ) {
 		$mimes['svg'] = 'image/svg+xml';
 
@@ -27,8 +38,9 @@ class ElectionTheme {
 
 	/**
 	 * Add page slug as a body class.
+	 *
+	 * @param Array $classes Array of body classes.
 	 */
-
 	public function add_slug_body_class( $classes ) {
 		global $post;
 		if ( isset( $post ) ) {
@@ -46,13 +58,12 @@ class ElectionTheme {
 
 	/**
 	 * Add theme support for Soil functions. Helps clean up WordPress markup.
+	 * To enable google analytics, add theme support like this: add_theme_support( 'soil-google-analytics', 'UA-XXXXXXXX-Y' );
 	 */
-
 	public function roots_support() {
 		add_theme_support( 'soil-clean-up' );
 		add_theme_support( 'soil-disable-asset-versioning' );
 		add_theme_support( 'soil-disable-trackbacks' );
-		// add_theme_support( 'soil-google-analytics', 'UA-XXXXXXXX-Y' );
 		add_theme_support( 'soil-jquery-cdn' );
 		add_theme_support( 'soil-js-to-footer' );
 		add_theme_support( 'soil-nav-walker' );
@@ -68,35 +79,44 @@ class ElectionTheme {
 		wp_add_inline_script( 'theme_typekit', 'try{Typekit.load({ async: true });}catch(e){}' );
 	}
 
+	/**
+	 * Enqueue scripts and styles.
+	 */
 	public function scripts_and_styles() {
 		wp_enqueue_script( 'elections-theme-js', get_stylesheet_directory_URI() . '/assets/js/app.js' );
 	}
 
+	/**
+	 * Send all emails via mailgun.
+	 *
+	 * @param object $phpmailer Object containing phpmailer configuration.
+	 */
 	function send_smtp_email( $phpmailer ) {
-
-		// Define that we are sending with SMTP
+		// @codingStandardsIgnoreStart
+		// Define that we are sending with SMTP.
 		$phpmailer->isSMTP();
 
-		// The hostname of the mail server
-		$phpmailer->Host = "smtp.mailgun.org";
+		// The hostname of the mail server.
+		$phpmailer->Host = 'smtp.mailgun.org';
 
-		// Use SMTP authentication (true|false)
+		// Use SMTP authentication (true|false).
 		$phpmailer->SMTPAuth = true;
 
-		// SMTP port number - likely to be 25, 465 or 587
-		$phpmailer->Port = "587";
+		// SMTP port number - likely to be 25, 465 or 587.
+		$phpmailer->Port = '587';
 
-		// Username to use for SMTP authentication
-		$phpmailer->Username = "postmaster@stagewp.co";
+		// Username to use for SMTP authentication.
+		$phpmailer->Username = 'postmaster@stagewp.co';
 
-		// Password to use for SMTP authentication
-		$phpmailer->Password = "6145c3e334497ba6201708630c71e38d";
+		// Password to use for SMTP authentication.
+		$phpmailer->Password = '6145c3e334497ba6201708630c71e38d';
 
-		// Encryption system to use - ssl or tls
-		$phpmailer->SMTPSecure = "tls";
+		// Encryption system to use - ssl or tls.
+		$phpmailer->SMTPSecure = 'tls';
 
-		$phpmailer->From = "kevin@stagewp.co";
-		$phpmailer->FromName = "Kevin McKernan";
+		$phpmailer->From = 'kevin@stagewp.co';
+		$phpmailer->FromName = 'Kevin McKernan';
+		// @codingStandardsIgnoreEnd
 	}
 }
 

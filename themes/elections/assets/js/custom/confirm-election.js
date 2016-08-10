@@ -12,7 +12,7 @@ $('#election-calendar').on( 'click', '.fc-event', function(e) {
 
 $('#schedule-elections').on( 'click', function() {
 	var selectedElections = {};
-		selectedElections.elements = $('.selected-election');
+	selectedElections.elements = $('.selected-election');
 
 	if ( selectedElections.elements.length ) {
 		selectedElections.data = [];
@@ -22,7 +22,7 @@ $('#schedule-elections').on( 'click', function() {
 
 			$.each(selectedElections.elements, function() {
 				var data = $(this).attr('href').split('_');
-					data[0] = data[0].replace('#', '');
+				data[0] = data[0].replace('#', '');
 				var election = {
 					postID: data[0],
 					selectedDate: data[3]
@@ -30,19 +30,17 @@ $('#schedule-elections').on( 'click', function() {
 				selectedElections.data.push(election);
 			});
 
-			console.log(selectedElections.data);
-
 			$.ajax({
 				url: '/wp-json/oa-elections/v1/schedule-election',
 				type: 'post',
 				data: {
 					elections: selectedElections.data
 				},
-				success: function(response) {
-					console.log(response);
+				success: function() {
+					window.reload;
 				},
 				fail: function(response) {
-					console.log(response);
+					alert(response);
 				},
 			});
 		}

@@ -3,7 +3,8 @@ module.exports = {
         "browser": true
     },
 	"globals": {
-		"jQuery": 1
+		"jQuery": 1,
+		"$": 1,
 	},
     "extends": "eslint:recommended",
     "rules": {
