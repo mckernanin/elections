@@ -8,5 +8,5 @@ if ( ! is_user_logged_in() ) {
 	wp_enqueue_style( 'fullcalendar' );
 ?>
 <div id="election-calendar"></div>
-<button id="schedule-elections">Schedule Selected Elections</button>
+<button id="schedule-elections">Schedule Selected Elections</button><span id="schedule-response"></span>
 <?php } ?>

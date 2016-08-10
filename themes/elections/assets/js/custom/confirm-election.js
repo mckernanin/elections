@@ -36,8 +36,10 @@ $('#schedule-elections').on( 'click', function() {
 				data: {
 					elections: selectedElections.data
 				},
-				success: function() {
-					window.reload;
+				success: function(response) {
+					$('#election-calendar').fullCalendar('refetchEvents');
+					$('#schedule-response').text(response.message);
+					console.log('scheduled!');
 				},
 				fail: function(response) {
 					alert(response);
