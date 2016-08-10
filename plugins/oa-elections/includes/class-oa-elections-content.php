@@ -25,15 +25,25 @@ class OA_Elections_Content {
 		$this->register();
 	}
 
+	/**
+	 * Register post types
+	 */
 	public function register() {
 		require_once( 'lib/class-cpt.php' );
+
+		$status = array(
+		    'taxonomy_name' => 'status',
+		    'singular'      => 'Status',
+		    'plural'        => 'Statuses',
+		    'slug'          => 'status',
+		);
 
 		$election = new CPT([
 			'post_type_name' => 'oae_election',
 			'singular'       => 'Election',
 			'plural'         => 'Elections',
 		]);
-		$election->register_taxonomy( 'status' );
+		$election->register_taxonomy( $status );
 		$election->register_taxonomy( 'chapter' );
 
 		$candidate = new CPT([
@@ -41,7 +51,7 @@ class OA_Elections_Content {
 			'singular'       => 'Candidate',
 			'plural'         => 'Candidates',
 		]);
-		$candidate->register_taxonomy( 'status' );
+		$candidate->register_taxonomy( $status );
 		$candidate->register_taxonomy( 'chapter' );
 	}
 }
