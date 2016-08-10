@@ -5,7 +5,7 @@ if ( ! is_user_logged_in() ) {
 } else {
 
 	$args = array(
-		'post_type' => 'oa_election',
+		'post_type' => 'oae_election',
 	);
 	$elections = new WP_Query( $args );
 	?>

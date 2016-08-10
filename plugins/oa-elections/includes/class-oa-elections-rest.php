@@ -46,7 +46,7 @@ class OA_Elections_REST {
 
 	function get_election_dates() {
 		$args = array(
-			'post_type' => 'oa_election',
+			'post_type' => 'oae_election',
 		);
 		$query       = new WP_Query( $args );
 		$date_fields = [ 'unit_date_1', 'unit_date_2', 'unit_date_3' ];
