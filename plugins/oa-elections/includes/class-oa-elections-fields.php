@@ -23,6 +23,7 @@ class OA_Elections_Fields {
 	 */
 	public function load_fields() {
 		add_action( 'cmb2_init', array( $this, 'election_metaboxes' ) );
+		add_action( 'cmb2_init', array( $this, 'candidate_metaboxes' ) );
 	}
 
 	/**
@@ -162,8 +163,8 @@ class OA_Elections_Fields {
 		) );
 
 		$cmb->add_field( array(
-			'name'    => 'District / Chapter',
-			'id'      => $prefix . 'chapter',
+			'name'     => 'District / Chapter',
+			'id'       => $prefix . 'chapter',
 			'type'     => 'taxonomy_select',
 			'taxonomy' => 'oa_chapter', // Taxonomy Slug
 		) );
@@ -315,13 +316,15 @@ class OA_Elections_Fields {
 	}
 
 	public function candidate_metaboxes() {
+
+		$prefix = '_oa_candidate';
 		/**
 		 * Initiate the metabox
 		 */
-		$cmb_group = new_cmb2_box( array(
+		$cmb = new_cmb2_box( array(
 			'id'            => 'candidate_fields',
 			'title'         => __( 'Candidate Fields', 'OA-Elections' ),
-			'object_types'  => array( 'oae_election' ), // Post type
+			'object_types'  => array( 'oae_candidate' ), // Post type
 			'context'       => 'normal',
 			'priority'      => 'core',
 			'show_names'    => true, // Show field names on the left
@@ -329,101 +332,88 @@ class OA_Elections_Fields {
 			// 'closed'     => true, // Keep the metabox closed by default
 		) );
 
-		$group_field_id = $cmb_group->add_field( array(
-			'id'          => $prefix . 'candidate',
-			'type'        => 'group',
-			'description' => __( 'Election Candidate', 'OA-Elections' ),
-			'options'     => array(
-				'group_title'   => __( 'Candidate {#}', 'OA-Elections' ), // {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Candidate', 'OA-Elections' ),
-				'remove_button' => __( 'Remove Candidate', 'OA-Elections' ),
-				'sortable'      => true, // beta
-				// 'closed'     => true, // true to have the groups closed by default
-			),
-		) );
-
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => __( 'Personal Information', 'OA-Elections' ),
-			'id'   => 'title',
+			'id'   => $prefix . 'title',
 			'type' => 'title',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'BSA ID',
-			'id'   => 'bsa-id',
+			'id'   => $prefix . 'bsa-id',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Date of Birth',
-			'id'   => 'dob',
+			'id'   => $prefix . 'dob',
 			'type' => 'text_date',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'First Name',
-			'id'   => 'fname',
+			'id'   => $prefix . 'fname',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Last Name',
-			'id'   => 'lname',
+			'id'   => $prefix . 'lname',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Address',
-			'id'   => 'address',
+			'id'   => $prefix . 'address',
 			'type' => 'address',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Parent Phone',
-			'id'   => 'parent-phone',
+			'id'   => $prefix . 'parent-phone',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Parent Email',
-			'id'   => 'parent-email',
+			'id'   => $prefix . 'parent-email',
 			'type' => 'text_email',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Youth Phone',
-			'id'   => 'youth-phone',
+			'id'   => $prefix . 'youth-phone',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Youth Email',
-			'id'   => 'youth-email',
+			'id'   => $prefix . 'youth-email',
 			'type' => 'text_email',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => __( 'Eligibility Information', 'cmb2' ),
-			'id'   => 'eligibility_information',
+			'id'   => $prefix . 'eligibility_information',
 			'type' => 'title',
 		) );
 
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Camping Nights - Long Term',
-			'id'   => 'camping-long-term',
+			'id'   => $prefix . 'camping-long-term',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Camping Nights - Short Term',
-			'id'   => 'camping-short-term',
+			'id'   => $prefix . 'camping-short-term',
 			'type' => 'text',
 		) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name'    => 'Rank',
-			'id'      => 'rank',
+			'id'      => $prefix . 'rank',
 			'type'    => 'select',
 			'options' => array(
 				null          => __( '---', 'OA-Elections' ),
@@ -434,10 +424,10 @@ class OA_Elections_Fields {
 			),
 			) );
 
-		$cmb_group->add_group_field( $group_field_id, array(
+		$cmb->add_field(  array(
 			'name' => 'Scout Spirit',
 			'desc' => 'As the unit leader, it is up to you to approve each candidate. This is just as important of a requirement as the others.',
-			'id'   => 'scout-spirit',
+			'id'   => $prefix . 'scout-spirit',
 			'type' => 'checkbox',
 		) );
 
