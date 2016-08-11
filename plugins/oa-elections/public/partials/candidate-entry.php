@@ -1,4 +1,10 @@
 <?php
+/**
+ * Candidate entry shortcode content.
+ *
+ * @package OA_Elections
+ */
+
 if ( ! is_user_logged_in() ) {
 	echo 'You must be logged in to view this page.';
 } else {
@@ -13,9 +19,13 @@ if ( ! is_user_logged_in() ) {
 			'type'    => 'hidden',
 			'default' => $object_id,
 		),
-	) );
+	));
 
-	echo '<h2>' . $candidates->meta_box['title'] . '</h2>';
-	echo cmb2_get_metabox_form( $candidates, 'candidate_fields' );
+	$metabox_form_options = array(
+		'save_button' => 'Add Candidate',
+	);
+
+	echo '<h2>' . esc_html( $candidates->meta_box['title'] ) . '</h2>';
+	echo cmb2_get_metabox_form( $candidates, 'candidate_fields', $metabox_form_options );
 
 }
