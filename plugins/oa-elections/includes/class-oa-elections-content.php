@@ -32,7 +32,7 @@ class OA_Elections_Content {
 		require_once( 'lib/class-cpt.php' );
 
 		$status = array(
-		    'taxonomy_name' => 'status',
+		    'taxonomy_name' => 'oae_status',
 		    'singular'      => 'Status',
 		    'plural'        => 'Statuses',
 		    'slug'          => 'status',
