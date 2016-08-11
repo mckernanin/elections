@@ -1,7 +1,7 @@
 <?php
 if ( is_page( 'request-an-election' ) && is_user_logged_in() ) {
 	echo 'Requesting an election is not currently supported for logged in users.';
-} else if ( is_singular( 'oa_election' ) && ! is_user_logged_in() ) {
+} else if ( is_singular( 'oae_election' ) && ! is_user_logged_in() ) {
 	echo 'You must be logged in to view or edit an election.';
 } else {
 	$object_id  = get_the_ID();
