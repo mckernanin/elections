@@ -1,5 +1,15 @@
-.single-oa_election,
+.single-oae_election,
 .page-request-an-election {
+
+	.selectize-input {
+		padding: 5px 8px;
+		border-radius: 2px;
+		box-shadow: none;
+
+		input {
+			width: auto !important;
+		}
+	}
 
 	.cmb2-wrap {
 
@@ -60,7 +70,13 @@
 
 		.cmb-td {
 			width: 70%;
-			padding-right: 15%;
+			padding: 20px 15% 20px 0;
+
+			label {
+				font-size: 16px;
+				font-weight: bold;
+				line-height: 28px;
+			}
 
 			@include bp(phone) {
 				width: 100%;
@@ -141,31 +157,47 @@
 			flex-basis: 40%;
 		}
 	}
+}
 
-	.cmb-repeatable-group {
+.section-candidates {
 
-		> .cmb-row {
+	.cmb2-wrap {
+
+		.cmb-type-address {
 			flex-basis: 100%;
+			display: flex;
+			flex-flow: row wrap;
 
-			&:not(:last-of-type) {
-				border-bottom: 0 !important;
-			}
-		}
-
-		.cmb-field-list {
-
-			.cmb-type-text,
-			.cmb-type-text-email {
-				// flex-basis: 33.3%;
+			&:after {
+				display: none;
 			}
 
-			.cmb-type-address {
-				flex-basis: 100%;
+			.cmb-th {
+				flex-basis: 15%;
 			}
-		}
 
-		.cmb-group-title {
-			background-color: transparent;
+			.cmb-td {
+				flex-basis: 85%;
+			}
+
+			p {
+				margin: 0.4em 0 0.2em;
+			}
+
+			div {
+
+				&:first-of-type p {
+					margin-top: 0;
+				}
+			}
+
+			.alignleft {
+				width: 30.87%;
+
+				&:last-of-type {
+					margin-right: 0;
+				}
+			}
 		}
 	}
 }
