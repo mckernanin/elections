@@ -6,7 +6,7 @@ class OA_Elections_Util {
 	}
 
 	static function get_status( $post_id ) {
-		$term = current( get_the_terms( get_the_id(), 'status' ) );
+		$term = current( get_the_terms( get_the_id(), 'oae_status' ) );
 		return $term->name;
 	}
 
