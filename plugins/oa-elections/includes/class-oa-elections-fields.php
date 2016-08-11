@@ -26,6 +26,7 @@ class OA_Elections_Fields {
 	 * Load all fields.
 	 */
 	public function load_fields() {
+		add_action( 'cmb2_init', array( $this, 'admin_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'election_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'candidate_metaboxes' ) );
 	}
@@ -295,7 +296,12 @@ class OA_Elections_Fields {
 			'id'   => $prefix . 'email',
 			'type' => 'text_email',
 		) );
+	}
 
+	/**
+	 * Admin metaboxes on elections
+	 */
+	public function admin_metaboxes() {
 		/**
 		 * Initiate the metabox
 		 */
