@@ -26,10 +26,16 @@ class OA_Elections_REST {
 		register_activation_hook( __FILE__, 'activate' );
 	}
 
+	/**
+	 * Activation functions.
+	 */
 	function activate() {
 		flush_rewrite_rules();
 	}
 
+	/**
+	 * Register routes.
+	 */
 	function register_api_hooks() {
 		$namespace = 'oa-elections/v1';
 
@@ -44,6 +50,9 @@ class OA_Elections_REST {
 		) );
 	}
 
+	/**
+	 * Get election dates for calendar shortcode
+	 */
 	function get_election_dates() {
 		$args = array(
 			'post_type' => 'oae_election',
@@ -92,6 +101,9 @@ class OA_Elections_REST {
 		return $response;
 	}
 
+	/**
+	 * Schedule elections
+	 */
 	function schedule_election() {
 
 		$elections = $_POST['elections'];
@@ -99,8 +111,10 @@ class OA_Elections_REST {
 		$response = [];
 
 		foreach ( $elections as $election ) {
-			$selected_date = get_post_meta( $election['postID'], '_oa_election_unit_date_' . $election['selectedDate'], true );
-			update_post_meta( $election['postID'], '_oa_election_selected_date', $selected_date );
+			$post_id = $election['postID'];
+			$selected_date = get_post_meta( $post_id, '_oa_election_unit_date_' . $election['selectedDate'], true );
+			update_post_meta( $post_id, '_oa_election_selected_date', $selected_date );
+			wp_set_object_terms( $post_id, 'scheduled', 'oae_status' );
 			$response['scheduled_elections'][] = [
 				'unit' => get_the_title( $election['postID'] ),
 				'date' => $selected_date,
