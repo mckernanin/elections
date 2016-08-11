@@ -42,6 +42,7 @@ class OA_Elections_Content {
 			'post_type_name' => 'oae_election',
 			'singular'       => 'Election',
 			'plural'         => 'Elections',
+			'slug'           => 'election',
 		]);
 		$election->register_taxonomy( $status );
 		$election->register_taxonomy( 'chapter' );
