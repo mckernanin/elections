@@ -1,4 +1,10 @@
 <?php
+/**
+ * Election Calendar Shortcode.
+ *
+ * @package OA_Elections
+ */
+
 if ( ! is_user_logged_in() ) {
 	$message = 'You must be logged in to view this page.';
 	echo $message;
