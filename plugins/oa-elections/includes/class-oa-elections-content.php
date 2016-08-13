@@ -31,28 +31,31 @@ class OA_Elections_Content {
 	public function register() {
 		require_once( 'lib/class-cpt.php' );
 
-		$status = array(
-		    'taxonomy_name' => 'oae_status',
-		    'singular'      => 'Status',
-		    'plural'        => 'Statuses',
-		    'slug'          => 'status',
-		);
-
 		$election = new CPT([
 			'post_type_name' => 'oae_election',
 			'singular'       => 'Election',
 			'plural'         => 'Elections',
 			'slug'           => 'election',
 		]);
-		$election->register_taxonomy( $status );
-		$election->register_taxonomy( 'chapter' );
+		$election->register_taxonomy( array(
+		    'taxonomy_name' => 'oae_status',
+		    'singular'      => 'Status',
+		    'plural'        => 'Statuses',
+		    'slug'          => 'status',
+		));
+		$election->register_taxonomy( 'oae_chapter' );
 
 		$candidate = new CPT([
 			'post_type_name' => 'oae_candidate',
 			'singular'       => 'Candidate',
 			'plural'         => 'Candidates',
 		]);
-		$candidate->register_taxonomy( $status );
-		$candidate->register_taxonomy( 'chapter' );
+		$candidate->register_taxonomy( array(
+		    'taxonomy_name' => 'oae_cand_status',
+		    'singular'      => 'Status',
+		    'plural'        => 'Statuses',
+		    'slug'          => 'status',
+		));
+		$candidate->register_taxonomy( 'oae_chapter' );
 	}
 }
