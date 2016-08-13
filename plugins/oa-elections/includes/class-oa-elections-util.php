@@ -11,7 +11,7 @@ class OA_Elections_Util {
 	}
 
 	static function get_chapter( $post_id ) {
-		$term = current( get_the_terms( get_the_id(), 'chapter' ) );
+		$term = current( get_the_terms( get_the_id(), 'oae_chapter' ) );
 		return $term->name;
 	}
 }

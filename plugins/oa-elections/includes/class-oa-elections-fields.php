@@ -176,7 +176,7 @@ class OA_Elections_Fields {
 			'name'     => 'District / Chapter',
 			'id'       => $prefix . 'chapter',
 			'type'     => 'taxonomy_select',
-			'taxonomy' => 'oa_chapter',
+			'taxonomy' => 'oae_chapter',
 		) );
 
 		$cmb->add_field( array(
@@ -324,7 +324,7 @@ class OA_Elections_Fields {
 			'name'     => 'Election Status',
 			'id'       => $prefix . 'status',
 			'type'     => 'taxonomy_select',
-			'taxonomy' => 'oa_election_status',
+			'taxonomy' => 'oae_status',
 		) );
 
 		$election_admin->add_field( array(
