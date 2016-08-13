@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The public-facing functionality of the plugin.
  *
@@ -42,17 +41,23 @@ class OA_Elections_Public {
 		add_filter( 'body_class', array( $this, 'section_body_class' ) );
 	}
 
+	/**
+	 * Enqueue scripts and styles
+	 */
 	public function scripts_and_styles() {
 
 		wp_register_script( 'moment', 			plugin_dir_url( __FILE__ ) . '/js/moment.min.js', array( 'jquery' ) );
 		wp_register_script( 'fullcalendar', 	plugin_dir_url( __FILE__ ) . '/js/fullcalendar.min.js', array( 'jquery' ) );
 		wp_register_style( 'fullcalendar', 		plugin_dir_url( __FILE__ ) . '/css/fullcalendar.min.css' );
-		wp_enqueue_script( 'election-scripts', plugin_dir_url( __FILE__ ) . '/js/oa-elections-public.js', array( 'jquery' ) );
+		wp_enqueue_script( 'election-scripts',  plugin_dir_url( __FILE__ ) . '/js/oa-elections-public.js', array( 'jquery' ) );
 		wp_enqueue_style( 'selectize', 			plugin_dir_url( __FILE__ ) . '/css/selectize.min.css' );
 		wp_enqueue_script( 'selectize', 		plugin_dir_url( __FILE__ ) . '/js/selectize.min.js', array( 'jquery' ) );
 		wp_add_inline_script( 'selectize', 		'jQuery(document).ready( function($) { $("select").selectize(); });', array( 'selectize' ) );
 	}
 
+	/**
+	 * Add editing_section rewrite
+	 */
 	function rewrites() {
 		add_rewrite_rule(
 			'^election/([^/]*)/([^/]*)/?',
@@ -63,8 +68,9 @@ class OA_Elections_Public {
 	}
 
 	/**
-	 * Shortcode to display a CMB2 form for a post ID.
-	 * @param  array  $atts Shortcode attributes
+	 * Unit edit form shortcode
+	 *
+	 * @param array $atts Shortcode attributes.
 	 * @return string       Form HTML markup
 	 */
 	function unit_edit_form( $atts = array() ) {
@@ -75,8 +81,9 @@ class OA_Elections_Public {
 	}
 
 	/**
-	 * Shortcode to display a CMB2 form for a post ID.
-	 * @param  array  $atts Shortcode attributes
+	 * Election calendar shortcode
+	 *
+	 * @param array $atts Shortcode attributes.
 	 * @return string       Form HTML markup
 	 */
 	function election_calendar( $atts = array() ) {
@@ -87,8 +94,9 @@ class OA_Elections_Public {
 	}
 
 	/**
-	 * Shortcode to display a CMB2 form for a post ID.
-	 * @param  array  $atts Shortcode attributes
+	 * Election list shortcode
+	 *
+	 * @param array $atts Shortcode attributes.
 	 * @return string       Form HTML markup
 	 */
 	function election_list( $atts = array() ) {
@@ -98,9 +106,11 @@ class OA_Elections_Public {
 		return $output;
 	}
 
+	/**
+	 * Election edit form save action
+	 */
 	public function unit_edit_form_submission_handler() {
 
-		// If no form submission, bail
 		if ( empty( $_POST ) ) {
 			return false;
 		}
@@ -115,13 +125,11 @@ class OA_Elections_Public {
 
 		$email_address = $_POST['_oa_election_leader_email'];
 
-		if ( null == username_exists( $email_address ) ) {
+		if ( null === username_exists( $email_address ) ) {
 
-			// Generate the password and create the user
 			$password = wp_generate_password( 12, false );
 			$user_id  = wp_create_user( $email_address, $password, $email_address );
 
-			// Set the nickname
 			wp_update_user(
 				array(
 					'ID'          => $user_id,
@@ -131,11 +139,8 @@ class OA_Elections_Public {
 				)
 			);
 
-			// Set the role
 			$user = new WP_User( $user_id );
 			$user->set_role( 'unit-leader' );
-
-			// Email the user
 			wp_new_user_notification( $user_id, null, 'both' );
 
 		} else {
@@ -207,6 +212,10 @@ class OA_Elections_Public {
 		exit;
 	}
 
+	/**
+	 * New election notification function.
+	 * @todo create a class of notifications.
+	 */
 	public function new_election_notification( $post_id ) {
 		// If this is just a revision, don't send the email.
 		if ( wp_is_post_revision( $post_id ) ){
