@@ -20,6 +20,7 @@ class OA_Elections_Fields {
 	 */
 	function __construct() {
 		$this->load_fields();
+		include( 'lib/cmb2-custom-field-type-address.php' );
 	}
 
 	/**
@@ -351,7 +352,7 @@ class OA_Elections_Fields {
 			'show_names'    => true,
 		));
 
-		$prefix = '_oa_candidate';
+		$prefix = '_oa_candidate_';
 
 		$cmb->add_field(  array(
 			'name' => __( 'Personal Information', 'OA-Elections' ),
@@ -361,7 +362,7 @@ class OA_Elections_Fields {
 
 		$cmb->add_field(  array(
 			'name' => 'BSA ID',
-			'id'   => $prefix . 'bsa-id',
+			'id'   => $prefix . 'bsa_id',
 			'type' => 'text',
 		) );
 
@@ -391,25 +392,25 @@ class OA_Elections_Fields {
 
 		$cmb->add_field(  array(
 			'name' => 'Parent Phone',
-			'id'   => $prefix . 'parent-phone',
+			'id'   => $prefix . 'parent_phone',
 			'type' => 'text',
 		) );
 
 		$cmb->add_field(  array(
 			'name' => 'Parent Email',
-			'id'   => $prefix . 'parent-email',
+			'id'   => $prefix . 'parent_email',
 			'type' => 'text_email',
 		) );
 
 		$cmb->add_field(  array(
 			'name' => 'Youth Phone',
-			'id'   => $prefix . 'youth-phone',
+			'id'   => $prefix . 'youth_phone',
 			'type' => 'text',
 		) );
 
 		$cmb->add_field(  array(
 			'name' => 'Youth Email',
-			'id'   => $prefix . 'youth-email',
+			'id'   => $prefix . 'youth_email',
 			'type' => 'text_email',
 		) );
 
@@ -421,13 +422,13 @@ class OA_Elections_Fields {
 
 		$cmb->add_field(  array(
 			'name' => 'Camping Nights - Long Term',
-			'id'   => $prefix . 'camping-long-term',
+			'id'   => $prefix . 'camping_long_term',
 			'type' => 'text',
 		) );
 
 		$cmb->add_field(  array(
 			'name' => 'Camping Nights - Short Term',
-			'id'   => $prefix . 'camping-short-term',
+			'id'   => $prefix . 'camping_short_term',
 			'type' => 'text',
 		) );
 
@@ -447,7 +448,7 @@ class OA_Elections_Fields {
 		$cmb->add_field(  array(
 			'name' => 'Scout Spirit',
 			'desc' => 'As the unit leader, it is up to you to approve each candidate. This is just as important of a requirement as the others.',
-			'id'   => $prefix . 'scout-spirit',
+			'id'   => $prefix . 'scout_spirit',
 			'type' => 'checkbox',
 		) );
 
