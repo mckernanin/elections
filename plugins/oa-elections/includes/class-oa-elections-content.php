@@ -37,25 +37,35 @@ class OA_Elections_Content {
 			'plural'         => 'Elections',
 			'slug'           => 'election',
 		]);
-		$election->register_taxonomy( array(
+		$election->register_taxonomy([
 		    'taxonomy_name' => 'oae_status',
 		    'singular'      => 'Status',
 		    'plural'        => 'Statuses',
 		    'slug'          => 'status',
-		));
-		$election->register_taxonomy( 'oae_chapter' );
+		]);
+		$election->register_taxonomy([
+		    'taxonomy_name' => 'oae_chapter',
+		    'singular'      => 'Chapter',
+		    'plural'        => 'Chapters',
+		    'slug'          => 'chapter',
+		]);
 
 		$candidate = new CPT([
 			'post_type_name' => 'oae_candidate',
 			'singular'       => 'Candidate',
 			'plural'         => 'Candidates',
 		]);
-		$candidate->register_taxonomy( array(
+		$candidate->register_taxonomy([
 		    'taxonomy_name' => 'oae_cand_status',
 		    'singular'      => 'Status',
 		    'plural'        => 'Statuses',
 		    'slug'          => 'status',
-		));
-		$candidate->register_taxonomy( 'oae_chapter' );
+		]);
+		$candidate->register_taxonomy([
+		    'taxonomy_name' => 'oae_chapter',
+		    'singular'      => 'Chapter',
+		    'plural'        => 'Chapters',
+		    'slug'          => 'chapter',
+		]);
 	}
 }
