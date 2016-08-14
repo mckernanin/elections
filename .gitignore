@@ -3,5 +3,6 @@
 !.gitignore
 !plugins/oa-elections
 !themes/elections
+!composer.json
 
 themes/elections/node_modules

@@ -1,0 +1,36 @@
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        },
+		{
+			"type": "vcs",
+			"url": "https://github.com/mustardBees/cmb_field_map"
+		},
+		{
+            "type": "vcs",
+            "url": "https://github.com/WebDevStudios/cmb2-attached-posts"
+        },
+		{
+            "type": "vcs",
+            "url": "https://github.com/jcchavezs/cmb2-conditionals"
+        }
+    ],
+    "require": {
+		"wpackagist-theme/twentysixteen": "*",
+        "wpackagist-plugin/cmb2": "*",
+		"mustardBees/cmb_field_map": "*",
+		"WebDevStudios/cmb2-attached-posts": "*",
+		"jcchavezs/cmb2-conditionals": "dev-master",
+		"wpackagist-plugin/mailgun": "*",
+		"wpackagist-plugin/remove-dashboard-access-for-non-admins": "*",
+		"wpackagist-plugin/wp-migrate-db": "*"
+    },
+	"extra" : {
+        "installer-paths" : {
+            "plugins/{$name}/": ["type:wordpress-plugin"],
+			"theme/{$name}/": ["type:wordpress-theme"]
+        }
+    }
+}
