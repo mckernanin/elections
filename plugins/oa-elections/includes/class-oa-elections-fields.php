@@ -344,13 +344,25 @@ class OA_Elections_Fields {
 			'id'       => $prefix . 'status',
 			'type'     => 'taxonomy_select',
 			'taxonomy' => 'oae_status',
-		) );
+		));
 
 		$election_admin->add_field( array(
 			'name' => 'Election Date',
 			'id'   => $prefix . 'selected_date',
 			'type' => 'text_date',
-		) );
+		));
+
+		$election_admin->add_field( array(
+			'name'    => 'Candidates',
+			'desc'    => 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.',
+			'id'      => $prefix . 'candidates',
+			'type'    => 'custom_attached_posts',
+			'options' => array(
+				'show_thumbnails' => true,
+				'filter_boxes'    => true,
+				'query_args'      => array( 'post_type' => 'oae_candidate' ),
+			),
+		));
 	}
 
 	/**

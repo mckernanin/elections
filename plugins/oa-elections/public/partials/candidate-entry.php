@@ -9,10 +9,9 @@ if ( ! is_user_logged_in() ) {
 	echo 'You must be logged in to view this page.';
 } else {
 
-	$object_id = get_the_ID();
-
+	$post_type  = get_post_type();
+	$object_id  = get_the_ID();
 	$candidates = cmb2_get_metabox( 'candidate_fields', $object_id );
-
 	$candidates->add_hidden_field( array(
 		'field_args'  => array(
 			'id'      => '_post_id',
@@ -21,9 +20,25 @@ if ( ! is_user_logged_in() ) {
 		),
 	));
 
-	$metabox_form_options = array(
-		'save_button' => 'Add Candidate',
-	);
+	if ( 'oae_election' === $post_type ) {
+		$metabox_form_options = array(
+			'save_button' => 'Add Candidate',
+		);
+		$form_action = 'create';
+	} elseif ( 'oae_candidate' === $post_type ) {
+		$metabox_form_options = array(
+			'save_button' => 'Save Candidate',
+		);
+		$form_action = 'update';
+	}
+
+	$candidates->add_hidden_field( array(
+		'field_args'  => array(
+			'id'      => '_form_action',
+			'type'    => 'hidden',
+			'default' => $form_action,
+		),
+	));
 
 	echo '<h2>' . esc_html( $candidates->meta_box['title'] ) . '</h2>';
 	echo cmb2_get_metabox_form( $candidates, 'candidate_fields', $metabox_form_options );

@@ -50,8 +50,8 @@ class OA_Elections_Public {
 		wp_register_script( 'fullcalendar', 	plugin_dir_url( __FILE__ ) . '/js/fullcalendar.min.js', array( 'jquery' ) );
 		wp_register_style( 'fullcalendar', 		plugin_dir_url( __FILE__ ) . '/css/fullcalendar.min.css' );
 		wp_enqueue_script( 'election-scripts',  plugin_dir_url( __FILE__ ) . '/js/oa-elections-public.js', array( 'jquery' ) );
-		wp_enqueue_style( 'selectize', 			plugin_dir_url( __FILE__ ) . '/css/selectize.min.css' );
 		wp_enqueue_script( 'selectize', 		plugin_dir_url( __FILE__ ) . '/js/selectize.min.js', array( 'jquery' ) );
+		wp_enqueue_style( 'selectize', 			plugin_dir_url( __FILE__ ) . '/css/selectize.min.css' );
 		wp_add_inline_script( 'selectize', 		'jQuery(document).ready( function($) { $("select").selectize(); });', array( 'selectize' ) );
 	}
 
@@ -204,7 +204,7 @@ class OA_Elections_Public {
 			$args['new_election'] = true;
 			$args['update'] = false;
 			$this->new_election_notification( $post_id );
-			wp_set_object_terms( $post_id, 'requested', 'oa_election_status' );
+			wp_set_object_terms( $post_id, 'requested', 'oae_status' );
 		}
 		// var_dump( get_post($post_id) );
 
@@ -263,12 +263,14 @@ class OA_Elections_Public {
 
 	public function candidate_edit_form_submission_handler() {
 
-		// If no form submission, bail
+		/**
+		 * Validate the input data.
+		 */
 		if ( empty( $_POST ) ) {
 			return false;
 		}
 
-		if ( ! isset( $_POST['submit-cmb'], $_POST['object_id'] ) ) {
+		if ( ! isset( $_POST['submit-cmb'], $_POST['object_id'], $_POST['_form_action'] ) ) {
 			return false;
 		}
 
@@ -276,21 +278,50 @@ class OA_Elections_Public {
 			return false;
 		}
 
+		/**
+		 * Get metabox, check nonces.
+		 */
 		$post_id = $_POST['_post_id'];
 		unset( $_POST['_post_id'] );
-
-		// Get CMB2 metabox object
 		$cmb = cmb2_get_metabox( 'candidate_fields', $post_id );
-		$post_data = array();
-		// Check security nonce
 		if ( ! isset( $_POST[ $cmb->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() ) ) {
-			return $cmb->prop( 'submission_error', wp_die( 'security_fail', __( 'Security check failed.' ) ) );
+			return $cmb->prop( 'submission_error', wp_die( 'security_fail', esc_html( 'Security check failed.' ) ) );
 		}
+
+		$action = $_POST['_form_action'];
+		unset( $_POST['_form_action'] );
 
 		/**
 		 * Fetch sanitized values
 		 */
 		$sanitized_values = $cmb->get_sanitized_values( $_POST );
+
+		if ( 'create' === $action ) {
+			$election_id = $post_id;
+			$user_id = get_current_user_id();
+			$post_data = array(
+				'post_type'   => 'oae_candidate',
+				'post_status' => 'publish',
+				'post_author' => $user_id ? $user_id : 1,
+				'post_title'  => $sanitized_values['_oa_candidate_fname'] . ' ' . $sanitized_values['_oa_candidate_lname'],
+				'post_name'   => $sanitized_values['_oa_candidate_bsa_id'],
+			);
+			$post_id = wp_insert_post( $post_data, true );
+			$candidates = OA_Elections_Fields::get( 'candidates', $election_id );
+			if ( ! is_array( $candidates ) ) {
+				$candidates = [$post_id];
+			} else {
+				$candidates[] = $post_id;
+			}
+
+			OA_Elections_Fields::update( 'candidates', $candidates, $election_id );
+			if ( ! is_int( $post_id ) ) {
+				wp_die( var_dump( $post_id ) );
+			}
+		}
+
+		// Get CMB2 metabox object
+		$post_data = array();
 
 		// Loop through remaining (sanitized) data, and save to post-meta
 		foreach ( $sanitized_values as $key => $value ) {
@@ -300,13 +331,12 @@ class OA_Elections_Public {
 				if ( ! empty( $value ) ) {
 					$value = serialize($value);
 					$update = update_post_meta( $post_id, $key, $value );
-					var_dump($post_id);
-					var_dump($update);
 				}
 			} else {
 				$update = update_post_meta( $post_id, $key, $value );
 			}
 		}
+
 		/*
 		 * Redirect back to the form page with a query variable with the new post ID.
 		 * This will help double-submissions with browser refreshes
@@ -314,10 +344,10 @@ class OA_Elections_Public {
 		$args = array(
 			'p'               => $post_id,
 			'update'          => true,
-			'editing_section' => 'candidates',
+			'editing_section' => 'add-candidate',
 		);
 
-		// wp_redirect( esc_url_raw( add_query_arg( $args ) ) );
+		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
 		exit;
 	}
 
