@@ -50,6 +50,24 @@ class OA_Elections_Fields {
 	}
 
 	/**
+	 * Static function for updating field data.
+	 *
+	 * @param string $field_name The name of the field to update.
+	 * @param string $value 	 The value to set.
+	 * @param int 	 $id		 The ID of the post to update (optional).
+	 */
+	static function update( $field_name = null, $value = null, $id = null ) {
+		if ( null === $id ) {
+			$id = get_the_ID();
+		}
+		if ( false === strpos( $field_name, '_oa_election_' ) ) {
+			$field_name = '_oa_election_' . $field_name;
+		}
+		$field = update_post_meta( $id, $field_name, $value );
+		return '' !== $field ? $field : false;
+	}
+
+	/**
 	 * Define the metabox and field configurations.
 	 */
 	public function election_metaboxes() {
