@@ -13,7 +13,7 @@
  * @license  http://www.opensource.org/licenses/gpl-license.php GPL v2.0 (or later)
  * @link     https://github.com/WebDevStudios/CMB2
  */
-class OA_Elections_Fields {
+class OAE_Fields {
 
 	/**
 	 * Get the bootstrap!
@@ -485,4 +485,4 @@ class OA_Elections_Fields {
 	}
 }
 
-new OA_Elections_Fields();
+new OAE_Fields();

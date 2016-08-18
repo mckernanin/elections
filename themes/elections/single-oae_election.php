@@ -26,7 +26,7 @@ get_header(); ?>
 		} elseif ( 'edit-election' === $section ) {
 			echo do_shortcode( '[unit-edit-form]' );
 		} else {
-			$candidates = OA_Elections_Fields::get( 'candidates' );
+			$candidates = OAE_Fields::get( 'candidates' );
 		?>
 		<p>
 			A short overview of the election will appear here, with actions. Currently, you can <a href="edit-election">edit an election</a> or <a href="add-candidate">add candidates.</a><br />
@@ -34,14 +34,14 @@ get_header(); ?>
 		<table>
 			<tr>
 				<td>Election Status:</td>
-				<td><?php echo esc_html( OA_Elections_Util::get_status( get_the_id() ) ); ?></td>
+				<td><?php echo esc_html( OAE_Util::get_status( get_the_id() ) ); ?></td>
 			</tr>
 			<tr>
 				<td>
 					Election Date:
 				</td>
 				<td>
-					<?php echo esc_html( OA_Elections_Fields::get( 'selected_date' ) ); ?>
+					<?php echo esc_html( OAE_Fields::get( 'selected_date' ) ); ?>
 				</td>
 			</tr>
 		</table>

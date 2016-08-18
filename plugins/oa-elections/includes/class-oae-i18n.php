@@ -24,7 +24,7 @@
  * @subpackage OA_Elections/includes
  * @author     Kevin McKernan <kevin@mckernan.in>
  */
-class OA_Elections_i18n {
+class OAE_i18n {
 
 
 	/**

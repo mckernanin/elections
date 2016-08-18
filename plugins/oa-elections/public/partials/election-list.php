@@ -28,10 +28,10 @@ if ( ! is_user_logged_in() ) {
 					<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 				</td>
 				<td>
-					<?php echo OA_Elections_Util::get_chapter( get_the_id() ); ?>
+					<?php echo OAE_Util::get_chapter( get_the_id() ); ?>
 				</td>
 				<td>
-					<?php echo OA_Elections_Util::get_status( get_the_id() ); ?>
+					<?php echo OAE_Util::get_status( get_the_id() ); ?>
 				</td>
 			</tr>
 		<?php } ?>

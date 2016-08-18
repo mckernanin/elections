@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -27,7 +26,7 @@
  * @subpackage OA_Elections/includes
  * @author     Kevin McKernan <kevin@mckernan.in>
  */
-class OA_Elections {
+class OAE {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +34,7 @@ class OA_Elections {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      OA_Elections_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      OAE_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -83,10 +82,10 @@ class OA_Elections {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - OA_Elections_Loader. Orchestrates the hooks of the plugin.
-	 * - OA_Elections_i18n. Defines internationalization functionality.
-	 * - OA_Elections_Admin. Defines all hooks for the admin area.
-	 * - OA_Elections_Public. Defines all hooks for the public side of the site.
+	 * - OAE_Loader. Orchestrates the hooks of the plugin.
+	 * - OAE_i18n. Defines internationalization functionality.
+	 * - OAE_Admin. Defines all hooks for the admin area.
+	 * - OAE_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -100,59 +99,59 @@ class OA_Elections {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oa-elections-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oa-elections-i18n.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oa-elections-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oae-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oa-elections-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-oae-public.php';
 
-		$this->loader = new OA_Elections_Loader();
+		$this->loader = new OAE_Loader();
 
 		/**
 		 * A class of helper functions.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oa-elections-util.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-util.php';
 
 		/**
 		 * The class responsible for defining all content types in the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oa-elections-content.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-content.php';
 
-		new OA_Elections_Content();
+		new OAE_Content();
 
 		/**
 		 * The class responsible for defining all custom fields in the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oa-elections-fields.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-fields.php';
 
 		/**
 		 * The class responsible for REST API fuctionality.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oa-elections-rest.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-rest.php';
 
 		/**
 		 * The class responsible for notifications.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-notifications.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-notifications.php';
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the OA_Elections_i18n class in order to set the domain and to register the hook
+	 * Uses the OAE_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -160,7 +159,7 @@ class OA_Elections {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new OA_Elections_i18n();
+		$plugin_i18n = new OAE_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -175,7 +174,7 @@ class OA_Elections {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new OA_Elections_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new OAE_Admin( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
@@ -188,7 +187,7 @@ class OA_Elections {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new OA_Elections_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new OAE_Public( $this->get_plugin_name(), $this->get_version() );
 
 	}
 
@@ -216,7 +215,7 @@ class OA_Elections {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    OA_Elections_Loader    Orchestrates the hooks of the plugin.
+	 * @return    OAE_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

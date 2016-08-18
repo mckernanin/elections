@@ -14,7 +14,7 @@
  * @since      1.0.0
  * @package    OA Elections
  */
-class OA_Elections_REST {
+class OAE_REST {
 	/**
 	 * Constructor.
 	 *
@@ -64,8 +64,8 @@ class OA_Elections_REST {
 			$query->the_post();
 			global $post;
 			$id            = get_the_id();
-			$election_date = OA_Elections_fields::get( 'selected_date', $id );
-			$time          = OA_Elections_Fields::get( 'unit_meeting_time', $id );
+			$election_date = OAE_Fields::get( 'selected_date', $id );
+			$time          = OAE_Fields::get( 'unit_meeting_time', $id );
 
 			if ( $election_date ) {
 				$start    = date( 'Y-m-d\TH:i:sP', strtotime( $election_date . ' ' . $time ) );
@@ -79,7 +79,7 @@ class OA_Elections_REST {
 			} else {
 				foreach ( $date_fields as $value ) {
 
-					$date     = OA_Elections_Fields::get( $value, $id );
+					$date     = OAE_Fields::get( $value, $id );
 					$start    = date( 'Y-m-d\TH:i:sP', strtotime( $date . ' ' . $time ) );
 					$return[] = array(
 						'ID'        => $id,
@@ -130,4 +130,4 @@ class OA_Elections_REST {
 	}
 }
 
-new OA_Elections_REST();
+new OAE_REST();

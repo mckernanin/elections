@@ -20,7 +20,7 @@
  * @subpackage OA_Elections/admin
  * @author     Kevin McKernan <kevin@mckernan.in>
  */
-class OA_Elections_Admin {
+class OAE_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -65,10 +65,10 @@ class OA_Elections_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in OA_Elections_Loader as all of the hooks are defined
+		 * defined in OAE_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The OA_Elections_Loader will then create the relationship
+		 * The OAE_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
@@ -88,10 +88,10 @@ class OA_Elections_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in OA_Elections_Loader as all of the hooks are defined
+		 * defined in OAE_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The OA_Elections_Loader will then create the relationship
+		 * The OAE_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */

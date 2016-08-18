@@ -21,7 +21,7 @@
  * @subpackage OA_Elections/includes
  * @author     Kevin McKernan <kevin@mckernan.in>
  */
-class OA_Elections_Loader {
+class OAE_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

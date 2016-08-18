@@ -1,5 +1,5 @@
 <?php
-class OAElections_Notifications {
+class OAE_Notifications {
 
 	 function __construct() {
 
@@ -7,4 +7,4 @@ class OAElections_Notifications {
 	 }
 }
 
-new OAElections_Notifications();
+new OAE_Notifications();

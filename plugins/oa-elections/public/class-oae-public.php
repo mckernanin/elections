@@ -19,7 +19,7 @@
  * @subpackage OA_Elections/public
  * @author     Kevin McKernan <kevin@mckernan.in>
  */
-class OA_Elections_Public {
+class OAE_Public {
 
 	/**
 	 * Initialize the class and set its properties.
@@ -307,14 +307,14 @@ class OA_Elections_Public {
 				'post_name'   => $sanitized_values['_oa_candidate_bsa_id'],
 			);
 			$post_id = wp_insert_post( $post_data, true );
-			$candidates = OA_Elections_Fields::get( 'candidates', $election_id );
+			$candidates = OAE_Fields::get( 'candidates', $election_id );
 			if ( ! is_array( $candidates ) ) {
 				$candidates = [$post_id];
 			} else {
 				$candidates[] = $post_id;
 			}
 
-			OA_Elections_Fields::update( 'candidates', $candidates, $election_id );
+			OAE_Fields::update( 'candidates', $candidates, $election_id );
 			if ( ! is_int( $post_id ) ) {
 				wp_die( var_dump( $post_id ) );
 			}

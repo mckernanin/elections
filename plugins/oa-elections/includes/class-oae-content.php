@@ -14,7 +14,7 @@
  * @since      1.0.0
  * @package    OA Tools
  */
-class OA_Elections_Content {
+class OAE_Content {
 	/**
 	 * Constructor.
 	 *

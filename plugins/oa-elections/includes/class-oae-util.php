@@ -1,5 +1,5 @@
 <?php
-class OA_Elections_Util {
+class OAE_Util {
 
 	function __construct() {
 
