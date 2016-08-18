@@ -20,7 +20,8 @@ class ElectionTheme {
 		add_action( 'send_headers', 		array( $this, 'custom_headers' ) );
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'typekit' ) );
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'scripts_and_styles' ) );
-		add_action( 'phpmailer_init', array( $this, 'send_smtp_email' ) );
+		add_action( 'phpmailer_init', 		array( $this, 'send_smtp_email' ) );
+		add_action( 'template_redirect', 	array( $this, 'home_redirect' ) );
 
 		$this->roots_support();
 	}
@@ -117,6 +118,21 @@ class ElectionTheme {
 		$phpmailer->From = 'kevin@stagewp.co';
 		$phpmailer->FromName = 'Kevin McKernan';
 		// @codingStandardsIgnoreEnd
+	}
+
+	public function home_redirect() {
+		if ( is_front_page() && is_home() ) {
+			if ( is_current_user_logged_in() && current_user_can( 'unit_leader' ) ) {
+				$user = wp_get_current_user();
+				$query = new WP_Query( array(
+					'author'    => $user->data->ID,
+					'post_type' => 'oae_election',
+				));
+				$election = current( $query->posts );
+				wp_safe_redirect( get_the_permalink( $election->ID ) );
+				exit;
+			}
+		}
 	}
 }
 
