@@ -100,13 +100,16 @@ class OAE_Admin {
 
 	}
 
+	/**
+	 * Register unit_leader role.
+	 */
 	public function add_unit_leader_role() {
-		$unit_leader = get_role('unit-leader');
+		$unit_leader = get_role( 'unit-leader' );
 		if ( null === $unit_leader ) {
 			$contributor = get_role( 'contributor' );
 			add_role( 'unit-leader', 'Unit Leader', $contributor->capabilities );
-			$unit_leader = get_role('unit-leader');
-			wp_die(var_dump($unit_leader));
+			$unit_leader = get_role( 'unit-leader' );
+			wp_die( var_dump( $unit_leader ) );
 		}
 	}
 }

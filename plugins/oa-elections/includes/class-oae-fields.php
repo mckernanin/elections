@@ -30,6 +30,7 @@ class OAE_Fields {
 		add_action( 'cmb2_init', array( $this, 'admin_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'election_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'candidate_metaboxes' ) );
+		add_action( 'cmb2_init', array( $this, 'user_metaboxes' ) );
 	}
 
 	/**
@@ -483,6 +484,75 @@ class OAE_Fields {
 		) );
 
 	}
+
+	/**
+	 * Admin metaboxes on elections
+	 */
+	public function user_metaboxes() {
+		/**
+		 * Initiate the metabox
+		 */
+		$user = new_cmb2_box( array(
+			'id'            => 'user_fields',
+			'title'         => __( 'User Fields', 'OA-Elections' ),
+			'object_types'  => array( 'user' ),
+			'context'       => 'normal',
+			'priority'      => 'core',
+			'show_names'    => true,
+		) );
+
+		/**
+		 * Admin Fields
+		 */
+
+		$prefix = '_oa_election_user_';
+
+		$user->add_field( array(
+			'name' => 'First Name',
+			'id'   => $prefix . 'fname',
+			'type' => 'text',
+		) );
+
+		$user->add_field( array(
+			'name' => 'Last Name',
+			'id'   => $prefix . 'lname',
+			'type' => 'text',
+		) );
+
+		$user->add_field( array(
+			'name' => 'Phone',
+			'id'   => $prefix . 'phone',
+			'type' => 'text',
+		) );
+
+		$user->add_field( array(
+			'name' => 'Email',
+			'id'   => $prefix . 'email',
+			'type' => 'text_email',
+		) );
+
+		$user->add_field( array(
+			'name'     => 'Chapter',
+			'id'       => $prefix . 'chapter',
+			'type'     => 'taxonomy_select',
+			'taxonomy' => 'oae_chapter',
+		));
+
+		$user->add_field( array(
+			'name'     => 'Availability',
+			'id'       => $prefix . 'availability',
+			'type'     => 'multicheck',
+			'options'          => array(
+				'monday'    => 'Monday',
+				'tuesday'   => 'Tuesday',
+				'wednesday' => 'Wednesday',
+				'thursday'  => 'Thursday',
+				'friday'    => 'Friday',
+			),
+		));
+	}
+
+
 }
 
 new OAE_Fields();
