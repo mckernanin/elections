@@ -1,6 +1,7 @@
 .single-oae_election,
 .page-request-an-election,
-.single-oae_candidate {
+.single-oae_candidate,
+.page-election-team-signup {
 
 	.selectize-input {
 		padding: 5px 8px;
@@ -51,6 +52,10 @@
 				.pw-map {
 					width: 100%;
 				}
+			}
+
+			&.fullwidth {
+				flex-basis: 100%;
 			}
 		}
 

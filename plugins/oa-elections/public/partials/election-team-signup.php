@@ -11,11 +11,5 @@ $election->add_hidden_field( array(
 	),
 ));
 
-$election->add_field( array(
-	'name' => 'First Name',
-	'id'   => 'fname',
-	'type' => 'text',
-) );
-
 echo '<h2>' . esc_html( $election->meta_box['title'] ) . '</h2>';
 echo cmb2_get_metabox_form( $election, 'user_fields' );

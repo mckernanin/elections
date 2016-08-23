@@ -35,8 +35,7 @@ class OAE_Public {
 		add_shortcode( 'election-team-signup', array( $this, 'shortcode_election_team_signup' ) );
 
 		add_action( 'init', array( $this, 'rewrites' ) );
-		add_action( 'cmb2_init', array( $this, 'unit_edit_form_submission_handler' ) );
-		add_action( 'cmb2_init', array( $this, 'candidate_edit_form_submission_handler' ) );
+		add_action( 'cmb2_init', array( $this, 'form_submission_handler' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'scripts_and_styles' ) );
 
 		add_filter( 'body_class', array( $this, 'section_body_class' ) );
@@ -121,15 +120,6 @@ class OAE_Public {
 	}
 
 	/**
-	 * Election edit form save action
-	 */
-	public function unit_edit_form_submission_handler() {
-
-		include( 'inc/form-handler-unit-edit.php' );
-
-	}
-
-	/**
 	 * New election notification function.
 	 * @todo create a class of notifications.
 	 */
@@ -178,8 +168,15 @@ class OAE_Public {
 		return $classes;
 	}
 
-	public function candidate_edit_form_submission_handler() {
-		include( 'inc/form-handler-candidate.php' );
+	public function form_submission_handler() {
+		if ( empty( $_POST ) ) {
+			return false;
+		}
+
+		if ( ! isset( $_POST['submit-cmb'], $_POST['object_id'], $_POST['_form_action'] ) ) {
+			return false;
+		}
+		new OAE_CMB_Form_Handler( $_POST );
 	}
 
 }

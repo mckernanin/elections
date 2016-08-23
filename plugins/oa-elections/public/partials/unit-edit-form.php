@@ -1,13 +1,12 @@
 <?php
 if ( is_page( 'request-an-election' ) && is_user_logged_in() ) {
 	echo 'Requesting an election is not currently supported for logged in users.';
-} else if ( is_singular( 'oae_election' ) && ! is_user_logged_in() ) {
+} elseif ( is_singular( 'oae_election' ) && ! is_user_logged_in() ) {
 	echo 'You must be logged in to view or edit an election.';
 } else {
+	$post_type  = get_post_type();
 	$object_id  = get_the_ID();
-
 	$election = cmb2_get_metabox( 'unit_fields', $object_id );
-
 	$election->add_hidden_field( array(
 		'field_args'  => array(
 			'id'    => '_post_id',
@@ -15,6 +14,26 @@ if ( is_page( 'request-an-election' ) && is_user_logged_in() ) {
 			'default' => $object_id,
 		),
 	) );
+
+	if ( 'oae_election' !== $post_type ) {
+		$metabox_form_options = array(
+			'save_button' => 'Submit Election',
+		);
+		$form_action = 'create';
+	} else {
+		$metabox_form_options = array(
+			'save_button' => 'Update Election',
+		);
+		$form_action = 'update';
+	}
+
+	$election->add_hidden_field( array(
+		'field_args'  => array(
+			'id'      => '_form_action',
+			'type'    => 'hidden',
+			'default' => $form_action,
+		),
+	));
 
 	// If the post was submitted successfully, notify the user.
 	if ( isset( $_GET['update'] ) ) {

@@ -113,6 +113,11 @@ class OAE {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-oae-admin.php';
 
 		/**
+		 * The class responsible for CMB2 form submissions.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-oae-cmb-form-handler.php';
+
+		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
