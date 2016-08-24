@@ -31,6 +31,7 @@ class OAE_CMB_Form_Handler {
 		$this->action    = sanitize_text_field( $post['_form_action'] );
 		$this->metabox   = sanitize_text_field( $post['object_id'] );
 		$this->which_form();
+		include_once( 'class-oae-notifications.php' );
 	}
 
 	/**
@@ -166,15 +167,15 @@ class OAE_CMB_Form_Handler {
 		 * This will help double-submissions with browser refreshes
 		 */
 		$args = array(
-			'p' => $post_id,
+			'p' => $this->post_id,
 			'update' => true,
 		);
 
-		if ( 'oae_election' !== $current_post_type ) {
+		if ( 'update' !== $this->action ) {
 			$args['new_election'] = true;
 			$args['update'] = false;
-			$this->new_election_notification( $post_id );
-			wp_set_object_terms( $post_id, 'requested', 'oae_status' );
+			OAE_Notifications::new_election_notification( $this->post_id );
+			wp_set_object_terms( $this->post_id, 'requested', 'oae_status' );
 		}
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
