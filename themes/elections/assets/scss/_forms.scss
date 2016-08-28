@@ -1,12 +1,13 @@
 .single-oae_election,
 .page-request-an-election,
 .single-oae_candidate,
-.page-election-team-signup {
+.page-election-team-info {
 
 	.selectize-input {
 		padding: 5px 8px;
 		border-radius: 2px;
 		box-shadow: none;
+		max-width: 250px;
 
 		input {
 			width: auto !important;
@@ -56,6 +57,14 @@
 
 			&.fullwidth {
 				flex-basis: 100%;
+
+				.cmb-th {
+					width: 15%;
+				}
+
+				.cmb-td {
+					width: 85%;
+				}
 			}
 		}
 

@@ -494,7 +494,7 @@ class OAE_Fields {
 		 */
 		$user = new_cmb2_box( array(
 			'id'            => 'user_fields',
-			'title'         => __( 'User Fields', 'OA-Elections' ),
+			'title'         => __( 'Election Team Fields', 'OA-Elections' ),
 			'object_types'  => array( 'user' ),
 			'context'       => 'normal',
 			'priority'      => 'core',
@@ -507,17 +507,33 @@ class OAE_Fields {
 
 		$prefix = '_oa_election_user_';
 
-		$user->add_field( array(
-			'name' => 'First Name',
-			'id'   => $prefix . 'fname',
-			'type' => 'text',
-		) );
+		if ( is_admin() ) {
+			$user->add_field( array(
+				'name' => 'Election Team Fields',
+				'id'   => $prefix . 'title',
+				'type' => 'title',
+			) );
+		}
 
-		$user->add_field( array(
-			'name' => 'Last Name',
-			'id'   => $prefix . 'lname',
-			'type' => 'text',
-		) );
+		if ( ! is_admin() ) {
+			$user->add_field( array(
+				'name' => 'First Name',
+				'id'   => $prefix . 'fname',
+				'type' => 'text',
+			) );
+
+			$user->add_field( array(
+				'name' => 'Last Name',
+				'id'   => $prefix . 'lname',
+				'type' => 'text',
+			) );
+
+			$user->add_field( array(
+				'name' => 'Email',
+				'id'   => $prefix . 'email',
+				'type' => 'text_email',
+			) );
+		}
 
 		$user->add_field( array(
 			'name' => 'Phone',
@@ -526,23 +542,23 @@ class OAE_Fields {
 		) );
 
 		$user->add_field( array(
-			'name' => 'Email',
-			'id'   => $prefix . 'email',
-			'type' => 'text_email',
-		) );
-
-		$user->add_field( array(
-			'name'     => 'Chapter',
-			'id'       => $prefix . 'chapter',
-			'type'     => 'taxonomy_select',
-			'taxonomy' => 'oae_chapter',
+			'name'       => 'Chapter',
+			'id'         => $prefix . 'chapter',
+			'type'       => 'select',
+			'row_classes' => 'fullwidth',
+			'options_cb' => array( $this, 'cmb2_get_term_options' ),
+			'get_terms_args' => array(
+		        'taxonomy'   => 'oae_chapter',
+		        'hide_empty' => false,
+		    ),
 		));
 
 		$user->add_field( array(
-			'name'     => 'Availability',
-			'id'       => $prefix . 'availability',
-			'type'     => 'multicheck',
-			'options'          => array(
+			'name'        => 'Availability',
+			'id'          => $prefix . 'availability',
+			'type'        => 'multicheck_inline',
+			'row_classes' => 'fullwidth',
+			'options'     => array(
 				'monday'    => 'Monday',
 				'tuesday'   => 'Tuesday',
 				'wednesday' => 'Wednesday',
@@ -550,6 +566,34 @@ class OAE_Fields {
 				'friday'    => 'Friday',
 			),
 		));
+	}
+
+	/**
+	 * Gets a number of terms and displays them as options
+	 * @param  CMB2_Field $field
+	 * @return array An array of options that matches the CMB2 options array
+	 */
+	public function cmb2_get_term_options( $field ) {
+	    $args = $field->args( 'get_terms_args' );
+	    $args = is_array( $args ) ? $args : array();
+
+	    $args = wp_parse_args( $args, array( 'taxonomy' => 'category' ) );
+
+	    $taxonomy = $args['taxonomy'];
+
+	    $terms = (array) cmb2_utils()->wp_at_least( '4.5.0' )
+	        ? get_terms( $args )
+	        : get_terms( $taxonomy, $args );
+
+	    // Initate an empty array
+	    $term_options = array();
+	    if ( ! empty( $terms ) ) {
+	        foreach ( $terms as $term ) {
+	            $term_options[ $term->term_id ] = $term->name;
+	        }
+	    }
+
+	    return $term_options;
 	}
 
 

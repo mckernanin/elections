@@ -1,15 +1,25 @@
 <?php
-$object_id  = get_the_ID();
+$object_id  = get_current_user_id();
 
-$election = cmb2_get_metabox( 'user_fields', $object_id );
+$prefix = '_oa_election_user_';
 
-$election->add_hidden_field( array(
+$team = cmb2_get_metabox( 'user_fields', $object_id );
+
+$team->add_hidden_field( array(
 	'field_args'  => array(
-		'id'    => '_post_id',
-		'type'  => 'hidden',
+		'id'      => '_post_id',
+		'type'    => 'hidden',
 		'default' => $object_id,
 	),
 ));
 
-echo '<h2>' . esc_html( $election->meta_box['title'] ) . '</h2>';
-echo cmb2_get_metabox_form( $election, 'user_fields' );
+$team->add_hidden_field( array(
+	'field_args'  => array(
+		'id'      => '_form_action',
+		'type'    => 'hidden',
+		'default' => 'create',
+	),
+));
+
+echo '<h2>' . esc_html( $team->meta_box['title'] ) . '</h2>';
+echo cmb2_get_metabox_form( $team, 'user_fields' );

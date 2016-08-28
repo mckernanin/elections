@@ -22,6 +22,14 @@ class OAE_CMB_Form_Handler {
 
 	protected $sanitized_values;
 
+	protected $user_id;
+
+	protected $email;
+
+	protected $fname;
+
+	protected $lname;
+
 	/**
 	 * Constructor
 	 */
@@ -30,6 +38,7 @@ class OAE_CMB_Form_Handler {
 		$this->post_id   = absint( $post['_post_id'] );
 		$this->action    = sanitize_text_field( $post['_form_action'] );
 		$this->metabox   = sanitize_text_field( $post['object_id'] );
+		$this->user_id   = get_current_user_id();
 		$this->which_form();
 		include_once( 'class-oae-notifications.php' );
 	}
@@ -45,6 +54,10 @@ class OAE_CMB_Form_Handler {
 
 			case 'candidate_fields':
 				$this->candidate();
+				break;
+
+			case 'user_fields':
+				$this->election_team();
 				break;
 
 			default:
@@ -64,10 +77,10 @@ class OAE_CMB_Form_Handler {
 	 * @param string $role  The role to be assigned to the user.
 	 */
 	public function check_for_user( $email, $fname, $lname, $role ) {
-		if ( null === username_exists( $email ) ) {
+		if ( false === email_exists( $email ) ) {
 
 			$password = wp_generate_password( 12, false );
-			$user_id  = wp_create_user( $email, $password, $email );
+			$this->user_id  = wp_create_user( $email, $password, $email );
 
 			wp_update_user(
 				array(
@@ -78,15 +91,14 @@ class OAE_CMB_Form_Handler {
 				)
 			);
 
-			$user = new WP_User( $user_id );
+			$user = new WP_User( $this->user_id );
 			$user->set_role( $role );
-			wp_new_user_notification( $user_id, null, 'both' );
+			// wp_new_user_notification( $user_id, null, 'both' );
 
 		} else {
 			$user = get_user_by( 'email', $email );
-			$user_id = $user->ID;
+			$this->user_id = $user->ID;
 		}
-		return $user_id;
 	}
 
 	/**
@@ -146,12 +158,25 @@ class OAE_CMB_Form_Handler {
 		}
 	}
 
+	public function update_user_meta( $cmb ) {
+		$this->sanitized_values = $cmb->get_sanitized_values( $this->post_data );
+		if ( false === intval( $this->user_id ) ) {
+			wp_die( 'Invalid user ID' );
+		}
+		foreach ( $this->sanitized_values as $key => $value ) {
+			if ( false !== strpos( $key, '_oa_election_user' ) ) {
+				update_user_meta( $this->user_id, $key, $value );
+			}
+		}
+	}
+
 	/**
 	 * Form submission handler for Unit Edit form.
 	 *
 	 * @package OA_Elections
 	 */
 	public function unit() {
+		$this->check_for_user( $this->email, $this->fname, $this->lname, 'unit_leader' );
 		$unit_number   = intval( $this->post_data['_oa_election_unit_number'] );
 		$post_title    = 'Troop ' . $unit_number;
 		$post_name     = 'troop-' . $unit_number . '-' . date( 'Y' );
@@ -207,6 +232,19 @@ class OAE_CMB_Form_Handler {
 		);
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
+		exit;
+	}
+
+	public function election_team() {
+		$cmb = cmb2_get_metabox( $this->metabox, $this->post_id );
+		if ( ! isset( $_POST[ $cmb->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() ) ) {
+			return $cmb->prop( 'submission_error', wp_die( 'security_fail', esc_html( 'Security check failed.' ) ) );
+		}
+		$this->sanitized_values = $cmb->get_sanitized_values( $this->post_data );
+		$this->check_for_user( $this->sanitized_values['_oa_election_user_email'], $this->sanitized_values['_oa_election_user_fname'], $this->sanitized_values['_oa_election_user_lname'], 'election_team' );
+		$this->update_user_meta( $cmb );
+
+		wp_safe_redirect( esc_url_raw( '/election-team-info/' ) );
 		exit;
 	}
 }
