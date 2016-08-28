@@ -54,10 +54,13 @@ get_header(); ?>
 					Status
 				</th>
 			</tr>
-			<?php foreach ($candidates as $candidate) { ?>
+			<?php foreach ( $candidates as $candidate ) { ?>
 				<tr>
 					<td>
 						<?php echo get_the_title( $candidate ); ?>
+					</td>
+					<td>
+						<a href="<?php the_permalink( $candidate ); ?>">Edit Candidate</a>
 					</td>
 				</tr>
 			<?php } ?>
