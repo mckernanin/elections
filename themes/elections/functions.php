@@ -25,6 +25,9 @@ class ElectionTheme {
 		add_action( 'login_head', 			array( $this, 'my_custom_login' ) );
 		add_action( 'login_head', 			array( $this, 'typekit' ) );
 
+		add_filter( 'wp_mail_from', 			array( $this, 'mail_from_filter' ) );
+		add_filter( 'wp_mail_content_type', 	array( $this, 'mail_content_type_filter' ) );
+
 		$this->roots_support();
 	}
 
@@ -117,7 +120,7 @@ class ElectionTheme {
 		// Encryption system to use - ssl or tls.
 		$phpmailer->SMTPSecure = 'tls';
 
-		$phpmailer->From = 'kevin@stagewp.co';
+		$phpmailer->setFrom = 'kevin@stagewp.co';
 		$phpmailer->FromName = 'Kevin McKernan';
 		// @codingStandardsIgnoreEnd
 	}
@@ -145,6 +148,14 @@ class ElectionTheme {
 
 	function my_custom_login() {
 		echo '<link rel="stylesheet" type="text/css" href="' . get_stylesheet_directory_uri() . '/login.css" />';
+	}
+
+	function mail_from_filter() {
+		return 'kevin@stagewp.co';
+	}
+
+	function mail_content_type_filter() {
+		return 'text/html';
 	}
 }
 
