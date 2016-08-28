@@ -418,6 +418,7 @@ class OAE_Fields {
 		$cmb->add_field(  array(
 			'name' => 'Address',
 			'id'   => $prefix . 'address',
+			'row_classes' => 'fullwidth',
 			'type' => 'address',
 		) );
 

@@ -45,31 +45,34 @@ get_header(); ?>
 				</td>
 			</tr>
 		</table>
-		<table>
-			<tr>
-				<th>
-					Candidate
-				</th>
-				<th>
-					Status
-				</th>
-			</tr>
-			<?php foreach ( $candidates as $candidate ) { ?>
+		<?php if ( $candidates ) { ?>
+			<table>
 				<tr>
-					<td>
-						<?php echo get_the_title( $candidate ); ?>
-					</td>
-					<td>
-						<a href="<?php the_permalink( $candidate ); ?>">Edit Candidate</a>
-					</td>
+					<th>
+						Candidate
+					</th>
+					<th>
+						Status
+					</th>
 				</tr>
-			<?php } ?>
-		</table>
-		<?php
+				<?php foreach ( $candidates as $candidate ) { ?>
+					<tr>
+						<td>
+							<?php echo get_the_title( $candidate ); ?>
+						</td>
+						<td>
+							<a href="<?php the_permalink( $candidate ); ?>">Edit Candidate</a>
+						</td>
+					</tr>
+				<?php } ?>
+			</table>
+		<?php } else { ?>
+			<h4>This election does not currently have any candidates.</h4>
+		<?php }
 		}
-			// End of the loop.
-		endwhile;
-		?>
+		// End of the loop.
+	endwhile;
+	?>
 
 	</main><!-- .site-main -->
 
