@@ -22,6 +22,8 @@ class ElectionTheme {
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'scripts_and_styles' ) );
 		add_action( 'phpmailer_init', 		array( $this, 'send_smtp_email' ) );
 		add_action( 'template_redirect', 	array( $this, 'home_redirect' ) );
+		add_action( 'login_head', 			array( $this, 'my_custom_login' ) );
+		add_action( 'login_head', 			array( $this, 'typekit' ) );
 
 		$this->roots_support();
 	}
@@ -139,6 +141,10 @@ class ElectionTheme {
 				exit;
 			}
 		}
+	}
+
+	function my_custom_login() {
+		echo '<link rel="stylesheet" type="text/css" href="' . get_stylesheet_directory_uri() . '/login.css" />';
 	}
 }
 

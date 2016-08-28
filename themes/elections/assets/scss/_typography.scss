@@ -50,32 +50,36 @@ p {
 	text-align: justify;
 }
 
-.site-content a:not(.fc-end) {
-	color: white;
-	position: relative;
-	display: inline-block;
-	text-decoration: none;
-	box-shadow: none;
+.site-content,
+.login {
 
-	&:after {
-		content: "";
-		width: 80%;
-		background: $blue;
+	a:not(.fc-end) {
+		color: white;
+		position: relative;
 		display: inline-block;
-		height: 2px;
-		position: absolute;
-		bottom: -2px;
-		left: 50%;
-		transform: translateX(-50%);
-		transition: 0.3s;
+		text-decoration: none;
+		box-shadow: none;
 
-		@include bp(phone-tablet) {
-			// bottom: -1.5px
+		&:after {
+			content: "";
+			width: 80%;
+			background: $blue;
+			display: inline-block;
+			height: 2px;
+			position: absolute;
+			bottom: -2px;
+			left: 50%;
+			transform: translateX(-50%);
+			transition: 0.3s;
+
+			@include bp(phone-tablet) {
+				// bottom: -1.5px
+			}
 		}
-	}
 
-	&:hover:after {
-	width: 105%;
+		&:hover:after {
+		width: 105%;
+		}
 	}
 }
 
