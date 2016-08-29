@@ -52,6 +52,7 @@ class OAE_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		// $this->add_unit_leader_role();
+		// $this->add_chapter_admin_role();
 	}
 
 	/**
@@ -101,7 +102,7 @@ class OAE_Admin {
 	}
 
 	/**
-	 * Register unit_leader role.
+	 * Register unit-leader role.
 	 */
 	public function add_unit_leader_role() {
 		$unit_leader = get_role( 'unit-leader' );
@@ -109,6 +110,19 @@ class OAE_Admin {
 			$contributor = get_role( 'contributor' );
 			add_role( 'unit-leader', 'Unit Leader', $contributor->capabilities );
 			$unit_leader = get_role( 'unit-leader' );
+			wp_die( var_dump( $unit_leader ) );
+		}
+	}
+
+	/**
+	 * Register chapter-admin role.
+	 */
+	public function add_chapter_admin_role() {
+		$unit_leader = get_role( 'chapter-admin' );
+		if ( null === $unit_leader ) {
+			$editor = get_role( 'editor' );
+			add_role( 'chapter-admin', 'Chapter Admin', $editor->capabilities );
+			$unit_leader = get_role( 'chapter-admin' );
 			wp_die( var_dump( $unit_leader ) );
 		}
 	}
