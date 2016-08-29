@@ -28,6 +28,11 @@ class OAE_Notifications {
 
 		ob_start();
 		?>
+		<p>
+			Thank you for scheduling an election! You will be notified once a date is selected.
+			In the mean time, please enter your candidates. All candidates must be entered online
+			before an election can take place.
+		</p>
 		<table>
 		<?php foreach ( $fields as $key => $field ) { ?>
 			<tr>
