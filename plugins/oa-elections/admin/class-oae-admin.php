@@ -53,6 +53,7 @@ class OAE_Admin {
 		$this->version = $version;
 		// $this->add_unit_leader_role();
 		// $this->add_chapter_admin_role();
+		// $this->add_election_team_role();
 	}
 
 	/**
@@ -118,12 +119,25 @@ class OAE_Admin {
 	 * Register chapter-admin role.
 	 */
 	public function add_chapter_admin_role() {
-		$unit_leader = get_role( 'chapter-admin' );
-		if ( null === $unit_leader ) {
+		$chapter_admin = get_role( 'chapter-admin' );
+		if ( null === $chapter_admin ) {
 			$editor = get_role( 'editor' );
 			add_role( 'chapter-admin', 'Chapter Admin', $editor->capabilities );
-			$unit_leader = get_role( 'chapter-admin' );
-			wp_die( var_dump( $unit_leader ) );
+			$chapter_admin = get_role( 'chapter-admin' );
+			wp_die( var_dump( $chapter_admin ) );
+		}
+	}
+
+	/**
+	 * Register election-team role.
+	 */
+	public function add_election_team_role() {
+		$unit_leader = get_role( 'election-team' );
+		if ( null === $election_team ) {
+			$contributor = get_role( 'contributor' );
+			add_role( 'election-team', 'Election Team', $contributor->capabilities );
+			$election_team = get_role( 'election-team' );
+			wp_die( var_dump( $election_team ) );
 		}
 	}
 }
