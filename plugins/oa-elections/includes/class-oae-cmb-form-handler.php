@@ -60,6 +60,10 @@ class OAE_CMB_Form_Handler {
 				$this->election_team();
 				break;
 
+			case 'chapter_fields':
+				$this->chapter_election_edit();
+				break;
+
 			default:
 				return false;
 				break;
@@ -241,10 +245,27 @@ class OAE_CMB_Form_Handler {
 			return $cmb->prop( 'submission_error', wp_die( 'security_fail', esc_html( 'Security check failed.' ) ) );
 		}
 		$this->sanitized_values = $cmb->get_sanitized_values( $this->post_data );
-		$this->check_for_user( $this->sanitized_values['_oa_election_user_email'], $this->sanitized_values['_oa_election_user_fname'], $this->sanitized_values['_oa_election_user_lname'], 'election_team' );
+		$this->check_for_user( $this->sanitized_values['_oa_election_user_email'], $this->sanitized_values['_oa_election_user_fname'], $this->sanitized_values['_oa_election_user_lname'], 'election-team' );
 		$this->update_user_meta( $cmb );
 
 		wp_safe_redirect( esc_url_raw( '/election-team-info/' ) );
+		exit;
+	}
+
+	public function chapter_election_edit() {
+		$cmb = cmb2_get_metabox( $this->metabox, $this->post_id );
+		if ( ! isset( $_POST[ $cmb->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() ) ) {
+			return $cmb->prop( 'submission_error', wp_die( 'security_fail', esc_html( 'Security check failed.' ) ) );
+		}
+		$this->sanitized_values = $cmb->get_sanitized_values( $this->post_data );
+		$this->update_meta( $cmb );
+
+		$args = array(
+			'p' => $post_id,
+			'editing_section' => 'chapter-edit-election',
+		);
+
+		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
 		exit;
 	}
 }

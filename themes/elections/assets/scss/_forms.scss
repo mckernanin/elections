@@ -172,6 +172,22 @@
 			flex-basis: 40%;
 		}
 	}
+
+	.attached-posts-wrap {
+
+		a {
+			color: #666;
+			display: inline;
+
+			&:after {
+				display: none;
+			}
+		}
+
+		.dashicons {
+			color: #666;
+		}
+	}
 }
 
 .section-add-candidate {

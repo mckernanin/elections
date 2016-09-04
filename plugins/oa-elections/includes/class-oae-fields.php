@@ -28,6 +28,7 @@ class OAE_Fields {
 	 */
 	public function load_fields() {
 		add_action( 'cmb2_init', array( $this, 'admin_metaboxes' ) );
+		add_action( 'cmb2_init', array( $this, 'chapter_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'election_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'candidate_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'user_metaboxes' ) );
@@ -355,8 +356,9 @@ class OAE_Fields {
 
 		$election_admin->add_field( array(
 			'name'    => 'Candidates',
-			'desc'    => 'Drag posts from the left column to the right column to attach them to this page.<br />You may rearrange the order of the posts in the right column by dragging and dropping.',
+			'desc'    => 'Assign candidates to an election by dragging them into the right column.',
 			'id'      => $prefix . 'candidates',
+			'row_classes' => 'fullwidth',
 			'type'    => 'custom_attached_posts',
 			'options' => array(
 				'show_thumbnails' => true,
@@ -569,6 +571,37 @@ class OAE_Fields {
 		));
 	}
 
+	/**
+	 * Chapter Metaboxes
+	 */
+	public function chapter_metaboxes() {
+		/**
+		 * Initiate the metabox
+		 */
+		$election_chapter = new_cmb2_box( array(
+			'id'            => 'chapter_fields',
+			'title'         => __( 'Chapter Fields', 'OA-Elections' ),
+			'object_types'  => array( 'oae_election' ),
+			'context'       => 'normal',
+			'priority'      => 'core',
+			'show_names'    => true,
+		) );
+
+		$prefix = '_oa_election_';
+
+		$election_chapter->add_field( array(
+			'name'    => 'Election Team',
+			'desc'    => 'Assign election team members by dragging them into the right column.',
+			'id'      => $prefix . 'team_members',
+			'row_classes' => 'fullwidth',
+			'type'    => 'custom_attached_posts',
+			'options' => array(
+				'query_users'     => true,
+				'show_thumbnails' => true, // Show thumbnails on the left
+				'filter_boxes'    => true, // Show a text box for filtering the results
+			),
+		));
+	}
 	/**
 	 * Gets a number of terms and displays them as options
 	 * @param  CMB2_Field $field

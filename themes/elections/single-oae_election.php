@@ -25,6 +25,8 @@ get_header(); ?>
 			echo do_shortcode( '[candidate-entry]' );
 		} elseif ( 'edit-election' === $section ) {
 			echo do_shortcode( '[unit-edit-form]' );
+		} elseif ( 'chapter-edit-election' === $section ) {
+			echo do_shortcode( '[unit-edit-form-chapter]' );
 		} else {
 			$candidates = OAE_Fields::get( 'candidates' );
 		?>
@@ -58,10 +60,10 @@ get_header(); ?>
 				<?php foreach ( $candidates as $candidate ) { ?>
 					<tr>
 						<td>
-							<?php echo get_the_title( $candidate ); ?>
+							<a href="<?php the_permalink( $candidate ); ?>"><?php echo get_the_title( $candidate ); ?></a>
 						</td>
 						<td>
-							<a href="<?php the_permalink( $candidate ); ?>">Edit Candidate</a>
+							<?php echo esc_html( OAE_Util::get_cand_status( $candidate ) ); ?>
 						</td>
 					</tr>
 				<?php } ?>
