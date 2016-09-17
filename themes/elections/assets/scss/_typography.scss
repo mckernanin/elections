@@ -29,19 +29,23 @@ h1 {
 
 h2 {
 	font-size: 2.5em;
+	line-height: 1.2;
 }
 
 h3 {
 	font-size: 2em;
+	line-height: 1.2;
 }
 
 h4 {
 	font-size: 1.75em;
+	line-height: 1.2;
 }
 
 h5,
 h5.cmb2-metabox-title {
 	font-size: 1.5em;
+	line-height: 1.2;
 }
 
 p {
@@ -53,7 +57,7 @@ p {
 .site-content,
 .login {
 
-	a:not(.fc-end) {
+	a:not(.fc-end):not(.button) {
 		color: white;
 		position: relative;
 		display: inline-block;
@@ -80,6 +84,30 @@ p {
 		&:hover:after {
 		width: 105%;
 		}
+	}
+}
+
+a.button {
+	background: white;
+	border: 0;
+	border-radius: 2px;
+	font-family: Montserrat, "Helvetica Neue", sans-serif;
+	font-weight: 700;
+	letter-spacing: 0.046875em;
+	line-height: 1;
+	padding: 0.84375em 0.875em 0.78125em;
+	text-transform: uppercase;
+	font-size: 16px;
+	font-size: 1rem;
+	color: $red;
+	opacity: 0.8;
+	transition: 0.3s;
+	margin-top: 1em;
+	display: inline-block;
+
+	&:hover {
+		opacity: 1;
+		color: $red;
 	}
 }
 

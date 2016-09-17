@@ -68,8 +68,10 @@ get_header(); ?>
 					</tr>
 				<?php } ?>
 			</table>
+			<a class="button" href="add-candidate">Add Candidate</a>
 		<?php } else { ?>
-			<h4>This election does not currently have any candidates.</h4>
+			<h4>This election does not currently have any candidates. <br>Before your election can take place, you must enter your candidates online.</h4>
+			<a class="button" href="add-candidate">Add Candidate</a>
 		<?php }
 		}
 		// End of the loop.
