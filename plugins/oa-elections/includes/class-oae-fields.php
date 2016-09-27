@@ -32,6 +32,7 @@ class OAE_Fields {
 		add_action( 'cmb2_init', array( $this, 'election_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'candidate_metaboxes' ) );
 		add_action( 'cmb2_init', array( $this, 'user_metaboxes' ) );
+		add_action( 'cmb2_init', array( $this, 'report_metaboxes' ) );
 	}
 
 	/**
@@ -602,8 +603,54 @@ class OAE_Fields {
 			),
 		));
 	}
+
+
+	/**
+	 * Election Report Metaboxes
+	 */
+	public function report_metaboxes() {
+		/**
+		 * Initiate the metabox
+		 */
+		$election_report = new_cmb2_box( array(
+			'id'            => 'report_fields',
+			'title'         => __( 'Report Fields', 'OA-Elections' ),
+			'object_types'  => array( 'oae_election' ),
+			'context'       => 'normal',
+			'priority'      => 'core',
+			'show_names'    => true,
+		) );
+
+		$prefix = '_oa_election_';
+
+		$election_report->add_field( array(
+			'name'    => 'Registered Active Youth',
+			'id'      => $prefix . 'registered_youth',
+			'type'    => 'text',
+		));
+
+		$election_report->add_field( array(
+			'name'    => 'Youth Attendance',
+			'id'      => $prefix . 'youth_attendance',
+			'type'    => 'text',
+		));
+
+		$election_report->add_field( array(
+			'name'    => 'Election 1 Ballots',
+			'id'      => $prefix . 'election_one_ballots',
+			'type'    => 'text',
+		));
+
+		$election_report->add_field( array(
+			'name'    => 'Election 2 Ballots',
+			'id'      => $prefix . 'election_two_ballots',
+			'type'    => 'text',
+		));
+	}
+
 	/**
 	 * Gets a number of terms and displays them as options
+	 * Save term ID as meta, instead of setting the term on an object.
 	 * @param  CMB2_Field $field
 	 * @return array An array of options that matches the CMB2 options array
 	 */

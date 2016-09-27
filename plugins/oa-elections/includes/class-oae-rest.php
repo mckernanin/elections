@@ -42,12 +42,17 @@ class OAE_REST {
 		register_rest_route( $namespace, '/election-dates/', array(
 			'methods'  => 'GET',
 			'callback' => array( $this, 'get_election_dates' ),
-		) );
+		));
 
 		register_rest_route( $namespace, '/schedule-election/', array(
 			'methods'  => 'POST',
 			'callback' => array( $this, 'schedule_election' ),
-		) );
+		));
+
+		register_rest_route( $namespace, '/set-election-results/', array(
+			'methods'  => 'POST',
+			'callback' => array( $this, 'set_election_results' ),
+		));
 	}
 
 	/**
@@ -126,6 +131,24 @@ class OAE_REST {
 		$response = new WP_REST_Response( $response );
 		$response->header( 'Access-Control-Allow-Origin', apply_filters( 'access_control_allow_origin', '*' ) );
 
+		return $response;
+	}
+
+	public function set_election_results() {
+		$report = $_POST['report'];
+		$post_id = absint( $report['ID'] );
+		wp_set_object_terms( $post_id, 'results-entered', 'oae_status' );
+		update_post_meta( $post_id, '_oa_election_registered_youth', absint( $report['registeredActiveYouth'] ) );
+		update_post_meta( $post_id, '_oa_election_youth_attendance', absint( $report['youthAttendance'] ) );
+		update_post_meta( $post_id, '_oa_election_election_one_ballots', absint( $report['electionOne']['ballots'] ) );
+		update_post_meta( $post_id, '_oa_election_election_two_ballots', absint( $report['electionTwo']['ballots'] ) );
+
+		foreach ( $report['candidates'] as $candidate ) {
+			wp_set_object_terms( $candidate, 'elected', 'oae_cand_status' );
+		}
+
+		$response = 'Election results have been saved.';
+		$response = new WP_REST_Response( $response );
 		return $response;
 	}
 }
