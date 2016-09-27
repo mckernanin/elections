@@ -176,11 +176,12 @@
 	.attached-posts-wrap {
 
 		a {
-			color: #666;
+			color: #666 !important;
 			display: inline;
+			text-indent: 0;
 
 			&:after {
-				display: none;
+				display: none !important;
 			}
 		}
 
