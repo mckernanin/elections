@@ -27,6 +27,10 @@ h1 {
 	}
 }
 
+.entry-title {
+	margin-top: 1.05em;
+}
+
 h2 {
 	font-size: 2.5em;
 	line-height: 1.2;
@@ -58,7 +62,7 @@ p {
 .login {
 
 	a:not(.fc-end):not(.button) {
-		color: white;
+		color: #404040;
 		position: relative;
 		display: inline-block;
 		text-decoration: none;
@@ -67,7 +71,7 @@ p {
 		&:after {
 			content: "";
 			width: 80%;
-			background: $blue;
+			background: $red;
 			display: inline-block;
 			height: 2px;
 			position: absolute;

@@ -1,20 +1,27 @@
 .site-header {
+	background: $red;
+	padding-top: 0;
+	padding-bottom: 0;
 
 	.main-navigation {
 
 		> li:hover {
 
 			> a {
-				color: rgba(white, 1);
+				color: rgba(#fff, 1);
 			}
 		}
 
 		a {
-			color: rgba(white, 0.7);
+			color: rgba(#fff, 0.7);
 
 			&:hover {
-				color: rgba(white, 1);
+				color: rgba(#fff, 1);
 			}
 		}
+	}
+
+	.site-title a {
+		color: white !important;
 	}
 }
