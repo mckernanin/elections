@@ -60,10 +60,18 @@
 
 				.cmb-th {
 					width: 15%;
+
+					@include bp(phone) {
+						width: 100%;
+					}
 				}
 
 				.cmb-td {
 					width: 85%;
+
+					@include bp(phone) {
+						width: 100%;
+					}
 				}
 			}
 		}

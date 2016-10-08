@@ -29,9 +29,15 @@ body {
 	width: 90%;
 	max-width: 1320px;
 	margin: 3em auto;
+	padding: 0;
 	background: white;
 	display: flex;
 	align-items: center;
+
+	@include bp(phone) {
+		width: 100%;
+		padding: 0 1em;
+	}
 }
 
 .site-inner {

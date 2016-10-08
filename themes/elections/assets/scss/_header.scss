@@ -5,7 +5,8 @@
 
 	.main-navigation {
 
-		> li:hover {
+		li:hover,
+		li.focus {
 
 			> a {
 				color: rgba(#fff, 1);
@@ -19,9 +20,40 @@
 				color: rgba(#fff, 1);
 			}
 		}
+
+		ul ul li {
+			background: $red;
+		}
+
+		ul ul:after {
+			border-top-color: $red;
+			border-bottom-color: $red;
+		}
 	}
 
 	.site-title a {
 		color: white !important;
+	}
+
+	.menu-toggle {
+		color: white;
+		border: 1px solid $red-dk;
+
+		&:focus {
+			color: white;
+			border: 1px solid $red-dk;
+		}
+
+		&.toggled-on {
+			background-color: $red-dk;
+		}
+	}
+
+	.dropdown-toggle {
+		color: white;
+
+		&:focus {
+			color: white;
+		}
 	}
 }
