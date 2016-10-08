@@ -35,6 +35,7 @@ class OAE_Public {
 		add_shortcode( 'election-team-signup', array( $this, 'shortcode_election_team_signup' ) );
 		add_shortcode( 'unit-edit-form-chapter', array( $this, 'shortcode_unit_edit_form_chapter' ) );
 		add_shortcode( 'election-report', array( $this, 'shortcode_election_report' ) );
+		add_shortcode( 'ballots', array( $this, 'shortcode_ballots' ) );
 
 		add_action( 'init', array( $this, 'rewrites' ) );
 		add_action( 'cmb2_init', array( $this, 'form_submission_handler' ) );
@@ -153,6 +154,18 @@ class OAE_Public {
 	public function shortcode_election_report( $atts = array() ) {
 		ob_start();
 		include( 'partials/election-report.php' );
+		$output = ob_get_clean();
+		return $output;
+	}
+
+	/**
+	 * Shortcode to display ballots.
+	 * @param  array  $atts Shortcode attributes
+	 * @return string       Form HTML markup
+	 */
+	public function shortcode_ballots( $atts = array() ) {
+		ob_start();
+		include( 'partials/ballots.php' );
 		$output = ob_get_clean();
 		return $output;
 	}

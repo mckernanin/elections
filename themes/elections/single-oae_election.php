@@ -29,6 +29,8 @@ get_header(); ?>
 			echo do_shortcode( '[unit-edit-form-chapter]' );
 		} elseif ( 'report' === $section ) {
 			echo do_shortcode( '[election-report]' );
+		} elseif ( 'ballots' === $section ) {
+			echo do_shortcode( '[ballots]' );
 		} else {
 			$candidates = OAE_Fields::get( 'candidates' );
 		?>
