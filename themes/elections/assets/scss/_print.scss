@@ -1,0 +1,45 @@
+@media print {
+
+	#masthead,
+	h1,
+	footer {
+		display: none;
+	}
+
+	.site {
+		margin: 0;
+	}
+
+	.site-main {
+		margin: 0;
+		width: 8.5in;
+		height: 11in;
+		outline: 1px red solid;
+		overflow: hidden;
+		padding: 10px;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-around;
+		align-items: flex-start;
+	}
+
+	.ballots {
+		display: block;
+		width: 50%;
+		margin-bottom: 1em;
+		margin-right: auto;
+
+		h3 {
+			font-size: 1em;
+		}
+
+		ul {
+			list-style: none;
+			margin: 0;
+		}
+
+		input {
+			display: inline;
+		}
+	}
+}
