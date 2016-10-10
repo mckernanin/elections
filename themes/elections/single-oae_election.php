@@ -20,6 +20,15 @@ get_header(); ?>
 		// Start the loop.
 		while ( have_posts() ) : the_post(); ?>
 			<h1><?php the_title(); ?></h1>
+			<ul class="single-election-nav">
+				<li><strong>Actions:</strong></li>
+				<li><a href="<?php the_permalink(); ?>">Election Home</a></li>
+				<li><a href="<?php the_permalink(); ?>/edit-election">Edit election</a></li>
+				<li><a href="<?php the_permalink(); ?>/add-candidate">Add candidates</a></li>
+				<li><a href="<?php the_permalink(); ?>/chapter-edit-election">Edit election (admin options)</a></li>
+				<li><a href="<?php the_permalink(); ?>/report">View report</a></li>
+				<li><a href="<?php the_permalink(); ?>/ballots">Print ballots</a></li>
+			</ul>
 		<?php
 		if ( 'add-candidate' === $section ) {
 			echo do_shortcode( '[candidate-entry]' );
@@ -34,9 +43,6 @@ get_header(); ?>
 		} else {
 			$candidates = OAE_Fields::get( 'candidates' );
 		?>
-		<p>
-			A short overview of the election will appear here, with actions. Currently, you can <a href="edit-election">edit an election</a> or <a href="add-candidate">add candidates.</a><br />
-		</p>
 		<table>
 			<tr>
 				<td>Election Status:</td>

@@ -29,7 +29,6 @@ body {
 	width: 90%;
 	max-width: 1320px;
 	margin: 3em auto;
-	padding: 0;
 	background: white;
 	display: flex;
 	align-items: center;
@@ -45,4 +44,30 @@ body {
 	min-height: 100vh;
 	flex-flow: column;
 	max-width: 100%;
+}
+
+.single-election-nav {
+	list-style: none;
+	display: flex;
+	width: 100%;
+	margin: 0 0 2em;
+
+	li {
+		padding: 10px;
+
+		&:first-of-type {
+			padding-left: 0;
+		}
+
+		a {
+
+			&:hover {
+				color: $red !important;
+			}
+
+			&:after {
+				display: none !important;
+			}
+		}
+	}
 }
