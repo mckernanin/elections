@@ -6,3 +6,4 @@
 !composer.json
 
 themes/elections/node_modules
+plugins/oa-elections/node_modules
