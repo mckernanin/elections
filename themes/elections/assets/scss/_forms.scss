@@ -59,7 +59,7 @@
 				flex-basis: 100%;
 
 				.cmb-th {
-					width: 15%;
+					width: 30%;
 
 					@include bp(phone) {
 						width: 100%;
@@ -67,10 +67,24 @@
 				}
 
 				.cmb-td {
-					width: 85%;
+					width: 70%;
+					padding-right: 0;
 
 					@include bp(phone) {
 						width: 100%;
+					}
+				}
+
+				textarea {
+					width: 100%;
+				}
+
+				&.cmb-type-title {
+
+					.cmb-td,
+					.cmb-th {
+						width: 100%;
+						padding-right: 8%;
 					}
 				}
 			}
@@ -85,7 +99,7 @@
 			}
 
 			label {
-				padding: 0;
+				padding: 0 5px 0 0;
 				line-height: 28px;
 			}
 		}
