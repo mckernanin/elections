@@ -80,7 +80,7 @@ class OAE_Fields {
 		 */
 		$cmb = new_cmb2_box( array(
 			'id'            => 'unit_fields',
-			'title'         => __( 'Unit Fields', 'OA-Elections' ),
+			'title'         => __( 'Unit Information', 'OA-Elections' ),
 			'object_types'  => array( 'oae_election' ),
 			'context'       => 'normal',
 			'priority'      => 'core',
@@ -88,105 +88,10 @@ class OAE_Fields {
 		) );
 
 		/**
-		 * Unit Leader Fields
-		 */
-
-		$prefix = '_oa_election_leader_';
-
-		$cmb->add_field( array(
-			'name' => 'Unit Leader Information',
-			'type' => 'title',
-			'id'   => 'unit_leader',
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'First Name',
-			'id'   => $prefix . 'fname',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'Last Name',
-			'id'   => $prefix . 'lname',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'Phone',
-			'id'   => $prefix . 'phone',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'Email',
-			'id'   => $prefix . 'email',
-			'type' => 'text_email',
-		) );
-
-		$cmb->add_field( array(
-			'name'    => 'Unit Leader Position',
-			'id'      => $prefix . 'position',
-			'type'    => 'select',
-			'options' => array(
-				''                      => '---',
-				'scoutmaster'           => __( 'Scoutmaster', 'OA-Elections' ),
-				'assistant-scoutmaster' => __( 'Assistant Scoutmaster', 'OA-Elections' ),
-				'committee-chair'       => __( 'Committee Chair', 'OA-Elections' ),
-				'committee-member'      => __( 'Committee Member', 'OA-Elections' ),
-				'other'                 => __( 'Other', 'OA-Elections' ),
-			),
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'Unit Leader Position - Other',
-			'id'   => $prefix . 'position_other',
-			'type' => 'text',
-			'attributes' => array(
-				'data-conditional-id'    => $prefix . 'position',
-				'data-conditional-value' => 'other',
-				'required'               => true,
-			),
-		) );
-
-		$cmb->add_field( array(
-			'name'    => 'Your involvement in the Order of the Arrow',
-			'id'      => $prefix . 'involvement',
-			'type'    => 'select',
-			'options' => array(
-				''            => '---',
-				'non-member'  => __( 'Non-member', 'OA-Elections' ),
-				'ordeal'      => __( 'Ordeal', 'OA-Elections' ),
-				'brotherhood' => __( 'Brotherhood', 'OA-Elections' ),
-				'vigil'       => __( 'Vigil', 'OA-Elections' ),
-				'other'       => __( 'Other', 'OA-Elections' ),
-			),
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'How many elections have you previously organized?',
-			'id'   => $prefix . 'previous_elections',
-			'type' => 'text',
-		) );
-
-		$cmb->add_field( array(
-			'name' => 'Copied Emails',
-			'desc' => 'Enter email addresses for any members of your troop who you would like to be copied on status updates. <strong>Do not copy candidates!</strong>',
-			'id'   => $prefix . 'copied_emails',
-			'type' => 'text',
-			'repeatable' => true,
-		) );
-
-		/**
 		 * Unit Information Fields
 		 */
 
 		$prefix = '_oa_election_unit_';
-
-		$cmb->add_field( array(
-			'name' => 'Unit Information',
-			'type' => 'title',
-			'id'   => 'unit',
-		) );
 
 		$cmb->add_field( array(
 			'name' => 'Unit Number',
@@ -214,10 +119,17 @@ class OAE_Fields {
 		) );
 
 		$cmb->add_field( array(
-			'name' => 'Meeting Location Details',
-			'desc' => 'Name of place, where in the building you meet, etc.',
-			'id'   => $prefix . 'location_details',
-			'type' => 'textarea',
+			'name'        => 'Meeting Location Details',
+			'desc'        => 'Name of place, where in the building you meet, etc.',
+			'id'          => $prefix . 'location_details',
+			'type'        => 'textarea_small',
+			'row_classes' => 'fullwidth',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Requested Dates',
+			'type' => 'title',
+			'id'   => 'unit',
 		) );
 
 		$cmb->add_field( array(
@@ -248,15 +160,107 @@ class OAE_Fields {
 		) );
 
 		/**
-		 * Unit Adviser Fields
+		 * Unit Leader Fields
 		 */
 
-		$prefix = '_oa_election_unit_adviser_';
+		$prefix = '_oa_election_leader_';
 
 		$cmb->add_field( array(
-			'name' => 'Unit Adviser Information',
+			'name' => 'Unit Adult Contact',
 			'type' => 'title',
-			'id'   => 'unit_adviser',
+			'id'   => 'unit_leader',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => 'Unit Leader Position',
+			'id'      => $prefix . 'position',
+			'type'    => 'select',
+			'options' => array(
+				''                      => '---',
+				'scoutmaster'           => __( 'Scoutmaster', 'OA-Elections' ),
+				'assistant-scoutmaster' => __( 'Assistant Scoutmaster', 'OA-Elections' ),
+				'committee-chair'       => __( 'Committee Chair', 'OA-Elections' ),
+				'committee-member'      => __( 'Committee Member', 'OA-Elections' ),
+				'advancement-chair'     => __( 'Advancement Chair', 'OA-Elections' ),
+				'other'                 => __( 'Other', 'OA-Elections' ),
+			),
+		));
+
+		$cmb->add_field( array(
+			'name' => 'Unit Leader Position - Other',
+			'id'   => $prefix . 'position_other',
+			'type' => 'text',
+			'attributes' => array(
+				'data-conditional-id'    => $prefix . 'position',
+				'data-conditional-value' => 'other',
+				'required'               => true,
+			),
+		));
+
+		$cmb->add_field( array(
+			'name' => 'First Name',
+			'id'   => $prefix . 'fname',
+			'type' => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Last Name',
+			'id'   => $prefix . 'lname',
+			'type' => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Phone',
+			'id'   => $prefix . 'phone',
+			'type' => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Email',
+			'id'   => $prefix . 'email',
+			'type' => 'text_email',
+		) );
+
+		$cmb->add_field( array(
+			'name'    => 'Your involvement in the Order of the Arrow',
+			'id'      => $prefix . 'involvement',
+			'type'    => 'select',
+			'options' => array(
+				''              => '---',
+				'ordeal'        => __( 'Ordeal', 'OA-Elections' ),
+				'brotherhood'   => __( 'Brotherhood', 'OA-Elections' ),
+				'vigil'         => __( 'Vigil', 'OA-Elections' ),
+				'member-parent' => __( 'Parent of OA Member', 'OA-Elections' ),
+				'non-member'    => __( 'Not a Member', 'OA-Elections' ),
+			),
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'How many elections have you previously organized?',
+			'id'   => $prefix . 'previous_elections',
+			'type' => 'text',
+		) );
+
+		$cmb->add_field( array(
+			'name' => 'Copied Emails',
+			'desc' => 'Enter email addresses for any members of your troop who you would like to be copied on status updates. <br /><strong>Do not copy candidates!</strong>',
+			'id'   => $prefix . 'copied_emails',
+			'type' => 'text',
+			'repeatable' => true,
+		) );
+
+		/**
+		 * Unit Representative Fields
+		 */
+
+		$prefix = '_oa_election_unit_representative_';
+
+		$cmb->add_field( array(
+			'name'        => 'OA Unit Representative Information',
+			'type'        => 'title',
+			'row_classes' => 'fullwidth',
+			'id'          => 'unit_representative',
+			'desc'        => 'Optional for troops/teams with an OA Unit Representative. No troop rep? <a href="http://www.oa-bsa.org/pages/content/troop-representative" target="_blank">Click here</a> for more program information. <br /><br />The OA Unit Representative is an official youth leadership position for Scouts. He serves his unit as the primary liaison to the lodge or chapter. Typical duties include announcing upcoming OA events and activities, promoting camp within the unit, encouraging elected candidates to attend a Cony Party Induction Weekend, and striving for the OA Unit Award of Excellence.',
 		) );
 
 		$cmb->add_field( array(
@@ -284,15 +288,17 @@ class OAE_Fields {
 		) );
 
 		/**
-		 * Unit Representative Fields
+		 * Unit Adviser Fields
 		 */
 
-		$prefix = '_oa_election_unit_representative_';
+		$prefix = '_oa_election_unit_adviser_';
 
 		$cmb->add_field( array(
-			'name' => 'Unit Representative Information',
-			'type' => 'title',
-			'id'   => 'unit_representative',
+			'name'        => 'OA Unit Adviser Contact Information',
+			'type'        => 'title',
+			'row_classes' => 'fullwidth',
+			'id'          => 'unit_adviser',
+			'desc'        => 'The OA Unit Representative Adviser is an official Assistant Scoutmaster position within the unit and eligible to wear an Order of the Arrow themed ASM position patch. <a href="http://www.oa-bsa.org/pages/content/troop-representative-adviser" target="_blank">Click here</a> for more program information.',
 		) );
 
 		$cmb->add_field( array(
