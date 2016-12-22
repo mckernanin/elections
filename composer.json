@@ -5,10 +5,6 @@
             "url": "https://wpackagist.org"
         },
 		{
-			"type": "vcs",
-			"url": "https://github.com/mustardBees/cmb_field_map"
-		},
-		{
             "type": "vcs",
             "url": "https://github.com/WebDevStudios/cmb2-attached-posts"
         },
@@ -20,7 +16,6 @@
     "require": {
 		"wpackagist-theme/twentysixteen": "*",
         "wpackagist-plugin/cmb2": "*",
-		"mustardBees/cmb_field_map": "*",
 		"WebDevStudios/cmb2-attached-posts": "*",
 		"jcchavezs/cmb2-conditionals": "dev-master",
 		"wpackagist-plugin/mailgun": "*",

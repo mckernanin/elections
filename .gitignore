@@ -2,6 +2,7 @@
 *.*
 !.gitignore
 !plugins/oa-elections
+!plugins/cmb_field_map
 !themes/elections
 !composer.json
 

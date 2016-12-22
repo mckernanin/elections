@@ -173,6 +173,7 @@ class OAE_Fields {
 			'name' => 'Announce results at election?',
 			'id'   => $prefix . 'callout_timing',
 			'type' => 'checkbox',
+			'row_classes' => 'fullwidth',
 		));
 
 		/**
