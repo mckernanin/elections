@@ -32,6 +32,8 @@ get_header(); ?>
 		<?php
 		if ( 'add-candidate' === $section ) {
 			echo do_shortcode( '[candidate-entry]' );
+		} elseif ( 'bulk-add' === $section ) {
+			echo do_shortcode( '[candidate-entry]' );
 		} elseif ( 'edit-election' === $section ) {
 			echo do_shortcode( '[unit-edit-form]' );
 		} elseif ( 'chapter-edit-election' === $section ) {
@@ -82,6 +84,7 @@ get_header(); ?>
 		<?php } else { ?>
 			<h4>This election does not currently have any candidates. <br>Before your election can take place, you must enter your candidates online.</h4>
 			<a class="button" href="add-candidate">Add Candidate</a>
+			<a class="button" href="bulk-upload">Bulk Upload Candidates</a>
 		<?php }
 		}
 		// End of the loop.

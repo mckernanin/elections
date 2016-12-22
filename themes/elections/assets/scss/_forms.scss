@@ -58,23 +58,6 @@
 			&.fullwidth {
 				flex-basis: 100%;
 
-				.cmb-th {
-					width: 30%;
-
-					@include bp(phone) {
-						width: 100%;
-					}
-				}
-
-				.cmb-td {
-					width: 70%;
-					padding-right: 0;
-
-					@include bp(phone) {
-						width: 100%;
-					}
-				}
-
 				textarea {
 					width: 100%;
 				}
@@ -91,7 +74,7 @@
 		}
 
 		.cmb-th {
-			width: 30%;
+			width: 33%;
 			padding-right: 0;
 
 			@include bp(phone) {
@@ -105,8 +88,8 @@
 		}
 
 		.cmb-td {
-			width: 70%;
-			padding: 20px 15% 20px 0;
+			width: 67%;
+			padding: 20px 20px 0 0;
 
 			label {
 				font-size: 16px;
@@ -169,23 +152,6 @@
 
 		.cmb-add-row {
 			margin: 0;
-		}
-
-		.cmb2-id--oa-election-unit-number,
-		.cmb2-id--oa-election-unit-attendance {
-			flex-basis: 30%;
-
-			.cmb-th {
-				width: 50%;
-			}
-
-			.cmb-td {
-				width: 50%;
-			}
-		}
-
-		.cmb2-id--oa-election-unit-chapter {
-			flex-basis: 40%;
 		}
 	}
 

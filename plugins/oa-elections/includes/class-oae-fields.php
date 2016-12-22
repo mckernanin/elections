@@ -94,6 +94,16 @@ class OAE_Fields {
 		$prefix = '_oa_election_unit_';
 
 		$cmb->add_field( array(
+			'name' => 'Unit Type',
+			'id'   => $prefix . 'type',
+			'type'    => 'select',
+			'options' => array(
+				'troop' => __( 'Troop', 'OA-Elections' ),
+				'team'  => __( 'Team', 'OA-Elections' ),
+			),
+		) );
+
+		$cmb->add_field( array(
 			'name' => 'Unit Number',
 			'id'   => $prefix . 'number',
 			'type' => 'text',
@@ -159,6 +169,12 @@ class OAE_Fields {
 			'type' => 'text_date',
 		) );
 
+		$cmb->add_field( array(
+			'name' => 'Announce results at election?',
+			'id'   => $prefix . 'callout_timing',
+			'type' => 'checkbox',
+		));
+
 		/**
 		 * Unit Leader Fields
 		 */
@@ -170,32 +186,6 @@ class OAE_Fields {
 			'type' => 'title',
 			'id'   => 'unit_leader',
 		) );
-
-		$cmb->add_field( array(
-			'name'    => 'Unit Leader Position',
-			'id'      => $prefix . 'position',
-			'type'    => 'select',
-			'options' => array(
-				''                      => '---',
-				'scoutmaster'           => __( 'Scoutmaster', 'OA-Elections' ),
-				'assistant-scoutmaster' => __( 'Assistant Scoutmaster', 'OA-Elections' ),
-				'committee-chair'       => __( 'Committee Chair', 'OA-Elections' ),
-				'committee-member'      => __( 'Committee Member', 'OA-Elections' ),
-				'advancement-chair'     => __( 'Advancement Chair', 'OA-Elections' ),
-				'other'                 => __( 'Other', 'OA-Elections' ),
-			),
-		));
-
-		$cmb->add_field( array(
-			'name' => 'Unit Leader Position - Other',
-			'id'   => $prefix . 'position_other',
-			'type' => 'text',
-			'attributes' => array(
-				'data-conditional-id'    => $prefix . 'position',
-				'data-conditional-value' => 'other',
-				'required'               => true,
-			),
-		));
 
 		$cmb->add_field( array(
 			'name' => 'First Name',
@@ -222,6 +212,20 @@ class OAE_Fields {
 		) );
 
 		$cmb->add_field( array(
+			'name'    => 'Unit Leader Position',
+			'id'      => $prefix . 'position',
+			'type'    => 'select',
+			'options' => array(
+				''                      => '---',
+				'scoutmaster'           => __( 'Scoutmaster', 'OA-Elections' ),
+				'assistant-scoutmaster' => __( 'Assistant Scoutmaster', 'OA-Elections' ),
+				'committee-chair'       => __( 'Committee Chair', 'OA-Elections' ),
+				'committee-member'      => __( 'Committee Member', 'OA-Elections' ),
+				'advancement-chair'     => __( 'Advancement Chair', 'OA-Elections' ),
+			),
+		));
+
+		$cmb->add_field( array(
 			'name'    => 'Your involvement in the Order of the Arrow',
 			'id'      => $prefix . 'involvement',
 			'type'    => 'select',
@@ -242,11 +246,12 @@ class OAE_Fields {
 		) );
 
 		$cmb->add_field( array(
-			'name' => 'Copied Emails',
-			'desc' => 'Enter email addresses for any members of your troop who you would like to be copied on status updates. <br /><strong>Do not copy candidates!</strong>',
-			'id'   => $prefix . 'copied_emails',
-			'type' => 'text',
-			'repeatable' => true,
+			'name'        => 'Copied Emails',
+			'desc'        => 'Enter email addresses for any members of your troop who you would like to be copied on status updates. <br /><strong>Do not copy candidates!</strong>',
+			'id'          => $prefix . 'copied_emails',
+			'type'        => 'text',
+			'row_classes' => 'fullwidth',
+			'repeatable'  => true,
 		) );
 
 		/**
@@ -564,7 +569,7 @@ class OAE_Fields {
 		));
 
 		$user->add_field( array(
-			'name'        => 'Availability',
+			'name'        => 'General Availability',
 			'id'          => $prefix . 'availability',
 			'type'        => 'multicheck_inline',
 			'row_classes' => 'fullwidth',
