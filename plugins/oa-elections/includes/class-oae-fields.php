@@ -107,6 +107,7 @@ class OAE_Fields {
 			'name' => 'Unit Number',
 			'id'   => $prefix . 'number',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -114,18 +115,21 @@ class OAE_Fields {
 			'id'       => $prefix . 'chapter',
 			'type'     => 'taxonomy_select',
 			'taxonomy' => 'oae_chapter',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
 			'name' => 'Typical Attendance',
 			'id'   => $prefix . 'attendance',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
 			'name' => 'Meeting Location',
 			'id'   => $prefix . 'location',
 			'type' => 'pw_map',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -134,6 +138,7 @@ class OAE_Fields {
 			'id'          => $prefix . 'location_details',
 			'type'        => 'textarea_small',
 			'row_classes' => 'fullwidth',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -157,6 +162,7 @@ class OAE_Fields {
 			'name' => 'Meeting Time',
 			'id'   => $prefix . 'meeting_time',
 			'type' => 'text_time',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -164,6 +170,7 @@ class OAE_Fields {
 			'desc' => 'Please provide 3 date possibilities',
 			'id'   => $prefix . 'date_1',
 			'type' => 'text_date',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -171,6 +178,7 @@ class OAE_Fields {
 			'desc' => 'Please provide 3 date possibilities',
 			'id'   => $prefix . 'date_2',
 			'type' => 'text_date',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -178,6 +186,7 @@ class OAE_Fields {
 			'desc' => 'Please provide 3 date possibilities',
 			'id'   => $prefix . 'date_3',
 			'type' => 'text_date',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		/**
@@ -196,24 +205,28 @@ class OAE_Fields {
 			'name' => 'First Name',
 			'id'   => $prefix . 'fname',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
 			'name' => 'Last Name',
 			'id'   => $prefix . 'lname',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
 			'name' => 'Phone',
 			'id'   => $prefix . 'phone',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
 			'name' => 'Email',
 			'id'   => $prefix . 'email',
 			'type' => 'text_email',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -228,6 +241,7 @@ class OAE_Fields {
 				'committee-member'      => __( 'Committee Member', 'OA-Elections' ),
 				'advancement-chair'     => __( 'Advancement Chair', 'OA-Elections' ),
 			],
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -242,6 +256,7 @@ class OAE_Fields {
 				'member-parent' => __( 'Parent of OA Member', 'OA-Elections' ),
 				'non-member'    => __( 'Not a Member', 'OA-Elections' ),
 			],
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field([
@@ -414,24 +429,28 @@ class OAE_Fields {
 			'name' => 'BSA ID',
 			'id'   => $prefix . 'bsa_id',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Date of Birth',
 			'id'   => $prefix . 'dob',
 			'type' => 'text_date',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'First Name',
 			'id'   => $prefix . 'fname',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Last Name',
 			'id'   => $prefix . 'lname',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
@@ -439,18 +458,21 @@ class OAE_Fields {
 			'id'   => $prefix . 'address',
 			'row_classes' => 'fullwidth',
 			'type' => 'address',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Parent Phone',
 			'id'   => $prefix . 'parent_phone',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Parent Email',
 			'id'   => $prefix . 'parent_email',
 			'type' => 'text_email',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
@@ -475,12 +497,14 @@ class OAE_Fields {
 			'name' => 'Camping Nights - Long Term',
 			'id'   => $prefix . 'camping_long_term',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Camping Nights - Short Term',
 			'id'   => $prefix . 'camping_short_term',
 			'type' => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
@@ -494,6 +518,7 @@ class OAE_Fields {
 				'life'        => __( 'Life', 'OA-Elections' ),
 				'eagle'       => __( 'Eagle', 'OA-Elections' ),
 			],
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$cmb->add_field(  [
@@ -643,18 +668,21 @@ class OAE_Fields {
 			'name'    => 'Registered Active Youth',
 			'id'      => $prefix . 'registered_youth',
 			'type'    => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$election_report->add_field([
 			'name'    => 'Youth Attendance',
 			'id'      => $prefix . 'youth_attendance',
 			'type'    => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$election_report->add_field([
 			'name'    => 'Election 1 Ballots',
 			'id'      => $prefix . 'election_one_ballots',
 			'type'    => 'text',
+			'attributes' => [ 'required' => 'required' ],
 		]);
 
 		$election_report->add_field([

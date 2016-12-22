@@ -151,5 +151,8 @@ if ( $('body').hasClass('section-report') ) {
 
 }
 
+$('#_oa_election_unit_location').attr('required', true);
+$('.cmb-form').parsley();
+
 });
 });
