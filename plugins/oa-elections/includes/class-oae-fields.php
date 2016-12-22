@@ -170,7 +170,13 @@ class OAE_Fields {
 			'desc' => 'Please provide 3 date possibilities',
 			'id'   => $prefix . 'date_1',
 			'type' => 'text_date',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => [
+				'required' => 'required',
+				'data-datepicker' => wp_json_encode( [
+					'minDate' => '+7d',
+					'maxDate' => '2017-03-15',
+				]),
+			],
 		]);
 
 		$cmb->add_field([
@@ -178,7 +184,13 @@ class OAE_Fields {
 			'desc' => 'Please provide 3 date possibilities',
 			'id'   => $prefix . 'date_2',
 			'type' => 'text_date',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => [
+				'required' => 'required',
+				'data-datepicker' => wp_json_encode( [
+					'minDate' => '+7d',
+					'maxDate' => '2017-03-15',
+				]),
+			],
 		]);
 
 		$cmb->add_field([
@@ -186,7 +198,13 @@ class OAE_Fields {
 			'desc' => 'Please provide 3 date possibilities',
 			'id'   => $prefix . 'date_3',
 			'type' => 'text_date',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => [
+				'required' => 'required',
+				'data-datepicker' => wp_json_encode( [
+					'minDate' => '+7d',
+					'maxDate' => '2017-03-15',
+				]),
+			],
 		]);
 
 		/**
