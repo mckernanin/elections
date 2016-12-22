@@ -220,6 +220,11 @@
 	}
 }
 
+.cmb2-element .ui-datepicker,
+.cmb2-element.ui-datepicker {
+	max-width: 300px;
+}
+
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
