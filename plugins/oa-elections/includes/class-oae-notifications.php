@@ -20,6 +20,10 @@ class OAE_Notifications {
 
 		$fields = get_post_custom( $post_id );
 
+		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
+			return;
+		}
+
 		$post_title   = get_the_title( $post_id );
 		$post_url     = get_permalink( $post_id );
 		$subject      = 'Election Submitted for ' . $post_title;
@@ -35,7 +39,6 @@ class OAE_Notifications {
 		$pass         = $unit_num . substr( $chapter, 0, 1 ) . $unit_lname . '383';
 
 		ob_start();
-
 
 		include( 'emails/new-election-unit.php' );
 
@@ -60,6 +63,10 @@ class OAE_Notifications {
 		}
 
 		$fields = get_post_custom( $post_id );
+
+		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
+			return;
+		}
 
 		$post_title   = get_the_title( $post_id );
 		$post_url     = get_permalink( $post_id );
@@ -98,6 +105,10 @@ class OAE_Notifications {
 
 		$fields = get_post_custom( $post_id );
 
+		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
+			return;
+		}
+
 		$post_title   = get_the_title( $post_id );
 		$post_url     = get_permalink( $post_id );
 		$subject      = 'Election Submitted for ' . $post_title;
@@ -113,36 +124,35 @@ class OAE_Notifications {
 		$pass         = $unit_num . substr( $chapter, 0, 1 ) . $unit_lname . '383';
 
 		// Slack webhook endpoint from Slack settings
-		$slack_endpoint = "https://hooks.slack.com/services/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";
-		// Prepare the data / payload to be posted to Slack
-		$slack_data = array(
-			'payload'   => wp_json_encode(
+		$slack_endpoint = 'https://hooks.slack.com/services/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';
+		$payload = array(
+			'text'        => 'New Election Requested',
+			'attachments' => array(
 				array(
-					"text"        => 'New Election Requested',
-					'attachments' => array(
+					'fallback' => 'fallback',
+					'color'    => 'good',
+					'fields'   => array(
 						array(
-							'fallback' => 'fallback',
-							'color'    => 'good',
-							'fields'   => array(
-								array(
-									'title' => 'Unit',
-									'value' => $unit_num,
-								),
-								array(
-									'title' => 'Chapter',
-									'value' => $chapter,
-								),
-								array(
-									'title' => 'Dates',
-									'value' => $date_1 . ', ' . $date_2 . ', ' . $date_3,
-								),
-							),
+							'title' => 'Unit',
+							'value' => $unit_num,
+						),
+						array(
+							'title' => 'Chapter',
+							'value' => $chapter,
+						),
+						array(
+							'title' => 'Dates',
+							'value' => $date_1 . ', ' . $date_2 . ', ' . $date_3,
 						),
 					),
-					"username"		=>  'Election Bot',
-					"icon_emoji"    =>  ':bow_and_arrow:',
-				)
-			)
+				),
+			),
+			'username'   => 'Election Bot',
+			'icon_emoji' => ':bow_and_arrow:',
+		);
+		// Prepare the data / payload to be posted to Slack
+		$slack_data = array(
+			'payload'   => wp_json_encode( $payload ),
 		);
 		// Post our data via the slack webhook endpoint using wp_remote_post
 		$posting_to_slack = wp_remote_post( $slack_endpoint, array(
@@ -153,11 +163,9 @@ class OAE_Notifications {
 			'blocking'    => true,
 			'headers'     => array(),
 			'body'        => $slack_data,
-			'cookies'     => array()
+			'cookies'     => array(),
 			)
 		);
-		var_dump( $posting_to_slack );
-		var_dump( $slack_data );
 	}
 }
 
