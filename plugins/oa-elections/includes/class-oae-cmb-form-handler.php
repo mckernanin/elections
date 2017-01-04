@@ -203,8 +203,8 @@ class OAE_CMB_Form_Handler {
 		if ( 'update' !== $this->action ) {
 			$args['new_election'] = true;
 			$args['update'] = false;
-			do_action( 'election_save' );
 			wp_set_object_terms( $this->post_id, 'requested', 'oae_status' );
+			do_action( 'election_create', $this->post_id );
 		}
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
