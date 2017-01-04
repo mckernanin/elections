@@ -203,7 +203,7 @@ class OAE_CMB_Form_Handler {
 		if ( 'update' !== $this->action ) {
 			$args['new_election'] = true;
 			$args['update'] = false;
-			do_action( 'election_save' );
+			do_action( 'election_save', $this->post_id );
 			wp_set_object_terms( $this->post_id, 'requested', 'oae_status' );
 		}
 
