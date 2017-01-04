@@ -28,4 +28,12 @@ class OAE_Util {
 		$term = current( get_the_terms( $post_id, 'oae_chapter' ) );
 		return $term->name;
 	}
+
+	static function get_chapter_term( $post_id = null ) {
+		if ( null === $post_id ) {
+			$post_id = get_the_id();
+		}
+		$term = current( get_the_terms( $post_id, 'oae_chapter' ) );
+		return $term;
+	}
 }

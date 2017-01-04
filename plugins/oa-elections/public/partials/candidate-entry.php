@@ -6,7 +6,7 @@
  */
 
 if ( ! is_user_logged_in() ) {
-	echo 'You must be logged in to view this page.';
+	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
 } else {
 
 	$post_type  = get_post_type();

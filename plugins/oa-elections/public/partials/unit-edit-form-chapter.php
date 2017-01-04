@@ -1,6 +1,6 @@
 <?php
 if ( ! is_user_logged_in() ) {
-	echo 'You must be logged in to view or edit an election.';
+	echo 'You must be <a href="/wp-admin/">logged in</a> to view or edit an election.';
 } else {
 	$object_id  = get_the_ID();
 	$election = cmb2_get_metabox( 'chapter_fields', $object_id );

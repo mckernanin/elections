@@ -112,16 +112,16 @@ class ElectionTheme {
 		$phpmailer->Port = '587';
 
 		// Username to use for SMTP authentication.
-		$phpmailer->Username = 'postmaster@stagewp.co';
+		$phpmailer->Username = 'postmaster@tahosalodge.org';
 
 		// Password to use for SMTP authentication.
-		$phpmailer->Password = '6145c3e334497ba6201708630c71e38d';
+		$phpmailer->Password = MAILGUN_PASSWORD;
 
 		// Encryption system to use - ssl or tls.
 		$phpmailer->SMTPSecure = 'tls';
 
-		$phpmailer->setFrom = 'kevin@stagewp.co';
-		$phpmailer->FromName = 'Kevin McKernan';
+		$phpmailer->setFrom = 'elections@tahosalodge.org';
+		$phpmailer->FromName = 'Tahosa Lodge Elections Team';
 		// @codingStandardsIgnoreEnd
 	}
 
@@ -130,7 +130,7 @@ class ElectionTheme {
 	 */
 	public function home_redirect() {
 		if ( is_front_page() && is_home() ) {
-			if ( is_current_user_logged_in() && current_user_can( 'administrator' ) ) {
+			if ( is_current_user_logged_in() && current_user_can( 'chapter_admin' ) ) {
 				$user = wp_get_current_user();
 				$query = new WP_Query( array(
 					'author'         => $user->data->ID,
@@ -151,7 +151,7 @@ class ElectionTheme {
 	}
 
 	function mail_from_filter() {
-		return 'kevin@stagewp.co';
+		return 'elections@tahosalodge.org';
 	}
 
 	function mail_content_type_filter() {

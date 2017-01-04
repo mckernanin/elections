@@ -6,8 +6,7 @@
  */
 
 if ( ! is_user_logged_in() ) {
-	$message = 'You must be logged in to view this page.';
-	echo $message;
+	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
 } else {
 	wp_enqueue_script( 'moment' );
 	wp_enqueue_script( 'fullcalendar' );

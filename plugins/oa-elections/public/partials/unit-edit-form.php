@@ -2,7 +2,7 @@
 if ( is_page( 'request-an-election' ) && is_user_logged_in() ) {
 	echo 'Requesting an election is not currently supported for logged in users.';
 } elseif ( is_singular( 'oae_election' ) && ! is_user_logged_in() ) {
-	echo 'You must be logged in to view or edit an election.';
+	echo 'You must be <a href="/wp-admin/">logged in</a> to view or edit an election.';
 } else {
 	$post_type  = get_post_type();
 	$object_id  = get_the_ID();
