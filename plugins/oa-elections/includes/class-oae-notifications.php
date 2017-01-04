@@ -4,7 +4,7 @@ class OAE_Notifications {
 	function __construct() {
 		add_action( 'election_save', array( $this, 'new_election_notification_unit' ) );
 		add_action( 'election_save', array( $this, 'new_election_notification_chapter' ) );
-		add_action( 'init', array( $this, 'new_election_slack' ) );
+		add_action( 'election_save', array( $this, 'new_election_slack' ) );
 	}
 
 	/**
@@ -92,7 +92,6 @@ class OAE_Notifications {
 	}
 
 	public function new_election_slack( $post_id ) {
-		$post_id = 194;
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
