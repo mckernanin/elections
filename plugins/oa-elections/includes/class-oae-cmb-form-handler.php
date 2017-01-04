@@ -88,7 +88,7 @@ class OAE_CMB_Form_Handler {
 
 			wp_update_user(
 				array(
-					'ID'          => $user_id,
+					'ID'          => $this->user_id,
 					'nickname'    => $email,
 					'first_name'  => $fname,
 					'last_name'	  => $lname,
