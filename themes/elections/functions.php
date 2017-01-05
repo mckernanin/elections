@@ -90,6 +90,7 @@ class ElectionTheme {
 	 */
 	public function scripts_and_styles() {
 		wp_enqueue_script( 'elections-theme-js', get_stylesheet_directory_URI() . '/assets/js/app.js' );
+		wp_enqueue_style( 'dashicons' );
 	}
 
 	/**
