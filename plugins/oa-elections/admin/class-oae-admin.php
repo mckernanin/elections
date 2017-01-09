@@ -51,6 +51,7 @@ class OAE_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		include_once( 'class-oae-cli.php' );
 		// $this->add_unit_leader_role();
 		// $this->add_chapter_admin_role();
 		// $this->add_election_team_role();

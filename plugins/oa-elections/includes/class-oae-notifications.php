@@ -12,7 +12,7 @@ class OAE_Notifications {
 	*
 	* @param $post_id
 	*/
-	public function new_election_notification_unit( $post_id ) {
+	static function new_election_notification_unit( $post_id ) {
 		// If this is just a revision, don't send the email.
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
@@ -58,7 +58,7 @@ class OAE_Notifications {
 		}
 	}
 
-	public function new_election_notification_chapter( $post_id ) {
+	static function new_election_notification_chapter( $post_id ) {
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
@@ -99,7 +99,7 @@ class OAE_Notifications {
 		}
 	}
 
-	public function new_election_slack( $post_id ) {
+	static function new_election_slack( $post_id ) {
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
