@@ -20,13 +20,9 @@ class ElectionTheme {
 		add_action( 'send_headers', 		array( $this, 'custom_headers' ) );
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'typekit' ) );
 		add_action( 'wp_enqueue_scripts', 	array( $this, 'scripts_and_styles' ) );
-		add_action( 'phpmailer_init', 		array( $this, 'send_smtp_email' ) );
 		add_action( 'template_redirect', 	array( $this, 'home_redirect' ) );
 		add_action( 'login_head', 			array( $this, 'my_custom_login' ) );
 		add_action( 'login_head', 			array( $this, 'typekit' ) );
-
-		add_filter( 'wp_mail_from', 			array( $this, 'mail_from_filter' ) );
-		add_filter( 'wp_mail_content_type', 	array( $this, 'mail_content_type_filter' ) );
 
 		$this->roots_support();
 	}
@@ -94,39 +90,6 @@ class ElectionTheme {
 	}
 
 	/**
-	 * Send all emails via mailgun.
-	 *
-	 * @param object $phpmailer Object containing phpmailer configuration.
-	 */
-	function send_smtp_email( $phpmailer ) {
-		// @codingStandardsIgnoreStart
-		// Define that we are sending with SMTP.
-		$phpmailer->isSMTP();
-
-		// The hostname of the mail server.
-		$phpmailer->Host = 'smtp.mailgun.org';
-
-		// Use SMTP authentication (true|false).
-		$phpmailer->SMTPAuth = true;
-
-		// SMTP port number - likely to be 25, 465 or 587.
-		$phpmailer->Port = '587';
-
-		// Username to use for SMTP authentication.
-		$phpmailer->Username = 'postmaster@tahosalodge.org';
-
-		// Password to use for SMTP authentication.
-		$phpmailer->Password = MAILGUN_PASSWORD;
-
-		// Encryption system to use - ssl or tls.
-		$phpmailer->SMTPSecure = 'tls';
-
-		$phpmailer->setFrom = 'elections@tahosalodge.org';
-		$phpmailer->FromName = 'Tahosa Lodge Elections Team';
-		// @codingStandardsIgnoreEnd
-	}
-
-	/**
 	 * Home page redirects for logged in users
 	 */
 	public function home_redirect() {
@@ -149,14 +112,6 @@ class ElectionTheme {
 
 	function my_custom_login() {
 		echo '<link rel="stylesheet" type="text/css" href="' . get_stylesheet_directory_uri() . '/login.css" />';
-	}
-
-	function mail_from_filter() {
-		return 'elections@tahosalodge.org';
-	}
-
-	function mail_content_type_filter() {
-		return 'text/html';
 	}
 }
 
