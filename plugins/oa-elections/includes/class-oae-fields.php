@@ -733,7 +733,9 @@ class OAE_Fields {
 	        : get_terms( $taxonomy, $args );
 
 	    // Initate an empty array
-	    $term_options = [];
+	    $term_options = [
+			'' => '---',
+		];
 	    if ( ! empty( $terms ) ) {
 	        foreach ( $terms as $term ) {
 	            $term_options[ $term->term_id ] = $term->name;
