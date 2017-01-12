@@ -205,6 +205,7 @@ class OAE_CMB_Form_Handler {
 			$args['update'] = false;
 			do_action( 'election_save', $this->post_id );
 			wp_set_object_terms( $this->post_id, 'requested', 'oae_status' );
+			wp_set_object_terms( $this->post_id, $this->post_data['_oa_election_unit_chapter'], 'oae_chapter' );
 		}
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
