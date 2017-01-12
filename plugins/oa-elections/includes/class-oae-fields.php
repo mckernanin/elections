@@ -110,11 +110,15 @@ class OAE_Fields {
 			'attributes' => [ 'required' => 'required' ],
 		]);
 
-		$cmb->add_field([
-			'name'     => 'District / Chapter',
-			'id'       => $prefix . 'chapter',
-			'type'     => 'taxonomy_select',
-			'taxonomy' => 'oae_chapter',
+		$user->add_field([
+			'name'       => 'District / Chapter',
+			'id'         => $prefix . 'chapter',
+			'type'       => 'select',
+			'options_cb' => [ $this, 'cmb2_get_term_options' ],
+			'get_terms_args' => [
+				'taxonomy'   => 'oae_chapter',
+				'hide_empty' => false,
+			],
 			'attributes' => [ 'required' => 'required' ],
 		]);
 
