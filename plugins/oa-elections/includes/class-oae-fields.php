@@ -110,7 +110,7 @@ class OAE_Fields {
 			'attributes' => [ 'required' => 'required' ],
 		]);
 
-		$user->add_field([
+		$cmb->add_field([
 			'name'       => 'District / Chapter',
 			'id'         => $prefix . 'chapter',
 			'type'       => 'select',
