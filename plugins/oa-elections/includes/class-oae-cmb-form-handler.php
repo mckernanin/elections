@@ -203,9 +203,9 @@ class OAE_CMB_Form_Handler {
 		if ( 'update' !== $this->action ) {
 			$args['new_election'] = true;
 			$args['update'] = false;
-			do_action( 'election_save', $this->post_id );
 			wp_set_object_terms( $this->post_id, 'requested', 'oae_status' );
 			wp_set_object_terms( $this->post_id, absint( $this->post_data['_oa_election_unit_chapter'] ), 'oae_chapter' );
+			do_action( 'election_save', $this->post_id );
 		}
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
