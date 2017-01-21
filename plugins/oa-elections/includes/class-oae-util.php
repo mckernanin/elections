@@ -36,4 +36,9 @@ class OAE_Util {
 		$term = current( get_the_terms( $post_id, 'oae_chapter' ) );
 		return $term;
 	}
+
+	static function get_user_chapter( $user_id ) {
+		$chapter = get_user_meta( $user_id, '_oa_election_user_chapter', true );
+		return $term;
+	}
 }

@@ -62,6 +62,15 @@ class OAE_REST {
 		$args = array(
 			'post_type' => 'oae_election',
 		);
+		if ( 'all' !== $_GET['chapter'] ) {
+			$args['tax_query'] = [
+				[
+					'taxonomy' => 'oae_chapter',
+					'field' => 'id',
+					'terms' => abs( $_GET['chapter'] ),
+				],
+			];
+		}
 		$query       = new WP_Query( $args );
 		$date_fields = [ 'unit_date_1', 'unit_date_2', 'unit_date_3' ];
 		$return      = array();
