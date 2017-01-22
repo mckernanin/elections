@@ -686,25 +686,31 @@ class OAE_Fields {
 
 		$prefix = '_oa_election_';
 
+		if ( is_admin() ) {
+			$attributes = [];
+		} else {
+			$attributes = [ 'required' => 'required' ];
+		}
+
 		$election_report->add_field([
 			'name'    => 'Registered Active Youth',
 			'id'      => $prefix . 'registered_youth',
 			'type'    => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$election_report->add_field([
 			'name'    => 'Youth Attendance',
 			'id'      => $prefix . 'youth_attendance',
 			'type'    => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$election_report->add_field([
 			'name'    => 'Election 1 Ballots',
 			'id'      => $prefix . 'election_one_ballots',
 			'type'    => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$election_report->add_field([
