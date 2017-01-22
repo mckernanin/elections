@@ -20,6 +20,7 @@ get_header(); ?>
 		// Start the loop.
 		while ( have_posts() ) : the_post(); ?>
 			<h1><?php the_title(); ?></h1>
+			<?php if ( current_user_can( 'chapter-admin' ) || current_user_can( 'administrator' ) ) { ?>
 			<ul class="single-election-nav">
 				<li><strong>Actions:</strong></li>
 				<li><a href="<?php the_permalink(); ?>">Election Home</a></li>
@@ -30,6 +31,7 @@ get_header(); ?>
 				<li><a href="<?php the_permalink(); ?>/ballots">Print ballots</a></li>
 			</ul>
 		<?php
+		} // endif current_user_can( 'chapter-admin' ) || current_user_can( 'administrator' )
 		if ( 'add-candidate' === $section ) {
 			echo do_shortcode( '[candidate-entry]' );
 		} elseif ( 'bulk-add' === $section ) {
