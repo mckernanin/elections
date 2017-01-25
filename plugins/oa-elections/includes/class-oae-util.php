@@ -39,6 +39,6 @@ class OAE_Util {
 
 	static function get_user_chapter( $user_id ) {
 		$chapter = get_user_meta( $user_id, '_oa_election_user_chapter', true );
-		return $term;
+		return $chapter;
 	}
 }
