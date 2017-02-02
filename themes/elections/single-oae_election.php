@@ -86,7 +86,7 @@ get_header(); ?>
 		<?php } else { ?>
 			<h4>This election does not currently have any candidates. <br>Before your election can take place, you must enter your candidates online.</h4>
 			<a class="button" href="add-candidate">Add Candidate</a>
-			<a class="button" href="bulk-upload">Bulk Upload Candidates</a>
+			<a class="button" href="/bulk-candidate-upload/">Bulk Upload Candidates</a>
 		<?php }
 		}
 		// End of the loop.
