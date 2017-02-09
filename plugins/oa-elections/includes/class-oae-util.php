@@ -9,7 +9,11 @@ class OAE_Util {
 		if ( null === $post_id ) {
 			$post_id = get_the_id();
 		}
+
 		$term = current( get_the_terms( $post_id, 'oae_status' ) );
+		if ( ! $term ) {
+			return 'No status defined';
+		}
 		return $term->name;
 	}
 
@@ -18,6 +22,9 @@ class OAE_Util {
 			$post_id = get_the_id();
 		}
 		$term = current( get_the_terms( $post_id, 'oae_cand_status' ) );
+		if ( ! $term ) {
+			return 'No status defined';
+		}
 		return $term->name;
 	}
 
@@ -26,6 +33,9 @@ class OAE_Util {
 			$post_id = get_the_id();
 		}
 		$term = current( get_the_terms( $post_id, 'oae_chapter' ) );
+		if ( ! $term ) {
+			return 'No chapter defined';
+		}
 		return $term->name;
 	}
 
@@ -34,6 +44,9 @@ class OAE_Util {
 			$post_id = get_the_id();
 		}
 		$term = current( get_the_terms( $post_id, 'oae_chapter' ) );
+		if ( ! $term ) {
+			return 'No chapter defined';
+		}
 		return $term;
 	}
 
