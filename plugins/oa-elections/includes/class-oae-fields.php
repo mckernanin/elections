@@ -129,6 +129,22 @@ class OAE_Fields {
 			'attributes' => [ 'required' => 'required' ],
 		]);
 
+		if ( is_admin() ) {
+			$cmb->add_field(  [
+				'name' => 'Address Text',
+				'id'   => $prefix . 'address_text',
+				'row_classes' => 'fullwidth',
+				'type' => 'text',
+			]);
+		} else {
+			$cmb->add_field(  [
+				'name' => 'Address Text',
+				'id'   => $prefix . 'address_text',
+				'row_classes' => 'fullwidth',
+				'type' => 'hidden',
+			]);
+		}
+
 		$cmb->add_field([
 			'name' => 'Meeting Location',
 			'id'   => $prefix . 'location',
