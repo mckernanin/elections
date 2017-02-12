@@ -21,6 +21,14 @@ if ( ! is_user_logged_in() ) {
 	));
 
 	if ( 'oae_election' === $post_type ) {
+		$candidates->add_hidden_field( array(
+			'field_args'  => array(
+				'id'      => 'election_id',
+				'type'    => 'hidden',
+				'default' => $object_id,
+			),
+		));
+
 		$metabox_form_options = array(
 			'save_button' => 'Add Candidate',
 		);

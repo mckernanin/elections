@@ -39,6 +39,7 @@ class OAE_CMB_Form_Handler {
 		$this->action    = sanitize_text_field( $post['_form_action'] );
 		$this->metabox   = sanitize_text_field( $post['object_id'] );
 		$this->user_id   = get_current_user_id();
+		$this->election_id = sanitize_text_field( $post['election_id'] );
 		$this->which_form();
 		include_once( 'class-oae-notifications.php' );
 	}
@@ -134,11 +135,11 @@ class OAE_CMB_Form_Handler {
 			if ( 'oae_candidate' === $post_type ) {
 				$candidates = OAE_Fields::get( 'candidates', $this->election_id );
 				if ( ! is_array( $candidates ) ) {
-					$candidates = [ $post_id ];
+					$candidates = [ $this->post_id ];
 				} else {
-					$candidates[] = $post_id;
+					$candidates[] = $this->post_id;
 				}
-				OAE_Fields::update( 'candidates', $candidates, $election_id );
+				OAE_Fields::update( 'candidates', $candidates, $this->election_id );
 			}
 		}
 	}
