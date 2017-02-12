@@ -457,6 +457,12 @@ class OAE_Fields {
 
 		$prefix = '_oa_candidate_';
 
+		if ( is_admin() || current_user_can( 'administrator' ) ) {
+			$attributes = [];
+		} else {
+			$attributes = [ 'required' => 'required' ];
+		}
+
 		$cmb->add_field(  [
 			'name' => __( 'Personal Information', 'OA-Elections' ),
 			'id'   => $prefix . 'title',
@@ -467,28 +473,28 @@ class OAE_Fields {
 			'name' => 'BSA ID',
 			'id'   => $prefix . 'bsa_id',
 			'type' => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Date of Birth',
 			'id'   => $prefix . 'dob',
 			'type' => 'text_date',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'First Name',
 			'id'   => $prefix . 'fname',
 			'type' => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Last Name',
 			'id'   => $prefix . 'lname',
 			'type' => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
@@ -496,21 +502,21 @@ class OAE_Fields {
 			'id'   => $prefix . 'address',
 			'row_classes' => 'fullwidth',
 			'type' => 'address',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Parent Phone',
 			'id'   => $prefix . 'parent_phone',
 			'type' => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Parent Email',
 			'id'   => $prefix . 'parent_email',
 			'type' => 'text_email',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
@@ -535,14 +541,14 @@ class OAE_Fields {
 			'name' => 'Camping Nights - Long Term',
 			'id'   => $prefix . 'camping_long_term',
 			'type' => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
 			'name' => 'Camping Nights - Short Term',
 			'id'   => $prefix . 'camping_short_term',
 			'type' => 'text',
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
@@ -556,7 +562,7 @@ class OAE_Fields {
 				'life'        => __( 'Life', 'OA-Elections' ),
 				'eagle'       => __( 'Eagle', 'OA-Elections' ),
 			],
-			'attributes' => [ 'required' => 'required' ],
+			'attributes' => $attributes,
 		]);
 
 		$cmb->add_field(  [
@@ -702,7 +708,7 @@ class OAE_Fields {
 
 		$prefix = '_oa_election_';
 
-		if ( is_admin() ) {
+		if ( is_admin() || current_user_can( 'administrator' ) ) {
 			$attributes = [];
 		} else {
 			$attributes = [ 'required' => 'required' ];
