@@ -23,8 +23,8 @@ if ( 'Results Entered' === $status ) {
 			<input type="number"
 				name="registeredActiveYouth"
 				id="registeredActiveYouth"
-				value="<?php echo OAE_Fields::get('registered_youth'); ?>"
-				<?php echo $disabled; ?>
+				value="<?php echo esc_attr( OAE_Fields::get( 'registered_youth' ) ); ?>"
+				<?php echo esc_attr( $disabled ); ?>
 			/>
 		</td>
 	</tr>
@@ -36,8 +36,8 @@ if ( 'Results Entered' === $status ) {
 			<input type="number"
 				name="youthAttendance"
 				id="youthAttendance"
-				value="<?php echo OAE_Fields::get('youth_attendance'); ?>"
-				<?php echo $disabled; ?>
+				value="<?php echo esc_attr( OAE_Fields::get( 'youth_attendance' ) ); ?>"
+				<?php echo esc_attr( $disabled ); ?>
 			/>
 		</td>
 	</tr>
@@ -63,8 +63,8 @@ if ( 'Results Entered' === $status ) {
 			<input type="number"
 				name="electionOneBallots"
 				id="electionOneBallots"
-				value="<?php echo OAE_Fields::get('election_one_ballots'); ?>"
-				<?php echo $disabled; ?>
+				value="<?php echo esc_attr( OAE_Fields::get( 'election_one_ballots' ) ); ?>"
+				<?php echo esc_attr( $disabled ); ?>
 			/>
 		</td>
 		<td>
@@ -79,8 +79,8 @@ if ( 'Results Entered' === $status ) {
 			<input type="number"
 				name="electionTwoBallots"
 				id="electionTwoBallots"
-				value="<?php echo OAE_Fields::get('election_two_ballots'); ?>"
-				<?php echo $disabled; ?>
+				value="<?php echo esc_attr( OAE_Fields::get( 'election_two_ballots' ) ); ?>"
+				<?php echo esc_attr( $disabled ); ?>
 			/>
 		</td>
 		<td>
@@ -99,21 +99,21 @@ if ( 'Results Entered' === $status ) {
 		</th>
 	</tr>
 	<?php
-		foreach ( $candidates as $candidate ) {
+	foreach ( $candidates as $candidate ) {
 	?>
-		<tr>
-			<td>
-				<a href="<?php the_permalink( $candidate ); ?>"><?php echo get_the_title( $candidate ); ?></a>
-			</td>
-			<td>
+	<tr>
+	<td>
+		<a href="<?php the_permalink( $candidate ); ?>"><?php echo get_the_title( $candidate ); ?></a>
+	</td>
+	<td>
+		<?php
+		if ( 'Results Entered' === $status ) {
+			echo esc_html( OAE_Util::get_cand_status( $candidate ) );
+		} else { ?>
+					<input type="checkbox" name="<?php echo esc_attr( $candidate ); ?>" />
 				<?php
-				if ( 'Results Entered' === $status ) {
-					echo OAE_Util::get_cand_status( $candidate );
-				} else { ?>
-					<input type="checkbox" name="<?php echo $candidate; ?>" />
-				<?php
-				}
-				?>
+		}
+			?>
 			</td>
 		</tr>
 	<?php } ?>
