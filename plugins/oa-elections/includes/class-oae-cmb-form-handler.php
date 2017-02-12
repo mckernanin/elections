@@ -232,7 +232,7 @@ class OAE_CMB_Form_Handler {
 		 * This will help double-submissions with browser refreshes
 		 */
 		$args = array(
-			'p' => $post_id,
+			'p' => $this->post_id,
 			'update' => true,
 		);
 
