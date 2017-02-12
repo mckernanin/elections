@@ -5,6 +5,8 @@ $disabled = null;
 if ( 'Results Entered' === $status ) {
 	$disabled = 'disabled';
 }
+
+if ( $candidates ) {
 ?>
 <table class="election-data">
 	<tr>
@@ -122,4 +124,7 @@ if ( 'Results Entered' === $status ) {
 if ( 'Results Entered' !== $status ) { ?>
 	<button id="submit-election-results">Submit Election Results</button>
 	<p>This action is final, you can not edit results once you submit them. <br>Please double check that they're complete!</p>
-<?php } ?>
+<?php }
+} else {
+	echo 'This election currently has no candidates assigned.';
+}
