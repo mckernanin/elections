@@ -218,9 +218,9 @@ class OAE_CMB_Form_Handler {
 	 * @package OA_Elections
 	 */
 	public function candidate() {
-		$post_title = sanitize_text_field( $this->post['_oa_candidate_fname'] . ' ' . $this->post['_oa_candidate_lname'] );
-		$post_name  = intval( $this->post['_oa_candidate_bsa_id'] );
-		$this->new_or_update( 'oae_election', $post_title, $post_name );
+		$post_title = sanitize_text_field( $this->post_data['_oa_candidate_fname'] . ' ' . $this->post_data['_oa_candidate_lname'] );
+		$post_name  = intval( $this->post_data['_oa_candidate_bsa_id'] );
+		$this->new_or_update( 'oae_candidate', $post_title, $post_name );
 		$cmb        = cmb2_get_metabox( $this->metabox, $this->post_id );
 		if ( ! isset( $_POST[ $cmb->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() ) ) {
 			return $cmb->prop( 'submission_error', wp_die( 'security_fail', esc_html( 'Security check failed.' ) ) );
@@ -235,6 +235,14 @@ class OAE_CMB_Form_Handler {
 			'p' => $post_id,
 			'update' => true,
 		);
+
+		if ( 'update' !== $this->action ) {
+			$args['new_candidate'] = true;
+			$args['update'] = false;
+			wp_set_object_terms( $this->post_id, 'eligible', 'oae_cand_status' );
+			wp_set_object_terms( $this->post_id, absint( $this->post_data['_oa_election_unit_chapter'] ), 'oae_chapter' );
+			do_action( 'candidate_save', $this->post_id );
+		}
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
 		exit;
