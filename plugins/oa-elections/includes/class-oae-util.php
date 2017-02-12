@@ -51,7 +51,7 @@ class OAE_Util {
 			return 'No chapter defined';
 		}
 		$term = current( $terms );
-		return $term->name;
+		return $term;
 	}
 
 	static function get_user_chapter( $user_id ) {
