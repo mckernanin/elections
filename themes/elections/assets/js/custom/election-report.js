@@ -52,7 +52,7 @@ if ( $('body').hasClass('section-report') ) {
 			data: {
 				report: electionReport
 			},
-			success: function(response) {
+			success: function() {
 				location.reload();
 			},
 			fail: function(response) {

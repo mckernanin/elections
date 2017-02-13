@@ -91,7 +91,7 @@ if ( $candidates ) {
 	</tr>
 </table>
 
-<table>
+<table class="candidates">
 	<tr>
 		<th>
 			Candidate

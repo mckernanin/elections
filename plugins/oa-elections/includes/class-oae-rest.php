@@ -144,6 +144,11 @@ class OAE_REST {
 	}
 
 	public function set_election_results() {
+
+		if ( ! isset( $_POST['report'] ) ) {
+			return;
+		}
+
 		$report = $_POST['report'];
 		$post_id = absint( $report['ID'] );
 		wp_set_object_terms( $post_id, 'results-entered', 'oae_status' );
@@ -152,8 +157,14 @@ class OAE_REST {
 		update_post_meta( $post_id, '_oa_election_election_one_ballots', absint( $report['electionOne']['ballots'] ) );
 		update_post_meta( $post_id, '_oa_election_election_two_ballots', absint( $report['electionTwo']['ballots'] ) );
 
-		foreach ( $report['candidates'] as $candidate ) {
-			wp_set_object_terms( $candidate, 'elected', 'oae_cand_status' );
+		$candidates = OAE_Fields::get( 'candidates', $post_id );
+
+		foreach ( $candidates as $candidate ) {
+			if ( in_array( $candidate, $report['candidates'], true ) ) {
+				wp_set_object_terms( $candidate, 'elected', 'oae_cand_status' );
+			} else {
+				wp_set_object_terms( $candidate, 'not-elected', 'oae_cand_status' );
+			}
 		}
 
 		$response = 'Election results have been saved.';
