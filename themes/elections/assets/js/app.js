@@ -113,6 +113,7 @@ if ( $('body').hasClass('section-report') ) {
 	});
 
 	$('#submit-election-results').on( 'click', function() {
+		$(this).attr('disabled', true);
 		$.ajax({
 			url: '/wp-json/oa-elections/v1/set-election-results',
 			type: 'post',
@@ -120,7 +121,7 @@ if ( $('body').hasClass('section-report') ) {
 				report: electionReport
 			},
 			success: function(response) {
-				console.log(response)
+				location.reload();
 			},
 			fail: function(response) {
 				alert(response);
