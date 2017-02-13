@@ -58,6 +58,11 @@ class OAE_REST {
 			'methods'  => 'GET',
 			'callback' => array( $this, 'report_elections_by_chapter' ),
 		));
+
+		register_rest_route( $namespace, '/reports/candidates_by_chapter/', array(
+			'methods'  => 'GET',
+			'callback' => array( $this, 'report_candidates_by_chapter' ),
+		));
 	}
 
 	/**
@@ -192,6 +197,31 @@ class OAE_REST {
 				'post_type'      => 'oae_election',
 				'posts_per_page' => 500,
 				'oae_chapter'    => $chapter->slug,
+			];
+			$elections = new WP_Query( $args );
+
+			$response[ $chapter->name ] = $elections->post_count;
+		}
+
+		$response = new WP_REST_Response( $response );
+		return $response;
+	}
+
+	public function report_candidates_by_chapter() {
+
+		$chapters = get_terms( [
+			'taxonomy'   => 'oae_chapter',
+			'hide_empty' => false,
+		]);
+
+		$response = [];
+
+		foreach ( $chapters as $chapter ) {
+			$args = [
+				'post_type'       => 'oae_candidate',
+				'posts_per_page'  => 500,
+				'oae_chapter'     => $chapter->slug,
+				'oae_cand_status' => 'elected',
 			];
 			$elections = new WP_Query( $args );
 
