@@ -5,7 +5,7 @@ if ( ! is_user_logged_in() ) {
 
 	$args = array(
 		'post_type' => 'oae_election',
-
+		'posts_per_page' => 100,
 	);
 	if ( current_user_can( 'chapter-admin' ) ) {
 		$chapter_id = current( get_user_meta( get_current_user_id(), '_oa_election_user_chapter' ) );
@@ -44,6 +44,6 @@ if ( ! is_user_logged_in() ) {
 	</table>
 <?php
 	} else {
-		echo 'There are currently no elections for ' . $chapter->name;
+		echo 'There are currently no elections for ' . esc_html( $chapter->name );
 	}
 }
