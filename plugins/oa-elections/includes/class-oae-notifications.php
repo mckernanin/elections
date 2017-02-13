@@ -168,6 +168,44 @@ class OAE_Notifications {
 			)
 		);
 	}
+
+	static function election_scheduled_unit( $post_id ) {
+		$fields = get_post_custom( $post_id );
+
+		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
+			return;
+		}
+
+		$post_title   = get_the_title( $post_id );
+		$post_url     = get_permalink( $post_id );
+		$subject      = 'Election Date Confirmed For for ' . $post_title;
+		$unit_fname   = current( $fields['_oa_election_leader_fname'] );
+		$unit_lname   = current( $fields['_oa_election_leader_lname'] );
+		$unit_num     = current( $fields['_oa_election_unit_number'] );
+		$unit_type    = current( $fields['_oa_election_unit_type'] );
+		$leader_email = current( $fields['_oa_election_leader_email'] );
+		$confirm_date = current( $fields['_oa_election_selected_date'] );
+		$meeting_time = current( $fields['_oa_election_meeting_time'] );
+		$chapter      = OAE_Util::get_chapter( $post_id );
+
+		ob_start();
+
+		include( 'emails/election-scheduled-unit.php' );
+
+		$message = ob_get_clean();
+
+		// Send email to author.
+		$mail = wp_mail( $leader_email, $subject, $message );
+
+		$copied_message    = 'You were copied on this message by ' . get_the_author( $post_id ) . '<br />' . $message;
+		$copied_recipients = get_post_meta( $post_id, '_oa_election_leader_copied_emails', true );
+
+		if ( $copied_recipients ) {
+			foreach ( $copied_recipients as $email ) {
+				$mail = wp_mail( $email, $subject, $copied_message );
+			}
+		}
+	}
 }
 
 new OAE_Notifications();
