@@ -11,7 +11,7 @@ class OAE_Util {
 		}
 
 		$terms = get_the_terms( $post_id, 'oae_status' );
-		if ( ! $term ) {
+		if ( ! $terms ) {
 			return 'No status defined';
 		}
 		$term = current( $terms );
@@ -23,7 +23,7 @@ class OAE_Util {
 			$post_id = get_the_id();
 		}
 		$terms = get_the_terms( $post_id, 'oae_cand_status' );
-		if ( ! $term ) {
+		if ( ! $terms ) {
 			return 'No status defined';
 		}
 		$term = current( $terms );
