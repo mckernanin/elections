@@ -313,7 +313,7 @@ class OAE_Fields {
 			'name'        => 'Copied Emails',
 			'desc'        => 'Enter email addresses for any members of your troop who you would like to be copied on status updates. <br /><strong>Do not copy candidates!</strong>',
 			'id'          => $prefix . 'copied_emails',
-			'type'        => 'text',
+			'type'        => 'email',
 			'row_classes' => 'fullwidth',
 			'repeatable'  => true,
 		]);
