@@ -53,4 +53,4 @@ if ( ! is_user_logged_in() ) {
 	echo '<h2>' . esc_html( $candidates->meta_box['title'] ) . '</h2>';
 	echo cmb2_get_metabox_form( $candidates, 'candidate_fields', $metabox_form_options );
 
-}
+} // End if().
