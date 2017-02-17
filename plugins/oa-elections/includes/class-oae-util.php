@@ -58,4 +58,11 @@ class OAE_Util {
 		$chapter = get_user_meta( $user_id, '_oa_election_user_chapter', true );
 		return $chapter;
 	}
+
+	static function user_election_rights() {
+		if ( current_user_can( 'chapter_admin' ) || current_user_can( 'administrator' ) ) {
+			return true;
+		}
+		return false;
+	}
 }

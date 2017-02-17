@@ -7,6 +7,8 @@
 
 if ( ! is_user_logged_in() ) {
 	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
+} elseif ( ! OAE_Util::user_election_rights() && ! current_user_can( 'unit_leader' ) ) {
+	echo 'You are not authorized to view this page.';
 } else {
 
 	$post_type  = get_post_type();

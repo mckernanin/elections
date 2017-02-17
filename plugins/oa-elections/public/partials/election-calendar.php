@@ -6,7 +6,9 @@
  */
 
 if ( ! is_user_logged_in() ) {
-	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
+	 echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
+} elseif ( ! OAE_Util::user_election_rights() && ! current_user_can( 'unit_leader' ) ) {
+	 echo 'You are not authorized to view this page.';
 } else {
 	wp_enqueue_script( 'moment' );
 	wp_enqueue_script( 'fullcalendar' );
@@ -33,7 +35,7 @@ jQuery(document).ready( function($) {
 				right: 'month,agendaWeek,agendaDay'
 			},
 			eventSources: [{
-				url: '/wp-json/oa-elections/v1/election-dates?chapter=<?php echo esc_js($chapter); ?>'
+				url: '/wp-json/oa-elections/v1/election-dates?chapter=<?php echo esc_js( $chapter ); ?>'
 			}]
 		});
 		$(window).trigger('resize');
@@ -41,4 +43,4 @@ jQuery(document).ready( function($) {
 </script>
 <div id="election-calendar"></div>
 <button id="schedule-elections">Schedule Selected Elections</button><span id="schedule-response"></span>
-<?php } ?>
+<?php } // End if().
