@@ -67,7 +67,6 @@ class OAE_CMB_Form_Handler {
 
 			default:
 				return false;
-				break;
 		}
 	}
 
@@ -238,10 +237,12 @@ class OAE_CMB_Form_Handler {
 		);
 
 		if ( 'update' !== $this->action ) {
-			$args['new_candidate'] = true;
-			$args['update'] = false;
+			$args['p'] = $this->election_id;
+			$args['editing_section'] = 'add-candidate';
+			unset( $args['update'] );
+			$chapter = OAE_Util::get_chapter_term( $this->election_id );
 			wp_set_object_terms( $this->post_id, 'eligible', 'oae_cand_status' );
-			wp_set_object_terms( $this->post_id, absint( $this->post_data['_oa_election_unit_chapter'] ), 'oae_chapter' );
+			wp_set_object_terms( $this->post_id, absint( $chapter->id ), 'oae_chapter' );
 			do_action( 'candidate_save', $this->post_id );
 		}
 
