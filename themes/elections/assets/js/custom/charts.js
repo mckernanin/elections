@@ -1,14 +1,16 @@
+
+
 function scheduled_elections() {
 
 	$.ajax({
-		url: 'https://elections.tahosalodge.org/wp-json/oa-elections/v1/reports/elections_by_chapter',
+		url: '/wp-json/oa-elections/v1/reports/elections_by_chapter',
 		dataType: 'json',
-	}).done(function(results) {
-
+	}).done(function(response) {
+		$('.scheduled').text(response.sum);
 		// Split timestamp and data into separate arrays
 		var labels = [],
 			data = [];
-		$.each( results, function(i, count) {
+		$.each( response.results, function(i, count) {
 			labels.push(i);
 			data.push(count);
 		});
@@ -50,14 +52,15 @@ function scheduled_elections() {
 function elected_candidates() {
 
 	$.ajax({
-		url: 'https://elections.tahosalodge.org/wp-json/oa-elections/v1/reports/candidates_by_chapter',
+		url: '/wp-json/oa-elections/v1/reports/candidates_by_chapter',
 		dataType: 'json',
-	}).done(function(results) {
+	}).done(function(response) {
+		$('.elected').text(response.sum);
 
 		// Split timestamp and data into separate arrays
 		var labels = [],
 			data = [];
-		$.each( results, function(i, count) {
+		$.each( response.results, function(i, count) {
 			labels.push(i);
 			data.push(count);
 		});
@@ -90,20 +93,14 @@ function elected_candidates() {
 
 		// Instantiate a new chart
 		new Chart( ctx, {
-			type: 'bar',
-			data: tempData,
-			options: {
-				legend: {
-					display: false
-				},
-				tooltips: {
-					enabled: false
-				}
-			},
+			type: 'pie',
+			data: tempData
 		});
 	});
 }
 if ( $('body').hasClass('page-stats') ) {
+	Chart.defaults.global.legend.position = 'bottom';
+
 	scheduled_elections();
 	elected_candidates();
 }

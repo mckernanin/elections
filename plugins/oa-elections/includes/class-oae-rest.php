@@ -153,6 +153,9 @@ class OAE_REST {
 		return $response;
 	}
 
+	/**
+	 * Submit the election report
+	 */
 	public function set_election_results() {
 
 		if ( ! isset( $_POST['report'] ) ) {
@@ -182,6 +185,9 @@ class OAE_REST {
 		return $response;
 	}
 
+	/**
+	 * Data endpoint, elections by chapter.
+	 */
 	public function report_elections_by_chapter() {
 
 		$chapters = get_terms( [
@@ -189,24 +195,31 @@ class OAE_REST {
 			'hide_empty' => false,
 		]);
 
-		$response = [];
+		$response = [
+			'sum' => 0,
+			'results' => [],
+		];
 
 		foreach ( $chapters as $chapter ) {
-			// var_dump( $chapter );
 			$args = [
 				'post_type'      => 'oae_election',
 				'posts_per_page' => 500,
 				'oae_chapter'    => $chapter->slug,
 			];
 			$elections = new WP_Query( $args );
+			$chapter_name = OAE_Util::chapter_name_from_slug( $chapter->slug );
 
-			$response[ $chapter->name ] = $elections->post_count;
+			$response['results'][ $chapter_name ] = $elections->post_count;
+			$response['sum'] = $response['sum'] + $elections->post_count;
 		}
 
 		$response = new WP_REST_Response( $response );
 		return $response;
 	}
 
+	/**
+	 * Data endpoint, candidates by chapter.
+	 */
 	public function report_candidates_by_chapter() {
 
 		$chapters = get_terms( [
@@ -214,7 +227,10 @@ class OAE_REST {
 			'hide_empty' => false,
 		]);
 
-		$response = [];
+		$response = [
+			'sum' => 0,
+			'results' => [],
+		];
 
 		foreach ( $chapters as $chapter ) {
 			$args = [
@@ -223,9 +239,11 @@ class OAE_REST {
 				'oae_chapter'     => $chapter->slug,
 				'oae_cand_status' => 'elected',
 			];
-			$elections = new WP_Query( $args );
+			$candidates = new WP_Query( $args );
+			$chapter_name = OAE_Util::chapter_name_from_slug( $chapter->slug );
 
-			$response[ $chapter->name ] = $elections->post_count;
+			$response['results'][ $chapter_name ] = $candidates->post_count;
+			$response['sum'] = $response['sum'] + $candidates->post_count;
 		}
 
 		$response = new WP_REST_Response( $response );

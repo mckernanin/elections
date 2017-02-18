@@ -65,4 +65,9 @@ class OAE_Util {
 		}
 		return false;
 	}
+
+	static function chapter_name_from_slug( $string ) {
+		$chapter = str_replace( '-', ' ', $string );
+		return ucwords( $chapter );
+	}
 }

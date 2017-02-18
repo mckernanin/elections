@@ -34,7 +34,7 @@
 		"dest":  "./assets/img/"
 	},
 	"browserSync" : {
-		"url" : "elections.dev",
+		"url" : "https://elections.tahosalodge.dev",
 		"open": false,
 		"files": [
 			"**/*.php",
