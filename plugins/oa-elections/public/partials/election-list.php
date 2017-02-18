@@ -1,7 +1,7 @@
 <?php
 if ( ! is_user_logged_in() ) {
 	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
-} elseif ( ! OAE_Util::user_election_rights() && ! current_user_can( 'unit_leader' ) ) {
+} elseif ( ! OAE_Util::user_election_rights() ) {
 	echo 'You are not authorized to view this page.';
 } else {
 
