@@ -1,11 +1,16 @@
-*/*
-*.*
-!.gitignore
+plugins/*
+themes/*
+languages/*
+uploads/*
+vendor/*
+
+index.php
+debug.log
+db.php
+
 !plugins/oa-elections
 !plugins/cmb_field_map
 !themes/elections
-!composer.json
-!README.md
 
 themes/elections/node_modules
 plugins/oa-elections/node_modules
