@@ -36,6 +36,7 @@ class OAE_Public {
 		add_shortcode( 'unit-edit-form-chapter', array( $this, 'shortcode_unit_edit_form_chapter' ) );
 		add_shortcode( 'election-report', array( $this, 'shortcode_election_report' ) );
 		add_shortcode( 'ballots', array( $this, 'shortcode_ballots' ) );
+		add_shortcode( 'stats', [ $this, 'shortcode_stats' ] );
 
 		add_action( 'init', array( $this, 'rewrites' ) );
 		add_action( 'cmb2_init', array( $this, 'form_submission_handler' ) );
@@ -51,6 +52,7 @@ class OAE_Public {
 
 		wp_register_script( 'moment', 			plugin_dir_url( __FILE__ ) . '/js/moment.min.js', array( 'jquery' ) );
 		wp_register_script( 'fullcalendar', 	plugin_dir_url( __FILE__ ) . '/js/fullcalendar.min.js', array( 'jquery' ) );
+		wp_register_script( 'chart-js', 		'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js' );
 		wp_register_style( 'fullcalendar', 		plugin_dir_url( __FILE__ ) . '/css/fullcalendar.min.css' );
 		wp_enqueue_script( 'election-scripts',  plugin_dir_url( __FILE__ ) . '/js/oa-elections-public.js', array( 'jquery' ) );
 		wp_enqueue_script( 'selectize', 		plugin_dir_url( __FILE__ ) . '/js/selectize.min.js', array( 'jquery' ) );
@@ -166,6 +168,19 @@ class OAE_Public {
 	public function shortcode_ballots( $atts = array() ) {
 		ob_start();
 		include( 'partials/ballots.php' );
+		$output = ob_get_clean();
+		return $output;
+	}
+
+	/**
+	 * Shortcode to display charts.
+	 * @param  array  $atts Shortcode attributes
+	 * @return string       Form HTML markup
+	 */
+	public function shortcode_stats( $atts = array() ) {
+		wp_enqueue_script( 'chart-js' );
+		ob_start();
+		include( 'partials/stats.php' );
 		$output = ob_get_clean();
 		return $output;
 	}

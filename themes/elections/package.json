@@ -1,6 +1,9 @@
 {
   "name": "kevin-child-theme",
   "version": "1.0.0",
+  "scripts": {
+	"start": "gulp"  
+  },
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.13.0",
