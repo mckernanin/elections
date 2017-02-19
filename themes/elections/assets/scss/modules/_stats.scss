@@ -3,10 +3,16 @@
 	.entry-content {
 		display: flex;
 		justify-content: space-between;
+		flex-flow: row wrap;
 	}
 }
 
 .chart-wrapper {
 	max-width: 48%;
 	text-align: center;
+
+	@include bp(phone) {
+		max-width: 100%;
+		margin: auto;
+	}
 }
