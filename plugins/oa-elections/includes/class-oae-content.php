@@ -31,12 +31,17 @@ class OAE_Content {
 	public function register() {
 		require_once( 'lib/class-cpt.php' );
 
-		$election = new CPT([
+		$election = new CPT(
+			[
 			'post_type_name' => 'oae_election',
 			'singular'       => 'Election',
 			'plural'         => 'Elections',
 			'slug'           => 'election',
-		]);
+			],
+			[
+				'supports'   => [ 'title', 'author' ],
+			]
+		);
 		$election->register_taxonomy([
 		    'taxonomy_name' => 'oae_status',
 		    'singular'      => 'Status',
