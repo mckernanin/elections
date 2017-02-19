@@ -39,7 +39,29 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				WP_CLI::error( 'You must supply an election ID' );
 			}
 		}
+
+		function link_authors( $args, $assoc_args ) {
+			$post_args = [
+				'post_type'      => 'oae_election',
+				'posts_per_page' => 500,
+			];
+			$elections = new WP_Query( $post_args );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Linking authors', $elections->post_count );
+			while ( $elections->have_posts() ) {
+				$elections->the_post();
+				$leader_email = OAE_Fields::get( '_oa_election_leader_email' );
+				$user = get_user_by( 'email', $leader_email );
+				if ( is_object( $user ) ) {
+					wp_update_post([
+						'post_id'     => get_the_id(),
+						'post_author' => $user->ID,
+					]);
+				}
+				$progress->tick();
+			}
+			$progress->finish();
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
-}
+} // End if().
