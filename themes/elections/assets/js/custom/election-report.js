@@ -53,13 +53,19 @@ if ( $('body').hasClass('section-report') ) {
 				report: electionReport
 			},
 			success: function() {
-				Raven.captureMessage('Election Report Submitted', electionReport);
+				Raven.captureMessage( 'Election Report Submitted', {
+					level: 'info',
+					extra: electionReport,
+				});
 				setTimeout( function() {
-					location.reload();					
+					location.reload();
 				}, 4000);
 			},
 			fail: function(response) {
-				Raven.captureMessage(response, electionReport);
+				Raven.captureMessage( response, {
+					level: 'error',
+					extra: electionReport,
+				});
 				alert(response);
 			},
 		});
