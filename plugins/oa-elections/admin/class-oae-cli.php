@@ -16,6 +16,18 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 		}
 
+		function notify_unit_scheduled( $args, $assoc_args ) {
+			$post_id = $assoc_args['id'];
+
+			if ( $post_id ) {
+				OAE_Notifications::election_scheduled_unit( $post_id );
+				$title = get_the_title( $post_id );
+				WP_CLI::success( 'Unit notifications sent for ' . $title );
+			} else {
+				WP_CLI::error( 'You must supply an election ID' );
+			}
+		}
+
 		function notify_chapter( $args, $assoc_args ) {
 			$post_id = $assoc_args['id'];
 
