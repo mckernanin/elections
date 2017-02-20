@@ -67,7 +67,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				'role__not_in' => [ 'administrator', 'chapter-admin', 'election-team', 'unit-leader' ],
 			];
 			$users = new WP_User_Query( $user_args );
-			$progress = \WP_CLI\Utils\make_progress_bar( 'Fixing roles', count( $users ) );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Fixing roles', count( $users->results ) );
 			foreach ( $users->results as $userdata ) {
 				$user = new WP_User( $userdata->data->ID );
 				$user->set_role( 'unit-leader' );
