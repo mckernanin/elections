@@ -15,6 +15,8 @@ if ( is_user_logged_in() && current_user_can( 'unit-leader' ) ) {
 	 $election = current( $query->posts );
 	 wp_safe_redirect( get_the_permalink( $election->ID ) );
 	 exit;
+} elseif ( ! is_user_logged_in() ) {
+	wp_safe_redirect( home_url() . '/login' );
 } else {
 	wp_safe_redirect( home_url() );
 }
