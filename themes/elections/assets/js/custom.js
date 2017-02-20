@@ -229,7 +229,9 @@ if ( $('body').hasClass('section-report') ) {
 			},
 			success: function() {
 				Raven.captureMessage('Election Report Submitted', electionReport);
-				location.reload();
+				setTimeout( function() {
+					location.reload();					
+				}, 4000);
 			},
 			fail: function(response) {
 				Raven.captureMessage(response, electionReport);
