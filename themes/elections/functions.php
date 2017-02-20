@@ -15,13 +15,13 @@ class ElectionTheme {
 	 */
 	function __construct() {
 
-		add_filter( 'upload_mimes', 		array( $this, 'mime_types' ) );
-		add_filter( 'body_class',   		array( $this, 'add_slug_body_class' ) );
-		add_action( 'send_headers', 		array( $this, 'custom_headers' ) );
-		add_action( 'wp_enqueue_scripts', 	array( $this, 'typekit' ) );
-		add_action( 'wp_enqueue_scripts', 	array( $this, 'scripts_and_styles' ) );
-		add_action( 'login_head', 			array( $this, 'my_custom_login' ) );
-		add_action( 'login_head', 			array( $this, 'typekit' ) );
+		add_filter( 'upload_mimes', 		 [ $this, 'mime_types' ] );
+		add_filter( 'body_class',   		 [ $this, 'add_slug_body_class' ] );
+		add_action( 'send_headers', 	 	 [ $this, 'custom_headers' ] );
+		add_action( 'wp_enqueue_scripts', 	 [ $this, 'typekit' ] );
+		add_action( 'wp_enqueue_scripts', 	 [ $this, 'scripts_and_styles' ] );
+		add_action( 'login_enqueue_scripts', [ $this, 'login_scripts_styles' ] );
+		add_action( 'login_enqueue_scripts', [ $this, 'typekit' ] );
 
 		$this->roots_support();
 	}
@@ -85,12 +85,12 @@ class ElectionTheme {
 	 * Enqueue scripts and styles.
 	 */
 	public function scripts_and_styles() {
-		wp_enqueue_script( 'elections-theme-js', get_stylesheet_directory_URI() . '/assets/js/app.js' );
+		wp_enqueue_script( 'elections-theme-js', get_stylesheet_directory_URI() . '/assets/js/app.js', [], filemtime( get_stylesheet_directory() . '/assets/js/app.min.js' ) );
 		wp_enqueue_style( 'dashicons' );
 	}
 
-	function my_custom_login() {
-		echo '<link rel="stylesheet" type="text/css" href="' . get_stylesheet_directory_uri() . '/login.css" />';
+	public function login_scripts_styles() {
+		wp_enqueue_style( 'custom-login', get_stylesheet_directory_uri() . '/login.css' );
 	}
 }
 
