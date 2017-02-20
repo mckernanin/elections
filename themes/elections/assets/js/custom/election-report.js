@@ -53,9 +53,11 @@ if ( $('body').hasClass('section-report') ) {
 				report: electionReport
 			},
 			success: function() {
+				Raven.captureMessage('Election Report Submitted', electionReport);
 				location.reload();
 			},
 			fail: function(response) {
+				Raven.captureMessage(response, electionReport);
 				alert(response);
 			},
 		});
