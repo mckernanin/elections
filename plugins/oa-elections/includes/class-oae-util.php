@@ -70,4 +70,17 @@ class OAE_Util {
 		$chapter = str_replace( '-', ' ', $string );
 		return ucwords( $chapter );
 	}
+
+	static function candidate_count( $post_id = null ) {
+		if ( null === $post_id ) {
+			$post_id = get_the_id();
+		}
+		$candidates = OAE_Fields::get( 'candidates' );
+		if ( $candidates ) {
+			$count = count( $candidates );
+		} else {
+			$count = 0;
+		}
+		return $count;
+	}
 }

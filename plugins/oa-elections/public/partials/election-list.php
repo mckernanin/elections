@@ -26,6 +26,9 @@ if ( ! is_user_logged_in() ) {
 			<th>
 				Election Status
 			</th>
+			<th>
+				Candidates
+			</th>
 		</tr>
 		<?php while ( $elections->have_posts() ) {
 			$elections->the_post(); ?>
@@ -38,6 +41,9 @@ if ( ! is_user_logged_in() ) {
 				</td>
 				<td>
 					<?php echo esc_html( OAE_Util::get_status( get_the_id() ) ); ?>
+				</td>
+				<td>
+					<?php echo esc_html( OAE_Util::candidate_count( get_the_id() ) ); ?>
 				</td>
 			</tr>
 		<?php } ?>
