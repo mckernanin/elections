@@ -7,7 +7,8 @@ Please save this email for your records. Thanks for requesting an OA election fo
 <?php echo esc_html( $date_2 ); ?><br />
 <?php echo esc_html( $date_3 ); ?><br /><br />
 
-We’ll notify you automatically when your chapter confirms a date. To save everyone time be sure to add eligible Scouts to your election. You can log into your election request using these credentials:<br /><br />
+We’ll notify you automatically when your chapter confirms a date. To save everyone time be sure to add eligible Scouts to your election.
+You can log into your election request using the following credentials at https://elections.tahosalodge.org/login<br /><br />
 
 Username: <?php echo esc_html( $leader_email ); ?><br />
 Password: <?php echo esc_html( $pass ); ?><br /><br />
