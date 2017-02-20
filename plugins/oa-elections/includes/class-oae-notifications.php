@@ -187,7 +187,7 @@ class OAE_Notifications {
 		$unit_type    = current( $fields['_oa_election_unit_type'] );
 		$leader_email = current( $fields['_oa_election_leader_email'] );
 		$confirm_date = current( $fields['_oa_election_selected_date'] );
-		$meeting_time = current( $fields['_oa_election_meeting_time'] );
+		$meeting_time = current( $fields['_oa_election_unit_meeting_time'] );
 		$chapter      = OAE_Util::get_chapter( $post_id );
 
 		ob_start();
