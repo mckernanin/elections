@@ -16,22 +16,32 @@ get_header(); ?>
 
 <div id="primary" class="content-area" style="width: 100%;">
 	<main id="main" class="site-main" role="main">
+	<?php
+	// Start the loop.
+	while ( have_posts() ) : the_post(); ?>
+		<h1><?php the_title(); ?></h1>
 		<?php
-		// Start the loop.
-		while ( have_posts() ) : the_post(); ?>
-			<h1><?php the_title(); ?></h1>
-			<?php if ( current_user_can( 'chapter-admin' ) || current_user_can( 'administrator' ) ) { ?>
-			<ul class="single-election-nav">
-				<li><strong>Actions:</strong></li>
-				<li><a href="<?php the_permalink(); ?>">Election Home</a></li>
-				<li><a href="<?php the_permalink(); ?>/edit-election">Edit election</a></li>
-				<li><a href="<?php the_permalink(); ?>/add-candidate">Add candidates</a></li>
-				<li><a href="<?php the_permalink(); ?>/chapter-edit-election">Edit election (admin options)</a></li>
-				<li><a href="<?php the_permalink(); ?>/report">View report</a></li>
-				<li><a href="<?php the_permalink(); ?>/ballots">Print ballots</a></li>
-			</ul>
+		if ( current_user_can( 'chapter-admin' ) || current_user_can( 'administrator' ) ) { ?>
+		<ul class="single-election-nav">
+			<li><strong>Actions:</strong></li>
+			<li><a href="<?php the_permalink(); ?>">Election Home</a></li>
+			<li><a href="<?php the_permalink(); ?>/edit-election">Edit election</a></li>
+			<li><a href="<?php the_permalink(); ?>/add-candidate">Add candidates</a></li>
+			<li><a href="<?php the_permalink(); ?>/chapter-edit-election">Edit election (admin options)</a></li>
+			<li><a href="<?php the_permalink(); ?>/report">View report</a></li>
+			<li><a href="<?php the_permalink(); ?>/ballots">Print ballots</a></li>
+		</ul>
 		<?php
-		} // endif current_user_can( 'chapter-admin' ) || current_user_can( 'administrator' )
+		} elseif ( current_user_can( 'unit-leader' ) ) {
+		?>
+		<ul class="single-election-nav">
+			<li><strong>Actions:</strong></li>
+			<li><a href="<?php the_permalink(); ?>">Election Home</a></li>
+			<li><a href="<?php the_permalink(); ?>/add-candidate">Add candidates</a></li>
+			<li><a href="<?php the_permalink(); ?>/ballots">Print ballots</a></li>
+		</ul>
+		<?php
+		} // End if().
 		if ( 'add-candidate' === $section ) {
 			echo do_shortcode( '[candidate-entry]' );
 		} elseif ( 'bulk-add' === $section ) {
@@ -88,8 +98,8 @@ get_header(); ?>
 			<a class="button" href="add-candidate">Add Candidate</a>
 			<a class="button" href="/bulk-candidate-upload/">Bulk Upload Candidates</a>
 		<?php }
-		}
-		// End of the loop.
+			} // End if().
+			// End of the loop.
 	endwhile;
 	?>
 
