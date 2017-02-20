@@ -14,12 +14,11 @@
 		margin: 0;
 		width: 8.5in;
 		height: 11in;
-		outline: 1px red solid;
 		overflow: hidden;
 		padding: 10px;
 		display: flex;
 		flex-flow: row wrap;
-		justify-content: space-around;
+		justify-content: space-between;
 		align-items: flex-start;
 	}
 

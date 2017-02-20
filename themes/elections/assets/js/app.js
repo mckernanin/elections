@@ -10,8 +10,8 @@ if ( $('body').hasClass('section-ballots') ) {
 		$ballot.clone().insertAfter('.ballots:first-of-type');
 		ballots           = Math.floor( $('.ballots:nth-of-type(odd)').length );
 		totalBallotHeight = ballots * ballotHeight;
-		console.log(totalBallotHeight);
 	}
+	$ballot.clone().insertAfter('.ballots:first-of-type');
 }
 
 
