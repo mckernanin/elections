@@ -2,9 +2,10 @@
 class OAE_Notifications {
 
 	function __construct() {
-		add_action( 'election_save', array( $this, 'new_election_notification_unit' ) );
-		add_action( 'election_save', array( $this, 'new_election_notification_chapter' ) );
-		add_action( 'election_save', array( $this, 'new_election_slack' ) );
+		add_action( 'election_save', [ $this, 'new_election_notification_unit' ] );
+		add_action( 'election_save', [ $this, 'new_election_notification_chapter' ] );
+		add_action( 'election_save', [ $this, 'new_election_slack' ] );
+		add_action( 'election_schedule', [ $this, 'election_scheduled_unit' ] );
 	}
 
 	/**
@@ -37,7 +38,8 @@ class OAE_Notifications {
 		$leader_email = current( $fields['_oa_election_leader_email'] );
 		$chapter      = OAE_Util::get_chapter( $post_id );
 		$pass         = $unit_num . substr( $chapter, 0, 1 ) . $unit_lname . '383';
-		wp_set_password( $pass, get_the_author_id( $post_id ) );
+		$election     = get_post( $post_id );
+		wp_set_password( $pass, $election->post_author );
 
 		ob_start();
 

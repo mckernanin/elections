@@ -143,6 +143,7 @@ class OAE_REST {
 				'unit' => get_the_title( $election['postID'] ),
 				'date' => $selected_date,
 			];
+			do_action( 'election_schedule', $post_id );
 			$i++;
 		}
 		$response['message'] = 'Elections have been scheduled for ' . $i . ' units.';
