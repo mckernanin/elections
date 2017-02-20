@@ -20,9 +20,13 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			$post_id = $assoc_args['id'];
 
 			if ( $post_id ) {
-				OAE_Notifications::election_scheduled_unit( $post_id );
-				$title = get_the_title( $post_id );
-				WP_CLI::success( 'Unit notifications sent for ' . $title );
+				if ( has_term( 'scheduled', 'oae_status',  $post_id ) ) {
+					OAE_Notifications::election_scheduled_unit( $post_id );
+					$title = get_the_title( $post_id );
+					WP_CLI::success( 'Unit notifications sent for ' . $title );
+				} else {
+					WP_CLI::error( 'This election has not been scheduled yet.' );
+				}
 			} else {
 				WP_CLI::error( 'You must supply an election ID' );
 			}
