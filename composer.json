@@ -20,7 +20,8 @@
 		"jcchavezs/cmb2-conditionals": "dev-master",
 		"wpackagist-plugin/mailgun": "*",
 		"wpackagist-plugin/remove-dashboard-access-for-non-admins": "*",
-		"wpackagist-plugin/wp-migrate-db": "*"
+		"wpackagist-plugin/wp-migrate-db": "*",
+        "roots/wp-stage-switcher": "2.0.0"
     },
 	"extra" : {
         "installer-paths" : {
