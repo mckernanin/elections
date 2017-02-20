@@ -180,7 +180,7 @@ class OAE_CMB_Form_Handler {
 	 * @package OA_Elections
 	 */
 	public function unit() {
-		$this->check_for_user( $this->post_data['_oa_election_leader_email'], $this->fname, $this->lname, 'unit_leader' );
+		$this->check_for_user( $this->post_data['_oa_election_leader_email'], $this->fname, $this->lname, 'unit-leader' );
 		$unit_number   = intval( $this->post_data['_oa_election_unit_number'] );
 		$post_title    = 'Troop ' . $unit_number;
 		$post_name     = 'troop-' . $unit_number . '-' . date( 'Y' );

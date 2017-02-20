@@ -61,6 +61,20 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 			$progress->finish();
 		}
+
+		function fix_roles() {
+			$user_args = [
+				'role__not_in' => [ 'administrator', 'chapter-admin', 'election-team', 'unit-leader' ],
+			];
+			$users = new WP_User_Query( $user_args );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Fixing roles', count( $users ) );
+			foreach ( $users->results as $userdata ) {
+				$user = new WP_User( $userdata->data->ID );
+				$user->set_role( 'unit-leader' );
+				$progress->tick();
+			}
+			$progress->finish();
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
