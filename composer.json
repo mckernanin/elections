@@ -21,7 +21,8 @@
 		"wpackagist-plugin/mailgun": "*",
 		"wpackagist-plugin/remove-dashboard-access-for-non-admins": "*",
         "roots/wp-stage-switcher": "2.0.0",
-        "wpackagist-plugin/disable-toolbar": "^1.0"
+        "wpackagist-plugin/disable-toolbar": "^1.0",
+        "roots/soil": "3.7.1"
     },
 	"extra" : {
         "installer-paths" : {

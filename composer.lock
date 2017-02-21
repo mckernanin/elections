@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e2b9a9ac4f3508fce80624a59f28727",
+    "content-hash": "785e836dd028ed86ff3ff0f44b36b228",
     "packages": [
         {
             "name": "composer/installers",
@@ -254,6 +254,51 @@
             "time": "2014-07-30T15:53:08+00:00"
         },
         {
+            "name": "roots/soil",
+            "version": "3.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roots/soil.git",
+                "reference": "5b9b9d8a878b295f44b35cba826c462b20cc1d9c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roots/soil/zipball/5b9b9d8a878b295f44b35cba826c462b20cc1d9c",
+                "reference": "5b9b9d8a878b295f44b35cba826c462b20cc1d9c",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "^2.5.1"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Scott Walkinshaw",
+                    "email": "scott.walkinshaw@gmail.com",
+                    "homepage": "https://github.com/swalkinshaw"
+                },
+                {
+                    "name": "Ben Word",
+                    "email": "ben@benword.com",
+                    "homepage": "https://github.com/retlehs"
+                }
+            ],
+            "description": "A WordPress plugin which contains a collection of modules to apply theme-agnostic front-end modifications",
+            "homepage": "https://roots.io/plugins/soil/",
+            "keywords": [
+                "wordpress"
+            ],
+            "time": "2016-08-30T18:15:45+00:00"
+        },
+        {
             "name": "roots/wp-stage-switcher",
             "version": "2.0.0",
             "source": {
@@ -420,7 +465,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/disable-toolbar.1.0.zip",
-                "reference": null,
+                "reference": "tags/1.0",
                 "shasum": null
             },
             "require": {
