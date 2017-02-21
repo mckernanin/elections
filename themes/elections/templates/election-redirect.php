@@ -13,7 +13,6 @@ if ( is_user_logged_in() && current_user_can( 'unit-leader' ) ) {
 		'fields'         => 'ids',
 	));
 	$election = current( $query->posts );
-	// wp_die( var_dump( $election ) );
 	wp_safe_redirect( get_the_permalink( $election ) );
 	exit;
 } elseif ( ! is_user_logged_in() ) {
