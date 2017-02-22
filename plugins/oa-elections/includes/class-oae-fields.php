@@ -439,7 +439,11 @@ class OAE_Fields {
 			'options'     => [
 				'show_thumbnails' => true,
 				'filter_boxes'    => true,
-				'query_args'      => [ 'post_type' => 'oae_candidate' ],
+				'query_args'      => [
+					'post_type'       => 'oae_candidate',
+					'posts_per_page'  => 500,
+					'oae_cand_status' => 'eligible',
+				],
 			],
 		]);
 	}
