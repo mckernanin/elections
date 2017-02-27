@@ -91,6 +91,27 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 			$progress->finish();
 		}
+
+		public function set_candidate_chapters() {
+			$post_args = [
+				'post_type'      => 'oae_election',
+				'posts_per_page' => 500,
+			];
+			$elections = new WP_Query( $post_args );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Setting candidate chapters', $elections->post_count );
+			while ( $elections->have_posts() ) {
+				$elections->the_post();
+				$chapter = OAE_Util::get_chapter_term()->term_id;
+				$candidates = OAE_Fields::get( 'candidates' );
+				if ( $candidates ) {
+					foreach ( $candidates as $candidate ) {
+						wp_set_object_terms( $candidate, $chapter, 'oae_chapter' );
+					}
+				}
+				$progress->tick();
+			}
+			$progress->finish();
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
