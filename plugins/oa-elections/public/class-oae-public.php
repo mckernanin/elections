@@ -58,6 +58,8 @@ class OAE_Public {
 		wp_enqueue_script( 'selectize', 		plugin_dir_url( __FILE__ ) . '/js/selectize.min.js', array( 'jquery' ) );
 		wp_enqueue_style( 'selectize', 			plugin_dir_url( __FILE__ ) . '/css/selectize.min.css' );
 		wp_add_inline_script( 'selectize', 		'jQuery(document).ready( function($) { $("select").selectize(); });', array( 'selectize' ) );
+		wp_register_script( 'tablesort', 'https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.0.0/tablesort.min.js' );
+		wp_add_inline_script( 'tablesort', 'new Tablesort( document.getElementById("election-list"))' );
 	}
 
 	/**
@@ -105,6 +107,7 @@ class OAE_Public {
 	 * @return string       Form HTML markup
 	 */
 	function election_list( $atts = array() ) {
+		wp_enqueue_script( 'tablesort' );
 		ob_start();
 		include( 'partials/election-list.php' );
 		$output = ob_get_clean();
