@@ -28,7 +28,7 @@ get_header(); ?>
 			<li><a href="<?php the_permalink(); ?>/edit-election">Edit election</a></li>
 			<li><a href="<?php the_permalink(); ?>/add-candidate">Add candidates</a></li>
 			<li><a href="<?php the_permalink(); ?>/chapter-edit-election">Edit election (admin options)</a></li>
-			<li><a href="<?php the_permalink(); ?>/report">View report</a></li>
+			<li><a href="<?php the_permalink(); ?>/report">Election report</a></li>
 			<li><a href="<?php the_permalink(); ?>/ballots">Print ballots</a></li>
 		</ul>
 		<?php
