@@ -115,11 +115,10 @@ class OAE_CMB_Form_Handler {
 	public function new_or_update( $post_type, $post_title, $post_name = null ) {
 		if ( 'update' !== $this->action ) {
 			$this->election_id = $this->post_id;
-			$user_id = get_current_user_id();
 			$post_data = array(
 				'post_type'   => $post_type,
 				'post_status' => 'publish',
-				'post_author' => $user_id,
+				'post_author' => $this->user_id,
 				'post_title'  => $post_title,
 			);
 			if ( null !== $post_name ) {
