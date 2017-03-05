@@ -112,6 +112,34 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 			$progress->finish();
 		}
+
+		public function admin_mg_list() {
+			$query_args = [
+				'role' => 'chapter-admin',
+			];
+
+			$users = new WP_User_Query( $query_args );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Syncing mailing list', count( $users->results ) );
+			foreach ( $users->results as $user ) {
+				$response = wp_remote_post( 'https://api.mailgun.net/v3/lists/electionadmins@tahosalodge.org/members', array(
+					'headers' => array(
+						'Authorization' => MG_BASIC_AUTH,
+						'Content-Type'  => 'application/x-www-form-urlencoded; charset=utf-8',
+					),
+					'body' => array(
+						'subscribed' => 'True',
+						'address'    => $user->data->user_email,
+				 	),
+				) );
+				$progress->tick();
+				if ( is_wp_error( $response ) ) {
+					// There was an error making the request
+					$error_message = $response->get_error_message();
+					die( esc_html( $error_message ) );
+				}
+			}
+			$progress->finish();
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
