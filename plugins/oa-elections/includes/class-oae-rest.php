@@ -174,7 +174,7 @@ class OAE_REST {
 		$candidates = OAE_Fields::get( 'candidates', $post_id );
 
 		foreach ( $candidates as $candidate ) {
-			if ( in_array( $candidate, $report['candidates'], true ) ) {
+			if ( in_array( absint( $candidate ), $report['candidates'], true ) ) {
 				wp_set_object_terms( $candidate, 'elected', 'oae_cand_status' );
 			} else {
 				wp_set_object_terms( $candidate, 'not-elected', 'oae_cand_status' );

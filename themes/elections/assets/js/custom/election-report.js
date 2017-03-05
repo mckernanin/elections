@@ -35,6 +35,9 @@ if ( $('body').hasClass('section-report') ) {
 	$('#electionTwoBallots').on( 'change', function() {
 		electionReport.electionTwo.ballots = Math.abs( $(this).val() );
 		electionReport.electionTwo.required = Math.ceil( electionReport.electionTwo.ballots / 2 );
+		if ( electionReport.electionTwo.required === ( electionReport.electionTwo.ballots / 2 ) ) {
+			electionReport.electionTwo.required = electionReport.electionTwo.required + 1;
+		}
 		$('#electionTwoRequired').val(electionReport.electionTwo.required);
 	});
 

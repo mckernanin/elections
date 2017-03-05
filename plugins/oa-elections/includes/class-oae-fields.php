@@ -90,7 +90,9 @@ class OAE_Fields {
 		if ( is_admin() || current_user_can( 'administrator' ) ) {
 			$attributes = [];
 		} else {
-			$attributes = [ 'required' => 'required' ];
+			$attributes = [
+				'required' => 'required',
+			];
 		}
 
 		/**
@@ -470,7 +472,9 @@ class OAE_Fields {
 		if ( is_admin() || current_user_can( 'administrator' ) ) {
 			$attributes = [];
 		} else {
-			$attributes = [ 'required' => 'required' ];
+			$attributes = [
+				'required' => 'required',
+			];
 		}
 
 		$cmb->add_field(  [
@@ -647,9 +651,9 @@ class OAE_Fields {
 			'row_classes' => 'fullwidth',
 			'options_cb' => [ $this, 'cmb2_get_term_options' ],
 			'get_terms_args' => [
-		        'taxonomy'   => 'oae_chapter',
-		        'hide_empty' => false,
-		    ],
+				'taxonomy'   => 'oae_chapter',
+				'hide_empty' => false,
+			],
 		]);
 
 		$user->add_field([
@@ -688,7 +692,7 @@ class OAE_Fields {
 		$election_chapter->add_field([
 			'name'    => 'Election Team',
 			'desc'    => 'Assign election team members by dragging them into the right column.',
-			'id'      => $prefix . 'team_members',
+			'id'      => $prefix . 'team_members_users',
 			'row_classes' => 'fullwidth',
 			'type'    => 'custom_attached_posts',
 			'options' => [
@@ -697,6 +701,36 @@ class OAE_Fields {
 				'filter_boxes'    => true, // Show a text box for filtering the results
 			],
 		]);
+
+		$election_chapter->add_field([
+			'name'    => 'Camp Promotion',
+			'id'      => $prefix . 'camp_promotion',
+			'type'    => 'select',
+			'options' => [
+				'no'  => 'No',
+				'yes' => 'Yes',
+			],
+		]);
+
+		// $group_field_id is the field id string, so in this case: $prefix . 'demo'
+		$group_id = $election_chapter->add_field( array(
+			'id'                => $prefix . 'team_members',
+			'type'              => 'group',
+			'description'       => 'A Question with Answers',
+			'options'           => array(
+				'group_title'   => 'Question {#}',
+				'add_button'    => 'Add Another Question',
+				'remove_button' => 'Remove Question',
+				'sortable'      => true,
+			),
+		) );
+
+		$election_chapter->add_group_field( $group_id, array(
+			'id'            => 'question',
+			'name'          => __( 'Question', 'cgc-quiz' ),
+			'type'          => 'textarea',
+			'desc'          => 'Type the question here.',
+		) );
 	}
 
 
@@ -721,7 +755,9 @@ class OAE_Fields {
 		if ( is_admin() || current_user_can( 'administrator' ) ) {
 			$attributes = [];
 		} else {
-			$attributes = [ 'required' => 'required' ];
+			$attributes = [
+				'required' => 'required',
+			];
 		}
 
 		$election_report->add_field([
@@ -759,28 +795,30 @@ class OAE_Fields {
 	 * @return array An array of options that matches the CMB2 options array
 	 */
 	public function cmb2_get_term_options( $field ) {
-	    $args = $field->args( 'get_terms_args' );
-	    $args = is_array( $args ) ? $args : [];
+		$args = $field->args( 'get_terms_args' );
+		$args = is_array( $args ) ? $args : [];
 
-	    $args = wp_parse_args( $args, [ 'taxonomy' => 'category' ] );
+		$args = wp_parse_args( $args, [
+			'taxonomy' => 'category',
+		]);
 
-	    $taxonomy = $args['taxonomy'];
+		$taxonomy = $args['taxonomy'];
 
-	    $terms = (array) cmb2_utils()->wp_at_least( '4.5.0' )
-	        ? get_terms( $args )
-	        : get_terms( $taxonomy, $args );
+		$terms = (array) cmb2_utils()->wp_at_least( '4.5.0' )
+			? get_terms( $args )
+			: get_terms( $taxonomy, $args );
 
-	    // Initate an empty array
-	    $term_options = [
+		// Initate an empty array
+		$term_options = [
 			'' => '---',
 		];
-	    if ( ! empty( $terms ) ) {
-	        foreach ( $terms as $term ) {
-	            $term_options[ $term->term_id ] = $term->name;
-	        }
-	    }
+		if ( ! empty( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$term_options[ $term->term_id ] = $term->name;
+			}
+		}
 
-	    return $term_options;
+		return $term_options;
 	}
 
 
