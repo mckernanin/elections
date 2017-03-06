@@ -71,6 +71,7 @@ class OAE_REST {
 	function get_election_dates() {
 		$args = array(
 			'post_type' => 'oae_election',
+			'posts_per_page' => 500,
 		);
 		if ( 'all' !== $_GET['chapter'] ) {
 			$args['tax_query'] = [
