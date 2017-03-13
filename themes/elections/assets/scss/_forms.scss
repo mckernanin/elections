@@ -70,6 +70,13 @@
 						padding-right: 8%;
 					}
 				}
+
+				.repeatable {
+
+					.cmb-group-description {
+						flex-basis: 100% !important;
+					}
+				}
 			}
 		}
 
@@ -109,6 +116,17 @@
 			.cmb-td {
 				width: 100%;
 				padding-right: 10px;
+			}
+		}
+
+		.cmb-repeatable-grouping {
+			flex-basis: 100%;
+
+			&[data-iterator="0"] {
+
+				.cmb-remove-field-row {
+					display: none;
+				}
 			}
 		}
 

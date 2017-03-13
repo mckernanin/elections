@@ -689,18 +689,18 @@ class OAE_Fields {
 
 		$prefix = '_oa_election_';
 
-		$election_chapter->add_field([
-			'name'    => 'Election Team',
-			'desc'    => 'Assign election team members by dragging them into the right column.',
-			'id'      => $prefix . 'team_members_users',
-			'row_classes' => 'fullwidth',
-			'type'    => 'custom_attached_posts',
-			'options' => [
-				'query_users'     => true,
-				'show_thumbnails' => true, // Show thumbnails on the left
-				'filter_boxes'    => true, // Show a text box for filtering the results
-			],
-		]);
+		// $election_chapter->add_field([
+		// 	'name'    => 'Election Team',
+		// 	'desc'    => 'Assign election team members by dragging them into the right column.',
+		// 	'id'      => $prefix . 'team_members_users',
+		// 	'row_classes' => 'fullwidth',
+		// 	'type'    => 'custom_attached_posts',
+		// 	'options' => [
+		// 		'query_users'     => true,
+		// 		'show_thumbnails' => true, // Show thumbnails on the left
+		// 		'filter_boxes'    => true, // Show a text box for filtering the results
+		// 	],
+		// ]);
 
 		$election_chapter->add_field([
 			'name'    => 'Camp Promotion',
@@ -713,24 +713,45 @@ class OAE_Fields {
 		]);
 
 		// $group_field_id is the field id string, so in this case: $prefix . 'demo'
-		$group_id = $election_chapter->add_field( array(
-			'id'                => $prefix . 'team_members',
-			'type'              => 'group',
-			'description'       => 'A Question with Answers',
-			'options'           => array(
-				'group_title'   => 'Question {#}',
-				'add_button'    => 'Add Another Question',
-				'remove_button' => 'Remove Question',
-				'sortable'      => true,
+		$team_members = $election_chapter->add_field( [
+			'id'          => $prefix . 'team_members',
+			'type'        => 'group',
+			'description' => 'Team Members',
+			'row_classes' => 'fullwidth',
+			'options'     => array(
+				'group_title'   => 'Election Team Members',
+				'add_button'    => 'Add Another Team Member',
+				'remove_button' => 'Remove Team Member',
 			),
-		) );
+		]);
 
-		$election_chapter->add_group_field( $group_id, array(
-			'id'            => 'question',
-			'name'          => __( 'Question', 'cgc-quiz' ),
-			'type'          => 'textarea',
-			'desc'          => 'Type the question here.',
-		) );
+		$election_chapter->add_group_field( $team_members, [
+			'id'            => 'fname',
+			'name'          => 'First Name',
+			'type'          => 'text',
+		]);
+
+		$election_chapter->add_group_field( $team_members, [
+			'id'            => 'lname',
+			'name'          => 'Last Name',
+			'type'          => 'text',
+		]);
+
+		$election_chapter->add_group_field( $team_members, [
+			'id'            => 'unit_num',
+			'name'          => 'Unit',
+			'type'          => 'text',
+		]);
+
+		$election_chapter->add_group_field( $team_members, [
+			'id'            => 'youth_or_adult',
+			'name'          => 'Y/A',
+			'type'          => 'select',
+			'options' => [
+				'youth' => 'Youth',
+				'adult' => 'Adult',
+			],
+		]);
 	}
 
 
