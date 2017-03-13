@@ -343,16 +343,16 @@
         },
         {
             "name": "webdevstudios/cmb2",
-            "version": "v2.2.3.1",
+            "version": "v2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WebDevStudios/CMB2.git",
-                "reference": "17677cf3aa65b0402ca8084b6b1cf37df6260582"
+                "reference": "badecc7f908781ac14b879c74526f9d055f4a41e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WebDevStudios/CMB2/zipball/17677cf3aa65b0402ca8084b6b1cf37df6260582",
-                "reference": "17677cf3aa65b0402ca8084b6b1cf37df6260582",
+                "url": "https://api.github.com/repos/WebDevStudios/CMB2/zipball/badecc7f908781ac14b879c74526f9d055f4a41e",
+                "reference": "badecc7f908781ac14b879c74526f9d055f4a41e",
                 "shasum": ""
             },
             "require": {
@@ -384,7 +384,7 @@
                 "plugin",
                 "wordpress"
             ],
-            "time": "2016-11-08T15:24:55+00:00"
+            "time": "2017-02-27T15:05:31+00:00"
         },
         {
             "name": "webdevstudios/cmb2-attached-posts",
@@ -436,7 +436,7 @@
         },
         {
             "name": "wpackagist-plugin/cmb2",
-            "version": "2.2.3.1",
+            "version": "2.2.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cmb2/",
@@ -445,7 +445,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/cmb2.zip",
-                "reference": "trunk",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -476,16 +476,16 @@
         },
         {
             "name": "wpackagist-plugin/mailgun",
-            "version": "1.5.8.1",
+            "version": "1.5.8.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/mailgun/",
-                "reference": "tags/1.5.8.1"
+                "reference": "tags/1.5.8.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/mailgun.1.5.8.1.zip",
-                "reference": "tags/1.5.8.1",
+                "url": "https://downloads.wordpress.org/plugin/mailgun.1.5.8.2.zip",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -513,26 +513,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/remove-dashboard-access-for-non-admins/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-migrate-db",
-            "version": "0.9.2",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-migrate-db/",
-                "reference": "tags/0.9.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-migrate-db.0.9.2.zip",
-                "reference": "tags/0.9.2",
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-migrate-db/"
         },
         {
             "name": "wpackagist-theme/twentysixteen",
