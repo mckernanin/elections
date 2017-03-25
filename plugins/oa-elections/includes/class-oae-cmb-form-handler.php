@@ -133,11 +133,19 @@ class OAE_CMB_Form_Handler {
 			if ( 'oae_candidate' === $post_type ) {
 				$candidates = OAE_Fields::get( 'candidates', $this->election_id );
 				if ( ! is_array( $candidates ) ) {
-					$candidates = [ $this->post_id ];
+					$candidates = [ absint( $this->post_id ) ];
 				} else {
-					$candidates[] = $this->post_id;
+					$candidates[] = absint( $this->post_id );
 				}
 				OAE_Fields::update( 'candidates', $candidates, $this->election_id );
+			} elseif ( 'oae_nomination' === $post_type ) {
+				$candidates = OAE_Fields::get( 'nominations', $this->election_id );
+				if ( ! is_array( $nominations ) ) {
+					$nominations = [ absint( $this->post_id ) ];
+				} else {
+					$nominations[] = absint( $this->post_id );
+				}
+				OAE_Fields::update( 'nominations', $nominations, $this->election_id );
 			}
 		}
 	}

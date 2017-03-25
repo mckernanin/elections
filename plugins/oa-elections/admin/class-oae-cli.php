@@ -140,6 +140,30 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 			$progress->finish();
 		}
+
+		public function cand_id_type_fix() {
+			$post_args = [
+				'post_type'      => 'oae_election',
+				'posts_per_page' => 500,
+			];
+			$elections = new WP_Query( $post_args );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Convertings IDs to integers', $elections->post_count );
+			while ( $elections->have_posts() ) {
+				$elections->the_post();
+				$candidates = OAE_Fields::get( 'candidates' );
+
+				$candidate_ints = [];
+				if ( $candidates ) {
+					foreach ( $candidates as $candidate ) {
+						$candidate_ints[] = absint( $candidate );
+					}
+					OAE_Fields::update( 'candidates', $candidate_ints );
+				}
+
+				$progress->tick();
+			}
+			$progress->finish();
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
