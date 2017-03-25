@@ -53,6 +53,6 @@ if ( ! is_user_logged_in() ) {
 	</table>
 <?php
 	} else {
-		echo 'There are currently no elections for ' . esc_html( $chapter->name );
+		echo 'There are not currently any nominations requiring approval.';
 	} // End if().
 } // End if().

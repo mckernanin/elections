@@ -107,6 +107,7 @@ th[role=columnheader]:not(.no-sort):hover:after {
 }
 
 button {
+	transition: 0.3s;
 
 	&.active {
 		background-color: #cf253d;
