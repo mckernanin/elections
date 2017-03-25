@@ -30,6 +30,18 @@ class OAE_Util {
 		return $term->name;
 	}
 
+	static function get_nom_status( $post_id = null ) {
+		if ( null === $post_id ) {
+			$post_id = get_the_id();
+		}
+		$terms = get_the_terms( $post_id, 'oae_nom_status' );
+		if ( ! $terms ) {
+			return 'No status defined';
+		}
+		$term = current( $terms );
+		return $term->name;
+	}
+
 	static function get_chapter( $post_id = null ) {
 		if ( null === $post_id ) {
 			$post_id = get_the_id();

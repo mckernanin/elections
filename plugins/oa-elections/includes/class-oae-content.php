@@ -72,5 +72,29 @@ class OAE_Content {
 		    'plural'        => 'Chapters',
 		    'slug'          => 'chapter',
 		]);
+
+		$nomination = new CPT([
+			'post_type_name' => 'oae_nomination',
+			'singular'       => 'Nomination',
+			'plural'         => 'Nominations',
+		]);
+		$nomination->register_taxonomy([
+			'taxonomy_name' => 'oae_nom_status',
+			'singular'      => 'Status',
+			'plural'        => 'Statuses',
+			'slug'          => 'status',
+		]);
+		$nomination->register_taxonomy([
+			'taxonomy_name' => 'oae_chapter',
+			'singular'      => 'Chapter',
+			'plural'        => 'Chapters',
+			'slug'          => 'chapter',
+		]);
+		$nomination->register_taxonomy([
+			'taxonomy_name' => 'oae_nom_type',
+			'singular'      => 'Type',
+			'plural'        => 'Types',
+			'slug'          => 'type',
+		]);
 	}
 }
