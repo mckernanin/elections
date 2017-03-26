@@ -16,7 +16,7 @@ body {
 h1 {
 	text-transform: uppercase;
 	font-size: 4em;
-	letter-spacing: .15em;
+	letter-spacing: 0.15em;
 	text-align: center;
 	font-weight: 600;
 	margin: 0 0 1.2em;
@@ -86,13 +86,13 @@ p {
 		}
 
 		&:hover:after {
-		width: 105%;
+			width: 105%;
 		}
 	}
 }
 
 a.button {
-	background: white;
+	background: $red;
 	border: 0;
 	border-radius: 2px;
 	font-family: Montserrat, "Helvetica Neue", sans-serif;
@@ -103,7 +103,7 @@ a.button {
 	text-transform: uppercase;
 	font-size: 16px;
 	font-size: 1rem;
-	color: $red;
+	color: white;
 	opacity: 0.8;
 	transition: 0.3s;
 	margin-top: 1em;
@@ -111,7 +111,7 @@ a.button {
 
 	&:hover {
 		opacity: 1;
-		color: $red;
+		color: white;
 	}
 }
 
