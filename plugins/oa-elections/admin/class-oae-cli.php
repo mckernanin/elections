@@ -164,6 +164,16 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			}
 			$progress->finish();
 		}
+
+		public function elect_candidate( $args ) {
+			foreach ( $args as $key => $value ) {
+				if ( is_numeric( $value ) ) {
+					wp_set_object_terms( $value, 'elected', 'oae_cand_status' );
+					$candidate_name = get_the_title( $value );
+					WP_CLI::success( $candidate_name . ' has been elected.' );
+				}
+			}
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
