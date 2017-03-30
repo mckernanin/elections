@@ -74,4 +74,6 @@ if ( $('body').hasClass('section-report') ) {
 		});
 	});
 
+	$('.election-data input').trigger( 'change' );
+
 }

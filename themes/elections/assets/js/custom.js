@@ -278,6 +278,8 @@ if ( $('body').hasClass('section-report') ) {
 		});
 	});
 
+	$('.election-data input').trigger( 'change' );
+
 }
 
 $('#_oa_election_unit_location').attr('required', true);
