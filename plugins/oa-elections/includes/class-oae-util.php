@@ -102,6 +102,9 @@ class OAE_Util {
 			$post_id = get_the_id();
 		}
 		$candidates = OAE_Fields::get( 'candidates' );
+		if ( ! is_array( $candidates ) ) {
+			return $count;
+		}
 		foreach ( $candidates as $candidate ) {
 			if ( has_term( 'elected', 'oae_cand_status', $candidate ) ) {
 				$count++;
