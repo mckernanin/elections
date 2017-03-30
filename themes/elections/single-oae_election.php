@@ -132,6 +132,7 @@ get_header(); ?>
 			<?php
 			} else {
 			?>
+				<br /><br />
 				<h4>This election does not currently have any adult nominations. <br></h4>
 				<a class="button" href="add-nomination">Add Nomination</a>
 			<?php
