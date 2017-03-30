@@ -95,4 +95,18 @@ class OAE_Util {
 		}
 		return $count;
 	}
+
+	static function elected_candidate_count( $post_id = null ) {
+		$count = 0;
+		if ( null === $post_id ) {
+			$post_id = get_the_id();
+		}
+		$candidates = OAE_Fields::get( 'candidates' );
+		foreach ( $candidates as $candidate ) {
+			if ( has_term( 'elected', 'oae_cand_status', $candidate ) ) {
+				$count++;
+			}
+		}
+		return $count;
+	}
 }

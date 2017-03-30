@@ -30,6 +30,9 @@ if ( ! is_user_logged_in() ) {
 				<th>
 					Candidates
 				</th>
+				<th>
+					Elected
+				</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,6 +50,9 @@ if ( ! is_user_logged_in() ) {
 					</td>
 					<td>
 						<?php echo esc_html( OAE_Util::candidate_count( get_the_id() ) ); ?>
+					</td>
+					<td>
+						<?php echo esc_html( OAE_Util::elected_candidate_count( get_the_id() ) ); ?>
 					</td>
 				</tr>
 			<?php } ?>
