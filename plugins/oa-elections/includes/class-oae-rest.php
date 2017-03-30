@@ -54,6 +54,11 @@ class OAE_REST {
 			'callback' => array( $this, 'set_election_results' ),
 		));
 
+		register_rest_route( $namespace, '/set-nomination-status/', array(
+			'methods'  => 'POST',
+			'callback' => array( $this, 'set_nomination_status' ),
+		));
+
 		register_rest_route( $namespace, '/reports/elections_by_chapter/', array(
 			'methods'  => 'GET',
 			'callback' => array( $this, 'report_elections_by_chapter' ),
@@ -248,6 +253,23 @@ class OAE_REST {
 			$response['sum'] = $response['sum'] + $candidates->post_count;
 		}
 
+		$response = new WP_REST_Response( $response );
+		return $response;
+	}
+
+	/**
+	 * Submit the election report
+	 */
+	public function set_nomination_status() {
+
+		if ( ! isset( $_POST['id'] ) ) {
+			return 'Data missing, please try again.';
+		}
+
+		$post_id = absint( $_POST['id'] );
+		wp_set_object_terms( $post_id, $_POST['status'], 'oae_nom_status' );
+
+		$response = 'Status updated';
 		$response = new WP_REST_Response( $response );
 		return $response;
 	}

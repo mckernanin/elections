@@ -37,6 +37,8 @@ class OAE_Public {
 		add_shortcode( 'election-report', array( $this, 'shortcode_election_report' ) );
 		add_shortcode( 'ballots', array( $this, 'shortcode_ballots' ) );
 		add_shortcode( 'stats', [ $this, 'shortcode_stats' ] );
+		add_shortcode( 'nominate-adult', [ $this, 'shortcode_nomination' ] );
+		add_shortcode( 'council-approval', [ $this, 'shortcode_nomination_council_approval' ] );
 
 		add_action( 'init', array( $this, 'rewrites' ) );
 		add_action( 'cmb2_init', array( $this, 'form_submission_handler' ) );
@@ -58,8 +60,8 @@ class OAE_Public {
 		wp_enqueue_script( 'selectize', 		plugin_dir_url( __FILE__ ) . '/js/selectize.min.js', array( 'jquery' ) );
 		wp_enqueue_style( 'selectize', 			plugin_dir_url( __FILE__ ) . '/css/selectize.min.css' );
 		wp_add_inline_script( 'selectize', 		'jQuery(document).ready( function($) { $("select").selectize(); });', array( 'selectize' ) );
-		wp_register_script( 'tablesort', 'https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.0.0/tablesort.min.js' );
-		wp_add_inline_script( 'tablesort', 'new Tablesort( document.getElementById("election-list"))' );
+		wp_register_script( 'tablesort', 		'https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.0.0/tablesort.min.js' );
+		wp_add_inline_script( 'tablesort', 		'new Tablesort( document.getElementById("election-list"))' );
 	}
 
 	/**
@@ -184,6 +186,30 @@ class OAE_Public {
 		wp_enqueue_script( 'chart-js' );
 		ob_start();
 		include( 'partials/stats.php' );
+		$output = ob_get_clean();
+		return $output;
+	}
+
+	/**
+	 * Shortcode to display adult nomination form.
+	 * @param  array  $atts Shortcode attributes
+	 * @return string       Form HTML markup
+	 */
+	public function shortcode_nomination( $atts = array() ) {
+		ob_start();
+		include( 'partials/nomination-entry.php' );
+		$output = ob_get_clean();
+		return $output;
+	}
+
+	/**
+	 * Shortcode to display council approval form
+	 * @param  array  $atts Shortcode attributes
+	 * @return string       Form HTML markup
+	 */
+	public function shortcode_nomination_council_approval( $atts = array() ) {
+		ob_start();
+		include( 'partials/council-approval.php' );
 		$output = ob_get_clean();
 		return $output;
 	}

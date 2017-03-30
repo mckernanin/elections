@@ -65,6 +65,10 @@ class OAE_CMB_Form_Handler {
 				$this->chapter_election_edit();
 				break;
 
+			case 'nomination_fields':
+				$this->nomination();
+				break;
+
 			default:
 				return false;
 		}
@@ -251,6 +255,46 @@ class OAE_CMB_Form_Handler {
 			wp_set_object_terms( $this->post_id, 'eligible', 'oae_cand_status' );
 			wp_set_object_terms( $this->post_id, absint( $chapter->term_id ), 'oae_chapter' );
 			do_action( 'candidate_save', $this->post_id );
+		}
+
+		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );
+		exit;
+	}
+
+	/**
+	 * Form submission handler for Nomination forms.
+	 *
+	 * @package OA_Elections
+	 */
+	public function nomination() {
+		$post_title = sanitize_text_field( $this->post_data['_oa_nomination_fname'] . ' ' . $this->post_data['_oa_nomination_lname'] );
+		$post_name  = intval( $this->post_data['_oa_nomination_bsa_id'] );
+		$nom_type   = $this->post_data['_oa_nomination_type'];
+		$this->new_or_update( 'oae_nomination', $post_title, $post_name );
+		$cmb        = cmb2_get_metabox( $this->metabox, $this->post_id );
+		if ( ! isset( $_POST[ $cmb->nonce() ] ) || ! wp_verify_nonce( $_POST[ $cmb->nonce() ], $cmb->nonce() ) ) {
+			return $cmb->prop( 'submission_error', wp_die( 'security_fail', esc_html( 'Security check failed.' ) ) );
+		}
+		$this->update_meta( $cmb );
+
+		/*
+		 * Redirect back to the form page with a query variable with the new post ID.
+		 * This will help double-submissions with browser refreshes
+		 */
+		$args = array(
+			'p' => $this->post_id,
+			'update' => true,
+		);
+
+		if ( 'update' !== $this->action ) {
+			$args['p'] = $this->election_id;
+			$args['editing_section'] = 'add-nomination';
+			unset( $args['update'] );
+			$chapter = OAE_Util::get_chapter_term( $this->election_id );
+			wp_set_object_terms( $this->post_id, 'submitted', 'oae_nom_status' );
+			wp_set_object_terms( $this->post_id, $nom_type, 'oae_nom_type' );
+			wp_set_object_terms( $this->post_id, absint( $chapter->term_id ), 'oae_chapter' );
+			do_action( 'nomination_save', $this->post_id );
 		}
 
 		wp_safe_redirect( esc_url_raw( add_query_arg( $args ) ) );

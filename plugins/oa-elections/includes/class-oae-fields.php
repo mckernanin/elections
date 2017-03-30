@@ -33,6 +33,7 @@ class OAE_Fields {
 		add_action( 'cmb2_init', [ $this, 'candidate_metaboxes' ] );
 		add_action( 'cmb2_init', [ $this, 'user_metaboxes' ] );
 		add_action( 'cmb2_init', [ $this, 'report_metaboxes' ] );
+		add_action( 'cmb2_init', [ $this, 'nomination_metaboxes' ] );
 	}
 
 	/**
@@ -47,6 +48,23 @@ class OAE_Fields {
 		}
 		if ( false === strpos( $field_name, '_oa_election_' ) ) {
 			$field_name = '_oa_election_' . $field_name;
+		}
+		$field = get_post_meta( $id, $field_name, true );
+		return '' !== $field ? $field : false;
+	}
+
+	/**
+	 * Static function for getting field data.
+	 *
+	 * @param string $field_name The name of the field to query.
+	 * @param int 	 $id		 The ID of the post to query (optional).
+	 */
+	static function nomination_get( $field_name = null, $id = null ) {
+		if ( null === $id ) {
+			$id = get_the_ID();
+		}
+		if ( false === strpos( $field_name, '_oa_nomination_' ) ) {
+			$field_name = '_oa_nomination_' . $field_name;
 		}
 		$field = get_post_meta( $id, $field_name, true );
 		return '' !== $field ? $field : false;
@@ -448,6 +466,22 @@ class OAE_Fields {
 				],
 			],
 		]);
+
+		$election_admin->add_field([
+			'name'        => 'Nominations',
+			'desc'        => 'Assign nominations to an election by dragging them into the right column.',
+			'id'          => $prefix . 'nominations',
+			'row_classes' => 'fullwidth',
+			'type'        => 'custom_attached_posts',
+			'options'     => [
+				'show_thumbnails' => true,
+				'filter_boxes'    => true,
+				'query_args'      => [
+					'post_type'       => 'oae_nomination',
+					'posts_per_page'  => 500,
+				],
+			],
+		]);
 	}
 
 	/**
@@ -586,6 +620,196 @@ class OAE_Fields {
 			'type' => 'checkbox',
 		]);
 
+	}
+
+
+	/**
+	 * Candidate metaboxes
+	 */
+	public function nomination_metaboxes() {
+
+		/**
+		 * Initiate the metabox
+		 */
+		$cmb = new_cmb2_box([
+			'id'            => 'nomination_fields',
+			'title'         => __( 'Nomination Fields', 'OA-Elections' ),
+			'object_types'  => [ 'oae_nomination' ],
+			'context'       => 'normal',
+			'priority'      => 'core',
+			'show_names'    => true,
+		]);
+
+		$prefix = '_oa_nomination_';
+
+		if ( is_admin() || current_user_can( 'administrator' ) ) {
+			$attributes = [];
+
+			$cmb->add_field([
+				'name'     => 'Nomination Type',
+				'id'       => $prefix . 'type',
+				'type'     => 'taxonomy_select',
+				'taxonomy' => 'oae_nom_type',
+			]);
+
+		} else {
+			$attributes = [
+				'required' => 'required',
+			];
+		}
+
+		$cmb->add_field(  [
+			'name' => __( 'Personal Information', 'OA-Elections' ),
+			'id'   => $prefix . 'title',
+			'type' => 'title',
+		]);
+
+		$cmb->add_field(  [
+			'name'       => 'BSA ID',
+			'id'         => $prefix . 'bsa_id',
+			'type'       => 'text',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name'       => 'Date of Birth',
+			'id'         => $prefix . 'dob',
+			'type'       => 'text_date',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name'       => 'First Name',
+			'id'         => $prefix . 'fname',
+			'type'       => 'text',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name'       => 'Last Name',
+			'id'         => $prefix . 'lname',
+			'type'       => 'text',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name'        => 'Address',
+			'id'          => $prefix . 'address',
+			'row_classes' => 'fullwidth',
+			'type'        => 'address',
+			'attributes'  => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name' => 'Phone',
+			'id'   => $prefix . 'phone',
+			'type' => 'text',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name'       => 'Email',
+			'id'         => $prefix . 'email',
+			'type'       => 'text_email',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name' => 'Leadership Position',
+			'id'   => $prefix . 'leadership_position',
+			'type' => 'text',
+			'attributes' => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name'        => 'Information',
+			'id'          => $prefix . 'information',
+			'description' => 'Selection of the recommended adult will be based upon the skills and abilities to perform functions which fulfill the purpose of the Order. Please provide a brief description of those skills and how this individual’s membership will provide a positive role model for the growth and development of the youth members of the Lodge.',
+			'type'        => 'textarea',
+			'row_classes' => 'fullwidth',
+			'attributes'  => $attributes,
+		]);
+
+		$cmb->add_field(  [
+			'name' => __( 'Eligibility Information', 'cmb2' ),
+			'id'   => $prefix . 'eligibility_information',
+			'type' => 'title',
+		]);
+
+		$cmb->add_field(  [
+			'name' => 'Long Term Camping - Location',
+			'id'   => $prefix . 'camping_long_term_location',
+			'type' => 'text',
+			'attributes' => array(
+				'required'               => 'required',
+				'data-conditional-id'    => $prefix . 'type',
+				'data-conditional-value' => wp_json_encode( [ 'unit', 'district' ] ),
+			),
+		]);
+
+		$cmb->add_field(  [
+			'name' => 'Long Term Camping - Dates',
+			'id'   => $prefix . 'camping_long_term_dates',
+			'type' => 'text',
+			'attributes' => array(
+				'required'               => 'required',
+				'data-conditional-id'    => $prefix . 'type',
+				'data-conditional-value' => wp_json_encode( [ 'unit', 'district' ] ),
+			),
+		]);
+
+		$cmb->add_field(  [
+			'name' => 'Long Term Camping - Count',
+			'id'   => $prefix . 'camping_long_term_night_count',
+			'type' => 'text',
+			'attributes' => array(
+				'required'               => 'required',
+				'data-conditional-id'    => $prefix . 'type',
+				'data-conditional-value' => wp_json_encode( [ 'unit', 'district' ] ),
+			),
+		]);
+
+		$adult_camping = $cmb->add_field( [
+			'id'          => $prefix . 'adult_camping',
+			'type'        => 'group',
+			'row_classes' => 'fullwidth',
+			'options'     => array(
+				'group_title'   => 'Short Term Camping',
+				'add_button'    => 'Add Another Campout',
+				'remove_button' => 'Remove Campout',
+			),
+			'attributes' => array(
+				'data-conditional-id'    => $prefix . 'type',
+				'data-conditional-value' => wp_json_encode( [ 'unit', 'district' ] ),
+			),
+		]);
+
+		$cmb->add_group_field( $adult_camping, [
+			'id'   => 'location',
+			'name' => 'Location',
+			'type' => 'text',
+			'attributes' => array(
+				'required' => 'required',
+			),
+		]);
+
+		$cmb->add_group_field( $adult_camping, [
+			'id'   => 'dates',
+			'name' => 'Dates',
+			'type' => 'text',
+			'attributes' => array(
+				'required' => 'required',
+			),
+		]);
+
+		$cmb->add_group_field( $adult_camping, [
+			'id'   => 'night_count',
+			'name' => '# of Nights',
+			'type' => 'text',
+			'attributes' => array(
+				'required' => 'required',
+			),
+		]);
 	}
 
 	/**
