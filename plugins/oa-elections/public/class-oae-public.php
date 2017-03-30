@@ -109,7 +109,6 @@ class OAE_Public {
 	 * @return string       Form HTML markup
 	 */
 	function election_list( $atts = array() ) {
-		wp_enqueue_script( 'tablesort' );
 		ob_start();
 		include( 'partials/election-list.php' );
 		$output = ob_get_clean();

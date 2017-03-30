@@ -14,6 +14,7 @@ if ( ! is_user_logged_in() ) {
 	}
 	$elections = new WP_Query( $args );
 	if ( $elections->have_posts() ) {
+		wp_enqueue_script( 'tablesort' );
 	?>
 	<table id="election-list">
 		<thead>
@@ -61,5 +62,5 @@ if ( ! is_user_logged_in() ) {
 <?php
 	} else {
 		echo 'There are currently no elections for ' . esc_html( $chapter->name );
-	}
-}
+	} // End if().
+} // End if().
