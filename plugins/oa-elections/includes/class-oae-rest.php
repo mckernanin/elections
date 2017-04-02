@@ -188,6 +188,7 @@ class OAE_REST {
 		}
 
 		$response = 'Election results have been saved.';
+		do_action( 'election_results_submitted', $post_id );
 		$response = new WP_REST_Response( $response );
 		return $response;
 	}
