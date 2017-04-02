@@ -248,7 +248,7 @@ class OAE_Notifications {
 		}
 	}
 
-	static function new_election_slack( $post_id ) {
+	static function election_results_submitted_slack( $post_id ) {
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
