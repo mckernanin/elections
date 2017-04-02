@@ -21,6 +21,10 @@ class OAE_Notifications {
 			return;
 		}
 
+		if ( 'production' !== WP_ENV ) {
+			return;
+		}
+
 		$fields = get_post_custom( $post_id );
 
 		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
@@ -64,6 +68,10 @@ class OAE_Notifications {
 
 	static function new_election_notification_chapter( $post_id ) {
 		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		if ( 'production' !== WP_ENV ) {
 			return;
 		}
 
@@ -176,6 +184,10 @@ class OAE_Notifications {
 	static function election_scheduled_unit( $post_id ) {
 		$fields = get_post_custom( $post_id );
 
+		if ( 'production' !== WP_ENV ) {
+			return;
+		}
+
 		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
 			return;
 		}
@@ -216,6 +228,10 @@ class OAE_Notifications {
 			return;
 		}
 
+		if ( 'production' !== WP_ENV ) {
+			return;
+		}
+
 		$fields = get_post_custom( $post_id );
 
 		if ( ! is_array( $fields['_oa_election_leader_email'] ) ) {
@@ -250,6 +266,10 @@ class OAE_Notifications {
 
 	static function election_results_submitted_slack( $post_id ) {
 		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		if ( 'production' !== WP_ENV ) {
 			return;
 		}
 

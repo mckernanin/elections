@@ -164,7 +164,6 @@ class OAE_REST {
 	 * Submit the election report
 	 */
 	public function set_election_results() {
-
 		if ( ! isset( $_POST['report'] ) ) {
 			return;
 		}
@@ -178,6 +177,10 @@ class OAE_REST {
 		update_post_meta( $post_id, '_oa_election_election_two_ballots', absint( $report['electionTwo']['ballots'] ) );
 
 		$candidates = OAE_Fields::get( 'candidates', $post_id );
+
+		foreach ( $report['candidates'] as &$id ) {
+			$id = absint( $id );
+		}
 
 		foreach ( $candidates as $candidate ) {
 			if ( in_array( absint( $candidate ), $report['candidates'], true ) ) {
