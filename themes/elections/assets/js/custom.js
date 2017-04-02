@@ -225,7 +225,7 @@ if ( $('body').hasClass('section-report') ) {
 
 	$('#youthAttendance').on( 'change', function() {
 		electionReport.youthAttendance = Math.abs( $(this).val() );
-		if ( electionReport.youthAttendance <= ( electionReport.registeredActiveYouth / 2 ) ) {
+		if ( ( null !== electionReport.youthAttendance ) && ( 0 !== electionReport.youthAttendance ) && ( electionReport.youthAttendance <= ( electionReport.registeredActiveYouth / 2 ) ) ) {
 			alert( 'Please check your input, over 50% of active members must be in attendance.' );
 		}
 	});
