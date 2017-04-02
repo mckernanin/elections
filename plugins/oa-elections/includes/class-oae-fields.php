@@ -970,7 +970,7 @@ class OAE_Fields {
 		$election_chapter->add_group_field( $team_members, [
 			'id'            => 'youth_or_adult',
 			'name'          => 'Y/A',
-			'type'          => 'select',
+			'type'          => 'radio_inline',
 			'options' => [
 				'youth' => 'Youth',
 				'adult' => 'Adult',
