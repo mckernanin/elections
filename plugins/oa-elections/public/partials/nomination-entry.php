@@ -1,6 +1,6 @@
 <?php
 /**
- * Candidate entry shortcode content.
+ * Nomination entry shortcode content.
  *
  * @package OA_Elections
  */
@@ -33,7 +33,7 @@ if ( ! is_user_logged_in() ) {
 			'save_button' => 'Add Nomination',
 		);
 		$form_action = 'create';
-	} elseif ( 'oae_candidate' === $post_type ) {
+	} elseif ( 'oae_nomination' === $post_type ) {
 		$metabox_form_options = array(
 			'save_button' => 'Save Nomination',
 		);

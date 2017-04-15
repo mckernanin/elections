@@ -105,19 +105,21 @@ class OAE_Util {
 		if ( ! is_array( $candidates ) ) {
 			return $count;
 		}
-		$candidates = implode( $candidates, ',' );
+		$candidates = implode( array_map( 'intval', $candidates ), ',' );
+
 		global $wpdb;
-		$results = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT count(*) as elected_count
-				FROM wp_terms t
-				LEFT JOIN wp_term_taxonomy tt ON tt.term_id = t.term_id
-				LEFT JOIN wp_term_relationships tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
-				WHERE t.slug = 'elected'
-	    			AND tt.taxonomy = 'oae_cand_status'
-	    			AND tr.object_id IN ( %s );",
-			$candidates )
+		$query = $wpdb->prepare(
+			"SELECT count(*) as elected_count
+			FROM wp_terms t
+			LEFT JOIN wp_term_taxonomy tt ON tt.term_id = t.term_id
+			LEFT JOIN wp_term_relationships tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
+			WHERE t.slug = 'elected'
+			AND tt.taxonomy = 'oae_cand_status'
+			AND tr.object_id IN ( {$candidates} );",
+			$candidates
 		);
+		var_dump( $query );
+		$results = $wpdb->get_results( $query );
 		$count = current( $results )->elected_count;
 		return $count;
 	}
