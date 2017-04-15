@@ -118,7 +118,6 @@ class OAE_Util {
 			AND tr.object_id IN ( {$candidates} );",
 			$candidates
 		);
-		var_dump( $query );
 		$results = $wpdb->get_results( $query );
 		$count = current( $results )->elected_count;
 		return $count;
