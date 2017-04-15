@@ -52,9 +52,6 @@ class OAE_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 		include_once( 'class-oae-cli.php' );
-		// $this->add_unit_leader_role();
-		// $this->add_chapter_admin_role();
-		// $this->add_election_team_role();
 	}
 
 	/**
@@ -112,7 +109,6 @@ class OAE_Admin {
 			$contributor = get_role( 'contributor' );
 			add_role( 'unit-leader', 'Unit Leader', $contributor->capabilities );
 			$unit_leader = get_role( 'unit-leader' );
-			wp_die( var_dump( $unit_leader ) );
 		}
 	}
 
@@ -125,7 +121,6 @@ class OAE_Admin {
 			$editor = get_role( 'editor' );
 			add_role( 'chapter-admin', 'Chapter Admin', $editor->capabilities );
 			$chapter_admin = get_role( 'chapter-admin' );
-			wp_die( var_dump( $chapter_admin ) );
 		}
 	}
 
@@ -133,12 +128,27 @@ class OAE_Admin {
 	 * Register election-team role.
 	 */
 	public function add_election_team_role() {
-		$unit_leader = get_role( 'election-team' );
+		$election_team = get_role( 'election-team' );
 		if ( null === $election_team ) {
 			$contributor = get_role( 'contributor' );
 			add_role( 'election-team', 'Election Team', $contributor->capabilities );
 			$election_team = get_role( 'election-team' );
-			wp_die( var_dump( $election_team ) );
 		}
+	}
+
+	public function add_council_approval_role() {
+		$council_approval = get_role( 'council-approval' );
+		if ( null === $council_approval ) {
+			$contributor = get_role( 'contributor' );
+			add_role( 'council-approval', 'Council Approval', $contributor->capabilities );
+			$council_approval = get_role( 'council-approval' );
+		}
+	}
+
+	static function setup_roles() {
+		$this->add_council_approval_role();
+		$this->add_election_team_role();
+		$this->add_chapter_admin_role();
+		$this->add_election_team_role();
 	}
 }

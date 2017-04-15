@@ -1,8 +1,6 @@
 <?php
 if ( ! is_user_logged_in() ) {
 	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
-} else if ( ! current_user_can( 'administrator' ) ) {
-	echo 'You don\'t have permission to view this page.';
 } else {
 
 	$args = array(

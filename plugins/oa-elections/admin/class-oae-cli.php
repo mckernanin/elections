@@ -202,6 +202,12 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				}
 			}
 		}
+
+
+		public function create_roles( $args ) {
+			OAE_Admin::setup_roles();
+			WP_CLI::success( 'Roles added' );
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );
