@@ -1,9 +1,7 @@
 <?php
 if ( ! is_user_logged_in() ) {
 	echo 'You must be <a href="/wp-admin/">logged in</a> to view this page.';
-} else if ( ! current_user_can( 'administrator' ) ) {
-	echo 'You don\'t have permission to view this page.';
-} else {
+} else if ( current_user_can( 'council-approval' ) || current_user_can( 'administrator' ) ) {
 
 	$args = array(
 		'post_type'      => 'oae_nomination',
@@ -57,4 +55,6 @@ if ( ! is_user_logged_in() ) {
 	} else {
 		echo 'There are not currently any nominations requiring approval.';
 	} // End if().
+} else {
+	echo 'You do not have permission to view this page.';
 } // End if().

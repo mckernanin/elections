@@ -39,6 +39,7 @@ class OAE_Public {
 		add_shortcode( 'stats', [ $this, 'shortcode_stats' ] );
 		add_shortcode( 'nominate-adult', [ $this, 'shortcode_nomination' ] );
 		add_shortcode( 'council-approval', [ $this, 'shortcode_nomination_council_approval' ] );
+		add_shortcode( 'nomination-list', [ $this, 'shortcode_nomination_list' ] );
 
 		add_action( 'init', array( $this, 'rewrites' ) );
 		add_action( 'cmb2_init', array( $this, 'form_submission_handler' ) );
@@ -209,6 +210,18 @@ class OAE_Public {
 	public function shortcode_nomination_council_approval( $atts = array() ) {
 		ob_start();
 		include( 'partials/council-approval.php' );
+		$output = ob_get_clean();
+		return $output;
+	}
+
+	/**
+	 * Shortcode to display nomination list
+	 * @param  array  $atts Shortcode attributes
+	 * @return string       Form HTML markup
+	 */
+	public function shortcode_nomination_list( $atts = array() ) {
+		ob_start();
+		include( 'partials/adult-nominations.php' );
 		$output = ob_get_clean();
 		return $output;
 	}

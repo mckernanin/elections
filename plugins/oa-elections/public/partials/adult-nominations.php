@@ -6,8 +6,12 @@ if ( ! is_user_logged_in() ) {
 	$args = array(
 		'post_type'      => 'oae_nomination',
 		'posts_per_page' => 100,
-		'oae_nom_status' => 'submitted',
 	);
+	if ( current_user_can( 'chapter-admin' ) ) {
+		$chapter_id = current( get_user_meta( get_current_user_id(), '_oa_election_user_chapter' ) );
+		$chapter = get_term( $chapter_id );
+		$args['oae_chapter'] = $chapter->slug;
+	}
 	$nominations = new WP_Query( $args );
 	if ( $nominations->have_posts() ) {
 	?>
@@ -43,9 +47,7 @@ if ( ! is_user_logged_in() ) {
 						<?php echo esc_html( OAE_Util::get_chapter() ); ?>
 					</td>
 					<td colspan="3">
-						<button class="status-button" data-id="<?php the_id(); ?>" data-status="approved">Approved</button>
-						<button class="status-button" data-id="<?php the_id(); ?>" data-status="non-member">Non-member</button>
-						<button class="status-button" data-id="<?php the_id(); ?>" data-status="council-issue">Council Issue</button>
+						<?php echo esc_html( OAE_Util::get_nom_status() ); ?>
 					</td>
 				</tr>
 			<?php } ?>
@@ -53,6 +55,6 @@ if ( ! is_user_logged_in() ) {
 	</table>
 <?php
 	} else {
-		echo 'There are not currently any nominations requiring approval.';
+		echo 'There are not currently any nominations for your chapter.';
 	} // End if().
 } // End if().
