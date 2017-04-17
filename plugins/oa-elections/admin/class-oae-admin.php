@@ -103,7 +103,7 @@ class OAE_Admin {
 	/**
 	 * Register unit-leader role.
 	 */
-	public function add_unit_leader_role() {
+	static function add_unit_leader_role() {
 		$unit_leader = get_role( 'unit-leader' );
 		if ( null === $unit_leader ) {
 			$contributor = get_role( 'contributor' );
@@ -115,7 +115,7 @@ class OAE_Admin {
 	/**
 	 * Register chapter-admin role.
 	 */
-	public function add_chapter_admin_role() {
+	static function add_chapter_admin_role() {
 		$chapter_admin = get_role( 'chapter-admin' );
 		if ( null === $chapter_admin ) {
 			$editor = get_role( 'editor' );
@@ -127,7 +127,7 @@ class OAE_Admin {
 	/**
 	 * Register election-team role.
 	 */
-	public function add_election_team_role() {
+	static function add_election_team_role() {
 		$election_team = get_role( 'election-team' );
 		if ( null === $election_team ) {
 			$contributor = get_role( 'contributor' );
@@ -136,7 +136,7 @@ class OAE_Admin {
 		}
 	}
 
-	public function add_council_approval_role() {
+	static function add_council_approval_role() {
 		$council_approval = get_role( 'council-approval' );
 		if ( null === $council_approval ) {
 			$contributor = get_role( 'contributor' );
@@ -146,9 +146,9 @@ class OAE_Admin {
 	}
 
 	static function setup_roles() {
-		$this->add_council_approval_role();
-		$this->add_election_team_role();
-		$this->add_chapter_admin_role();
-		$this->add_election_team_role();
+		OAE_Admin::add_council_approval_role();
+		OAE_Admin::add_election_team_role();
+		OAE_Admin::add_chapter_admin_role();
+		OAE_Admin::add_election_team_role();
 	}
 }
