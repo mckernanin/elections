@@ -208,6 +208,27 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			OAE_Admin::setup_roles();
 			WP_CLI::success( 'Roles added' );
 		}
+
+		public function cand_unit_data( $args ) {
+			$post_args = [
+				'post_type'      => 'oae_election',
+				'posts_per_page' => 500,
+			];
+			$elections = new WP_Query( $post_args );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Adding election ID and Unit # to candidates', $elections->post_count );
+			while ( $elections->have_posts() ) {
+				$elections->the_post();
+				$candidates = OAE_Fields::get( 'candidates' );
+				if ( $candidates ) {
+					foreach ( $candidates as $candidate ) {
+						update_post_meta( $candidate, '_oa_candidate_election_id', get_the_id() );
+						update_post_meta( $candidate, '_oa_candidate_unit_num', OAE_Fields::get( '_oa_election_unit_number' ) );
+					}
+				}
+				$progress->tick();
+			}
+			$progress->finish();
+		}
 	}
 
 	WP_CLI::add_command( 'elections', 'OAE_CLI' );

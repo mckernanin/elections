@@ -505,6 +505,17 @@ class OAE_Fields {
 
 		if ( is_admin() || current_user_can( 'administrator' ) ) {
 			$attributes = [];
+			$cmb->add_field(  [
+				'name' => 'Election ID',
+				'id'   => $prefix . 'election_id',
+				'type' => 'text',
+			]);
+
+			$cmb->add_field(  [
+				'name' => 'Unit Number',
+				'id'   => $prefix . 'unit_num',
+				'type' => 'text',
+			]);
 		} else {
 			$attributes = [
 				'required' => 'required',
@@ -622,9 +633,8 @@ class OAE_Fields {
 
 	}
 
-
 	/**
-	 * Candidate metaboxes
+	 * Nomination metaboxes
 	 */
 	public function nomination_metaboxes() {
 
