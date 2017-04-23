@@ -662,6 +662,18 @@ class OAE_Fields {
 				'taxonomy' => 'oae_nom_type',
 			]);
 
+			$cmb->add_field(  [
+				'name' => 'Election ID',
+				'id'   => $prefix . 'election_id',
+				'type' => 'text',
+			]);
+
+			$cmb->add_field(  [
+				'name' => 'Unit Number',
+				'id'   => $prefix . 'unit_num',
+				'type' => 'text',
+			]);
+
 		} else {
 			$attributes = [
 				'required' => 'required',
