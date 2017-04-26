@@ -272,6 +272,7 @@ class OAE_REST {
 
 		$post_id = absint( $_POST['id'] );
 		wp_set_object_terms( $post_id, $_POST['status'], 'oae_nom_status' );
+		do_action( 'nomination_save' );
 
 		$response = 'Status updated';
 		$response = new WP_REST_Response( $response );

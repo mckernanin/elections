@@ -8,6 +8,7 @@ class OAE_Notifications {
 		add_action( 'election_schedule', [ $this, 'election_scheduled_unit' ] );
 		add_action( 'election_results_submitted', [ $this, 'election_results_submitted_chapter' ] );
 		add_action( 'election_results_submitted', [ $this, 'election_results_submitted_slack' ] );
+		add_action( 'nomination_save', [ $this, 'nomination_approved' ] );
 	}
 
 	/**
@@ -337,6 +338,160 @@ class OAE_Notifications {
 			)
 		);
 	}
+
+	/**
+	* Triggered send when a nomination is marked as approved.
+	* Email goes to nominee.
+	*/
+	static function nomination_approved( $post_id ) {
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		if ( 'production' !== WP_ENV ) {
+			return;
+		}
+
+		if ( 'approved' !== OAE_Util::get_nom_status( $post_id ) ) {
+			return;
+		}
+
+		$fields = get_post_custom( $post_id );
+
+		if ( ! is_array( $fields['_oa_nomination_email'] ) ) {
+			return;
+		}
+		$post_title   = get_the_title( $post_id );
+		$post_url     = get_permalink( $post_id );
+		$chapter      = OAE_Util::get_chapter_term( $post_id );
+
+		// Email to Nominee
+		$subject      = "Congratulations ${post_title}, you have been elected into the Order of the Arrow!";
+		ob_start();
+
+		include( 'emails/nomination/approval-candidate.php' );
+
+		$message = ob_get_clean();
+
+		$mail = wp_mail( $fields['_oa_nomination_email'], $subject, $message );
+
+		// Email to chapter & unit.
+		$user_args = [
+			'role'       => 'chapter-admin',
+			'meta_key'   => '_oa_election_user_chapter',
+			'meta_value' => $chapter->term_id,
+		];
+
+		$chapter_admins = new WP_User_Query( $user_args );
+		$copied_recipients = get_post_meta( $election_id, '_oa_election_leader_copied_emails', true );
+		$unit_leader = get_post_meta( $election_id, '_oa_election_leader_email', true );
+		$emails = [ $unit_leader ];
+		$emails = array_merge( $chapter_admins->results, $copied_recipients, $emails );
+		$subject = "Adult nomination for ${post_title} has been approved";
+
+		ob_start();
+
+		include( 'emails/nomination/approval-unit.php' );
+
+		$message = ob_get_clean();
+
+		foreach ( $emails as $email ) {
+			$mail = wp_mail( $email, $subject, $message );
+		}
+	}
+
+	/**
+	* Triggered send when a nomination is marked as having a membership issue.
+	* Emails go to all unit leaders, and chapter admins.
+	*/
+	static function nomination_membership_issue( $post_id ) {
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		if ( 'production' !== WP_ENV ) {
+			return;
+		}
+
+		if ( 'non-member' !== OAE_Util::get_nom_status( $post_id ) ) {
+			return;
+		}
+
+		$fields = get_post_custom( $post_id );
+
+		$post_title = get_the_title( $post_id );
+		$subject    = "OA Elections - Council Registration issue with ${post_title}";
+		$chapter    = OAE_Util::get_chapter_term( $post_id );
+		$election_id = OAE_Util::nomination_get( 'election_id' );
+
+		ob_start();
+
+		include( 'emails/nomination/registration-issue.php' );
+
+		$message = ob_get_clean();
+
+		$user_args = [
+			'role'       => 'chapter-admin',
+			'meta_key'   => '_oa_election_user_chapter',
+			'meta_value' => $chapter->term_id,
+		];
+
+		$chapter_admins = new WP_User_Query( $user_args );
+		$copied_recipients = get_post_meta( $election_id, '_oa_election_leader_copied_emails', true );
+		$unit_leader = get_post_meta( $election_id, '_oa_election_leader_email', true );
+		$emails = [ $unit_leader ];
+		$emails = array_merge( $chapter_admins->results, $copied_recipients, $emails );
+
+		foreach ( $emails as $email ) {
+			$mail = wp_mail( $email, $subject, $message );
+		}
+	}
+
+	/**
+	* Triggered send when a nomination is marked as approved.
+	* Email goes to nominee.
+	*/
+	static function nomination_council_issue( $post_id ) {
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		if ( 'production' !== WP_ENV ) {
+			return;
+		}
+
+		if ( 'approved' !== OAE_Util::get_nom_status( $post_id ) ) {
+			return;
+		}
+
+		$fields = get_post_custom( $post_id );
+
+		if ( ! is_array( $fields['_oa_nomination_email'] ) ) {
+			return;
+		}
+		$post_title   = get_the_title( $post_id );
+		$post_url     = get_permalink( $post_id );
+		$chapter      = OAE_Util::get_chapter_term( $post_id );
+		$subject      = 'Status up date on your Order of the Arrow Nomination';
+		ob_start();
+
+		include( 'emails/nomination/council-issue-nominee.php' );
+
+		$message = ob_get_clean();
+
+		$mail = wp_mail( $fields['_oa_nomination_email'], $subject, $message );
+
+		$subject = "Congratulations ${post_title}, you have been elected into the Order of the Arrow";
+		ob_start();
+
+		include( 'emails/nomination/council-issue-admin.php' );
+
+		$message = ob_get_clean();
+
+		// Send email to nominee.
+		$mail = wp_mail( $fields['_oa_nomination_email'], $subject, $message );
+	}
+
 }
 
 new OAE_Notifications();
