@@ -143,7 +143,7 @@ class OAE_CMB_Form_Handler {
 				}
 				OAE_Fields::update( 'candidates', $candidates, $this->election_id );
 			} elseif ( 'oae_nomination' === $post_type ) {
-				$candidates = OAE_Fields::get( 'nominations', $this->election_id );
+				$nominations = OAE_Fields::get( 'nominations', $this->election_id );
 				if ( ! is_array( $nominations ) ) {
 					$nominations = [ absint( $this->post_id ) ];
 				} else {
