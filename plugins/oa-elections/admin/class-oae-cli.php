@@ -147,7 +147,11 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			];
 
 			$users = new WP_User_Query( $query_args );
-			$progress = \WP_CLI\Utils\make_progress_bar( 'Syncing mailing list', count( $users->results ) );
+			$progress = \WP_CLI\Utils\make_progress_bar( 'Syncing mailing list:', count( $users->results ) );
+			$results = [
+				'created' => 0,
+				'exists' => 0,
+			];
 			foreach ( $users->results as $user ) {
 				$response = wp_remote_post( 'https://api.mailgun.net/v3/lists/electionunitleaders@tahosalodge.org/members', array(
 					'headers' => array(
@@ -167,6 +171,7 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				}
 			}
 			$progress->finish();
+			WP_CLI::success( count( $users->results ) . ' processed.' );
 		}
 
 		public function cand_id_type_fix() {
