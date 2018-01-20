@@ -103,6 +103,7 @@ class OAE_Fields {
 			'context'       => 'normal',
 			'priority'      => 'core',
 			'show_names'    => true,
+			'show_in_rest' => true,
 		]);
 
 		if ( is_admin() || current_user_can( 'administrator' ) ) {
