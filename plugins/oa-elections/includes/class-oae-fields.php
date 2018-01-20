@@ -134,6 +134,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'number',
 			'type' => 'text',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -146,6 +147,7 @@ class OAE_Fields {
 				'hide_empty' => false,
 			],
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -153,6 +155,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'attendance',
 			'type' => 'text',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		if ( is_admin() ) {
@@ -168,6 +171,7 @@ class OAE_Fields {
 				'id'   => $prefix . 'address_text',
 				'row_classes' => 'fullwidth',
 				'type' => 'hidden',
+				'show_in_rest' => true,
 			]);
 		}
 
@@ -176,6 +180,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'location',
 			'type' => 'pw_map',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -185,6 +190,7 @@ class OAE_Fields {
 			'type'        => 'textarea_small',
 			'row_classes' => 'fullwidth',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -196,6 +202,7 @@ class OAE_Fields {
 				'yes'  => __( 'Yes', 'OA-Elections' ),
 			],
 			'row_classes' => 'fullwidth',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -209,6 +216,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'meeting_time',
 			'type' => 'text_time',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -270,6 +278,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'fname',
 			'type' => 'text',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -277,6 +286,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'lname',
 			'type' => 'text',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -284,6 +294,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'phone',
 			'type' => 'text',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -291,6 +302,7 @@ class OAE_Fields {
 			'id'   => $prefix . 'email',
 			'type' => 'text_email',
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -306,6 +318,7 @@ class OAE_Fields {
 				'advancement-chair'     => __( 'Advancement Chair', 'OA-Elections' ),
 			],
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -321,12 +334,14 @@ class OAE_Fields {
 				'non-member'    => __( 'Not a Member', 'OA-Elections' ),
 			],
 			'attributes' => $attributes,
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'How many elections have you previously organized?',
 			'id'   => $prefix . 'previous_elections',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
@@ -336,6 +351,7 @@ class OAE_Fields {
 			'type'        => 'text_email',
 			'row_classes' => 'fullwidth',
 			'repeatable'  => true,
+			'show_in_rest' => true,
 		]);
 
 		/**
@@ -356,24 +372,28 @@ class OAE_Fields {
 			'name' => 'First Name',
 			'id'   => $prefix . 'fname',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'Last Name',
 			'id'   => $prefix . 'lname',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'Phone',
 			'id'   => $prefix . 'phone',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'Email',
 			'id'   => $prefix . 'email',
 			'type' => 'text_email',
+			'show_in_rest' => true,
 		]);
 
 		/**
@@ -394,24 +414,28 @@ class OAE_Fields {
 			'name' => 'First Name',
 			'id'   => $prefix . 'fname',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'Last Name',
 			'id'   => $prefix . 'lname',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'Phone',
 			'id'   => $prefix . 'phone',
 			'type' => 'text',
+			'show_in_rest' => true,
 		]);
 
 		$cmb->add_field([
 			'name' => 'Email',
 			'id'   => $prefix . 'email',
 			'type' => 'text_email',
+			'show_in_rest' => true,
 		]);
 	}
 

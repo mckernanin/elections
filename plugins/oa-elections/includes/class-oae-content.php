@@ -40,6 +40,7 @@ class OAE_Content {
 			],
 			[
 				'supports'   => [ 'title', 'author' ],
+				'show_in_rest' => true,
 			]
 		);
 		$election->register_taxonomy([
